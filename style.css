@@ -21,6 +21,8 @@
   --c-teal-dark:      #4BAD98;        /* hover / active */
   --c-teal-deep:      #2E9080;        /* high-contrast teal */
   --c-teal-light:     #E8F7F4;        /* light teal tint for backgrounds */
+  --btn-primary:        #5DBAA6;        /* buttons — slightly darker than logo teal */
+  --btn-primary-hover:  var(--c-teal-dark);
   --c-gold:           #F0C24A;        /* logo golden ring */
   --c-gold-dark:      #D4A730;        /* gold hover */
   --c-gold-light:     #FEF5D7;        /* light gold background */
@@ -58,7 +60,7 @@
   --font-body:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-heading-soft: "SOFT" 80, "WONK" 1;
   --font-heading-calm: "SOFT" 50, "WONK" 0;
-  --wave-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 14' fill='none'%3E%3Cpath d='M1 10 C9 6 18 6 26 10 S34 10 35 10' stroke='%2390BFB2' stroke-width='1.75' stroke-linecap='round'/%3E%3Cpath d='M1 7 C9 3 18 3 26 7 S34 7 35 7' stroke='%23D4A730' stroke-width='1.25' stroke-linecap='round' opacity='.7'/%3E%3Cpath d='M1 4 C9 1 18 1 26 4 S34 4 35 4' stroke='%2390BFB2' stroke-width='1.25' stroke-linecap='round' opacity='.45'/%3E%3C/svg%3E");
+  --wave-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 14' fill='none'%3E%3Cpath d='M1 10 C9 6 18 6 26 10 S34 10 35 10' stroke='%238A8680' stroke-width='1.75' stroke-linecap='round'/%3E%3Cpath d='M1 7 C9 3 18 3 26 7 S34 7 35 7' stroke='%23A8A4A0' stroke-width='1.25' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M1 4 C9 1 18 1 26 4 S34 4 35 4' stroke='%23C4C0BA' stroke-width='1.25' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E");
 
   --text-xs:   0.6875rem;   /* 11px */
   --text-sm:   0.8125rem;   /* 13px */
@@ -360,16 +362,16 @@ address { font-style: normal; }
 
 /* Primary */
 .btn--primary {
-  background-color: var(--color-accent);
+  background-color: var(--btn-primary);
   color: var(--c-white);
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--btn-primary);
   box-shadow: var(--shadow-accent);
 }
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  background-color: var(--color-accent-dark);
-  border-color: var(--color-accent-dark);
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
   box-shadow: 0 12px 36px rgba(196,149,106,0.45);
   transform: translateY(-1px);
 }
@@ -1664,8 +1666,8 @@ address { font-style: normal; }
 .pricing-card__cta { width: 100%; margin-top: auto; }
 
 .pricing-card--featured .pricing-card__cta.btn--primary {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  background-color: var(--btn-primary);
+  border-color: var(--btn-primary);
 }
 
 .pricing-card--featured .pricing-card__cta.btn--secondary {
