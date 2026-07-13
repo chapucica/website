@@ -6,6 +6,9 @@
   <meta name="description" content="Chapas personalizadas para bodas, cumpleaños, bautizos y todo lo que merece un recuerdo especial." />
   <title>Chapucica — Chapas personalizadas para cada momento</title>
   <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -47,24 +50,6 @@
          1. HERO
     ============================================================ -->
     <section class="hero" id="hero" aria-labelledby="hero-heading">
-      <div class="hero__wave-deco" aria-hidden="true">
-        <svg class="hero__wave-band hero__wave-band--1" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M-40,26 C120,6 280,46 440,26 S760,6 920,26 S1160,46 1240,26" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M-40,40 C120,20 280,60 440,40 S760,20 920,40 S1160,60 1240,40" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
-          <path d="M-40,54 C120,34 280,74 440,54 S760,34 920,54 S1160,74 1240,54" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-        <svg class="hero__wave-band hero__wave-band--2" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M-40,30 C140,10 300,50 480,30 S820,10 1000,30 S1180,50 1240,30" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M-40,44 C140,24 300,64 480,44 S820,24 1000,44 S1180,64 1240,44" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
-          <path d="M-40,58 C140,38 300,78 480,58 S820,38 1000,58 S1180,78 1240,58" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-        <svg class="hero__wave-band hero__wave-band--3" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M-40,28 C100,8 260,48 420,28 S700,8 860,28 S1100,48 1240,28" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M-40,42 C100,22 260,62 420,42 S700,22 860,42 S1100,62 1240,42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
-          <path d="M-40,56 C100,36 260,76 420,56 S700,36 860,56 S1100,76 1240,56" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-      </div>
-
       <div class="hero__inner container">
         <div class="hero__content">
           <p class="hero__eyebrow">Detalles únicos para momentos únicos</p>
@@ -101,12 +86,6 @@
 
       <div class="hero__scroll-hint" aria-hidden="true">
         <span class="hero__scroll-icon"></span>
-      </div>
-
-      <div class="hero__wave-footer" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M0,36 C240,68 480,4 720,36 C960,68 1200,4 1440,36 L1440,80 L0,80 Z"/>
-        </svg>
       </div>
     </section>
 
@@ -394,6 +373,15 @@
       </div>
     </section>
 
+    <div class="section-wave section-wave--cream-white" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
+
 
     <!-- Ocasiones section removed — replaced by wizard in step 2 -->
 
@@ -642,6 +630,15 @@
       </div>
     </section>
 
+    <div class="section-wave section-wave--white-cream-mid" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
+
 
     <!-- ============================================================
          6. INFORMACIÓN RELEVANTE
@@ -692,6 +689,15 @@
         </ul>
       </div>
     </section>
+
+    <div class="section-wave section-wave--cream-mid-cream" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
 
 
     <!-- ============================================================
@@ -786,6 +792,15 @@
         </dl>
       </div>
     </section>
+
+    <div class="section-wave section-wave--cream-white" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
 
 
     <!-- ============================================================
