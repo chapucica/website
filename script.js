@@ -191,25 +191,40 @@ function initMomentsCarousel() {
 
         /* ── Touch drag (mobile) ── */
         let touchStartX  = 0;
+        let touchStartY  = 0;
         let xAtDragStart = 0;
+        let touchLocked  = false;
 
         carousel.addEventListener('touchstart', e => {
-          dragging     = true;
+          dragging     = false;
+          touchLocked  = false;
           touchStartX  = e.touches[0].clientX;
+          touchStartY  = e.touches[0].clientY;
           xAtDragStart = x;
         }, { passive: true });
 
         carousel.addEventListener('touchmove', e => {
+          const touch = e.touches[0];
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+
+          if (!touchLocked && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+            touchLocked = true;
+            dragging = true;
+          }
+
           if (!dragging) return;
-          const delta = e.touches[0].clientX - touchStartX;
-          x = xAtDragStart + delta;
+
+          e.preventDefault();
+          x = xAtDragStart + dx;
           /* Wrap within the infinite range */
           if (x > 0)          x -= halfWidth;
           if (x < -halfWidth) x += halfWidth;
-        }, { passive: true });
+        }, { passive: false });
 
         carousel.addEventListener('touchend', () => {
-          dragging = false; /* auto-scroll resumes naturally */
+          dragging = false;
+          touchLocked = false;
         });
 
         /* ── Lazy video playback — only play when visible ── */
@@ -572,7 +587,7 @@ function initWizard() {
     if (!fromEl || !toEl) return;
 
     // Exit current step
-    fromEl.style.cssText = `transition:opacity .18s ease,transform .18s ease;opacity:0;transform:translateX(${direction === 'forward' ? '-18px' : '18px'})`;
+    fromEl.style.cssText = `transition:opacity .18s ease,transform .18s ease;opacity:0;transform:translateY(${direction === 'forward' ? '-12px' : '12px'})`;
 
     setTimeout(() => {
       fromEl.hidden = true;
@@ -582,13 +597,13 @@ function initWizard() {
       updateNav();
 
       // Prepare incoming step just off-screen
-      toEl.style.cssText = `opacity:0;transform:translateX(${direction === 'forward' ? '22px' : '-22px'});transition:none`;
+      toEl.style.cssText = `opacity:0;transform:translateY(${direction === 'forward' ? '12px' : '-12px'});transition:none`;
       toEl.hidden = false;
 
       // Force reflow so the transition fires
       void toEl.offsetWidth;
 
-      toEl.style.cssText = 'opacity:1;transform:translateX(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
+      toEl.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
       toEl.addEventListener('transitionend', () => {
         toEl.style.cssText = '';
         // Move focus to the new step for keyboard and screen-reader users
@@ -704,6 +719,31 @@ function initWizard() {
     return `https://wa.me/${PHONE}?text=${encodeURIComponent(buildWhatsAppMessage())}`;
   }
 
+  /** Reset wizard to step 1 after WhatsApp handoff */
+  function resetWizard() {
+    currentStep = 1;
+    for (let i = 1; i <= 5; i++) answers[i] = null;
+    answers[6] = '';
+
+    for (let s = 1; s <= TOTAL_STEPS; s++) {
+      const stepEl = document.getElementById(`wizard-step-${s}`);
+      if (!stepEl) continue;
+      stepEl.hidden = s !== 1;
+      stepEl.style.cssText = '';
+      stepEl.classList.toggle('wizard__step--active', s === 1);
+      stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+    }
+
+    const notesEl = document.getElementById('wizard-notes');
+    if (notesEl) notesEl.value = '';
+
+    const bottleItem = document.getElementById('bottle-opener-option');
+    if (bottleItem) bottleItem.hidden = true;
+
+    updateProgress();
+    updateNav();
+  }
+
   /**
    * Detects whether the user is on a touch/mobile device.
    * Uses pointer type (most reliable) with UA string as fallback.
@@ -751,6 +791,8 @@ function initWizard() {
       // Desktop: show confirmation modal first
       openWaModal(url);
     }
+
+    resetWizard();
   });
 
   // Keep notes in sync while typing

@@ -146,7 +146,8 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   font-size: 16px;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
@@ -157,8 +158,9 @@ body {
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
+  overscroll-behavior-x: none;
 }
 
 img, video { display: block; max-width: 100%; height: auto; }
@@ -2165,13 +2167,14 @@ address { font-style: normal; }
 /* Prevent horizontal scroll on small screens */
 @media (max-width: 768px) {
   main {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
 
   .moments,
   .moments-carousel {
     max-width: 100%;
+    overflow-x: clip;
   }
 
   .wizard__card {
@@ -2639,6 +2642,8 @@ p, li           { text-wrap: pretty; }
 .moments {
   /* overflow:hidden clips the full-width carousel track */
   overflow: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 .moments .section-header {
@@ -2648,9 +2653,13 @@ p, li           { text-wrap: pretty; }
 /* ── Carousel viewport ── */
 .moments-carousel {
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  overflow-x: clip;
   margin-block: var(--sp-10);
   cursor: grab;
+  touch-action: pan-y;
+  contain: layout paint;
   -webkit-user-select: none;
   user-select: none;
   /* subtle top/bottom fade to give a premium edge-fade feel */
@@ -3078,6 +3087,7 @@ p, li           { text-wrap: pretty; }
   box-shadow: var(--shadow-xl);
   border: 1px solid var(--color-border);
   overflow: hidden;
+  overflow-x: clip;
 }
 
 /* ── Top bar ── */
@@ -3121,14 +3131,14 @@ p, li           { text-wrap: pretty; }
 /* ── Viewport — fixed min-height prevents card from resizing between steps ── */
 .wizard__viewport {
   padding: var(--sp-8) var(--sp-6);
+  overflow-x: clip;
   /* Tall enough for step 1 (8 options in 2-col grid) so the card never shrinks */
   min-height: 440px;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 768px) {
   .wizard__viewport {
     padding: var(--sp-10) var(--sp-8);
-    /* 4-col grid is more compact — slightly shorter is fine on desktop */
     min-height: 360px;
   }
 }
@@ -3151,13 +3161,13 @@ p, li           { text-wrap: pretty; }
 }
 
 @keyframes wStepIn {
-  from { opacity: 0; transform: translateX(28px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes wStepInBack {
-  from { opacity: 0; transform: translateX(-28px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Question heading ── */
@@ -3190,6 +3200,8 @@ p, li           { text-wrap: pretty; }
   justify-content: center;
   gap: var(--sp-2);
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: var(--sp-5) var(--sp-3);
   background-color: var(--c-cream);
   border: 1.5px solid var(--color-border);
@@ -3266,12 +3278,16 @@ p, li           { text-wrap: pretty; }
   font-weight: 600;
   color: var(--color-text);
   line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .wizard__opt-note {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 /* ── Grid layout (steps 1, 3) ── */
@@ -3283,7 +3299,7 @@ p, li           { text-wrap: pretty; }
 
 .wizard__opts--grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--sp-3);
   /* Equal-height rows — all cells stretch to the tallest in the row */
   align-items: stretch;
@@ -3291,36 +3307,40 @@ p, li           { text-wrap: pretty; }
 
 /* li cells must be flex so the button can fill the cell height */
 .wizard__opts--grid li,
-.wizard__opts--sizes li {
+.wizard__opts--sizes li,
+.wizard__opts--quantities li {
   display: flex;
+  min-width: 0;
 }
 
 /* Buttons fill their flex container for uniform height */
 .wizard__opts--grid .wizard__opt,
 .wizard__opts--sizes .wizard__opt {
   height: 100%;
-  min-height: 88px;
+  width: 100%;
+  min-height: 112px;
 }
 
-@media (min-width: 480px) {
-  .wizard__opts--grid { grid-template-columns: repeat(4, 1fr); }
+@media (min-width: 768px) {
+  .wizard__opts--grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* ── Size layout (step 2) ── */
 .wizard__opts--sizes {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--sp-3);
   align-items: stretch;
 }
 
-@media (min-width: 400px) {
-  .wizard__opts--sizes { grid-template-columns: repeat(4, 1fr); }
+@media (min-width: 768px) {
+  .wizard__opts--sizes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 .wizard__opt--size {
-  padding: var(--sp-5) var(--sp-2);
-  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-2);
+  gap: var(--sp-2);
+  min-height: 140px;
 }
 
 /* Size rings */
@@ -3339,6 +3359,7 @@ p, li           { text-wrap: pretty; }
     background-color var(--t-base),
     transform var(--t-spring);
   margin-inline: auto;
+  flex-shrink: 0;
 }
 
 .wizard__size-ring--sm {
@@ -3389,7 +3410,7 @@ p, li           { text-wrap: pretty; }
 /* ── Quantities layout (step 4) ── */
 .wizard__opts--quantities {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--sp-3);
 }
 
@@ -3401,6 +3422,8 @@ p, li           { text-wrap: pretty; }
   padding: var(--sp-6) var(--sp-2);
   gap: 0;
   border-radius: var(--r-lg);
+  width: 100%;
+  min-height: 72px;
 }
 
 .wizard__opt--qty.wizard__opt--muted {
