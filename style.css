@@ -1633,14 +1633,6 @@ address { font-style: normal; }
 
 .spotlight__heading {
   color: var(--c-white);
-  margin-bottom: var(--sp-3);
-}
-
-.spotlight__tagline {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.88);
-  letter-spacing: -0.01em;
   margin-bottom: var(--sp-5);
 }
 
@@ -1653,14 +1645,6 @@ address { font-style: normal; }
 
 .spotlight__text + .spotlight__text {
   margin-top: var(--sp-4);
-}
-
-.spotlight__note {
-  margin-top: var(--sp-5);
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.42);
-  line-height: var(--leading-normal);
-  max-width: 38ch;
 }
 
 /* ── Campaign scene (road + vehicle) ── */
@@ -1704,12 +1688,21 @@ address { font-style: normal; }
   position: absolute;
   top: 50%;
   left: 0;
-  width: 2.75rem;
+  width: 4.25rem;
   height: auto;
-  color: rgba(255, 255, 255, 0.72);
-  transform: translateY(-58%);
+  color: rgba(255, 255, 255, 0.78);
+  transform: translateY(-62%);
   animation: spotlight-vehicle-drive 19s linear infinite;
   will-change: left;
+}
+
+.spotlight__vehicle-trail {
+  animation: spotlight-trail-pulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes spotlight-trail-pulse {
+  0%   { opacity: 0.15; }
+  100% { opacity: 0.4; }
 }
 
 @keyframes spotlight-vehicle-drive {
@@ -1723,8 +1716,12 @@ address { font-style: normal; }
   .spotlight__vehicle {
     animation: none;
     left: 50%;
-    transform: translate(-50%, -58%);
-    opacity: 0.72;
+    transform: translate(-50%, -62%);
+    opacity: 0.78;
+  }
+
+  .spotlight__vehicle-trail {
+    animation: none;
   }
 }
 
@@ -1810,6 +1807,45 @@ address { font-style: normal; }
 
   .spotlight__scene {
     margin-block: var(--sp-6) var(--sp-10);
+  }
+}
+
+@media (max-width: 767px) {
+  .spotlight__inner {
+    padding-inline: 0;
+    max-width: 100%;
+  }
+
+  .spotlight__header {
+    padding-inline: var(--container-pad);
+    max-width: none;
+    margin-bottom: var(--sp-6);
+  }
+
+  .spotlight__text {
+    max-width: none;
+  }
+
+  .spotlight__scene {
+    margin-block: var(--sp-6);
+    width: 100%;
+  }
+
+  .spotlight__road-dash {
+    left: 0;
+    right: 0;
+  }
+
+  .spotlight__products {
+    gap: var(--sp-3);
+    padding-inline: 0;
+  }
+
+  .spotlight-card__inner {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-inline: var(--container-pad);
   }
 }
 
