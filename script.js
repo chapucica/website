@@ -555,6 +555,7 @@ function initWizard() {
   const prevBtn       = document.getElementById('wizard-prev');
   const nextBtn       = document.getElementById('wizard-next');
   const waBtn         = document.getElementById('wizard-wa');
+  const privacyNote   = document.getElementById('wizard-privacy-note');
 
   if (!progressFill || !prevBtn || !nextBtn || !waBtn) return;
 
@@ -576,9 +577,11 @@ function initWizard() {
     if (currentStep === TOTAL_STEPS) {
       nextBtn.hidden = true;
       waBtn.hidden   = false;
+      if (privacyNote) privacyNote.hidden = false;
     } else {
       nextBtn.hidden   = false;
       waBtn.hidden     = true;
+      if (privacyNote) privacyNote.hidden = true;
       nextBtn.disabled = !answers[currentStep];
     }
   }
