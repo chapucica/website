@@ -859,31 +859,46 @@ address { font-style: normal; }
   50% { transform: translateY(5px); }
 }
 
-/* Mobile hero image — compact stack below copy */
+/* Mobile hero image — compact preview above headline */
 @media (max-width: 767px) {
   .hero {
-    padding-block: var(--sp-8) var(--sp-10);
+    padding-block: var(--sp-6) var(--sp-10);
   }
 
   .hero__inner {
-    gap: var(--sp-8);
+    gap: var(--sp-6);
+  }
+
+  .hero__visual {
+    order: -1;
+    max-width: 11.5rem;
+    margin-inline: auto;
   }
 
   .hero__image-wrap {
-    aspect-ratio: 16 / 9;
-    max-height: none;
-    border-radius: var(--r-xl);
+    aspect-ratio: 1 / 1;
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .hero__image {
+    object-position: center 35%;
   }
 
   .hero__badge {
     left: auto;
-    right: var(--sp-4);
-    bottom: var(--sp-4);
-    padding: var(--sp-3) var(--sp-5);
+    right: var(--sp-2);
+    bottom: var(--sp-2);
+    padding: var(--sp-2) var(--sp-4);
+    box-shadow: var(--shadow-md);
   }
 
   .hero__badge-number {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
+  }
+
+  .hero__badge-label {
+    font-size: 0.625rem;
   }
 }
 
