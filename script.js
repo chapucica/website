@@ -164,15 +164,29 @@ function initMomentsCarousel() {
 
         /* ── Animation state ── */
         let x        = 0;
-        let paused   = false;   /* hover pause */
-        let dragging = false;   /* touch drag */
-        let lastTs   = null;    /* previous timestamp for delta-time speed */
+        let hovered  = false;
+        let dragging = false;
+        let manualUntil = 0;
+        let lastTs   = null;
+
+        function wrapX() {
+          if (x > 0)          x -= halfWidth;
+          if (x < -halfWidth) x += halfWidth;
+        }
+
+        function bumpManual(ms = 1800) {
+          manualUntil = Date.now() + ms;
+        }
+
+        function isAutoPaused() {
+          return hovered || dragging || Date.now() < manualUntil;
+        }
 
         function tick(ts) {
-          if (lastTs !== null && !paused && !dragging) {
-            const dt = (ts - lastTs) / 1000; /* seconds */
+          if (lastTs !== null && !isAutoPaused()) {
+            const dt = (ts - lastTs) / 1000;
             x -= SPEED_PPS * dt;
-            if (x <= -halfWidth) x += halfWidth; /* seamless reset */
+            if (x <= -halfWidth) x += halfWidth;
           }
           lastTs = ts;
           track.style.transform = `translateX(${x}px)`;
@@ -180,51 +194,86 @@ function initMomentsCarousel() {
         }
         requestAnimationFrame(tick);
 
-        /* ── Hover pause (desktop) ── */
-        carousel.addEventListener('mouseenter', () => { paused = true;  });
-        carousel.addEventListener('mouseleave', () => { paused = false; });
+        /* ── Hover pause (desktop) — manual control still works ── */
+        carousel.addEventListener('mouseenter', () => { hovered = true; });
+        carousel.addEventListener('mouseleave', () => { hovered = false; });
 
-        /* Block accidental horizontal mouse-wheel hijack */
+        /* ── Trackpad / mouse wheel horizontal scroll ── */
         carousel.addEventListener('wheel', e => {
-          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) e.preventDefault();
-        }, { passive: false });
-
-        /* ── Touch drag (mobile) ── */
-        let touchStartX  = 0;
-        let touchStartY  = 0;
-        let xAtDragStart = 0;
-        let touchLocked  = false;
-
-        carousel.addEventListener('touchstart', e => {
-          dragging     = false;
-          touchLocked  = false;
-          touchStartX  = e.touches[0].clientX;
-          touchStartY  = e.touches[0].clientY;
-          xAtDragStart = x;
-        }, { passive: true });
-
-        carousel.addEventListener('touchmove', e => {
-          const touch = e.touches[0];
-          const dx = touch.clientX - touchStartX;
-          const dy = touch.clientY - touchStartY;
-
-          if (!touchLocked && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
-            touchLocked = true;
-            dragging = true;
-          }
-
-          if (!dragging) return;
+          const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+            ? e.deltaX
+            : (e.shiftKey ? e.deltaY : 0);
+          if (!dx) return;
 
           e.preventDefault();
-          x = xAtDragStart + dx;
-          /* Wrap within the infinite range */
-          if (x > 0)          x -= halfWidth;
-          if (x < -halfWidth) x += halfWidth;
+          bumpManual();
+          x -= dx;
+          wrapX();
         }, { passive: false });
 
-        carousel.addEventListener('touchend', () => {
-          dragging = false;
-          touchLocked = false;
+        /* ── Pointer drag (mouse + touch) ── */
+        let ptrActive   = false;
+        let ptrLocked   = false;
+        let ptrStartX   = 0;
+        let ptrStartY   = 0;
+        let xAtPtrStart = 0;
+
+        function endPointerDrag() {
+          ptrActive = false;
+          ptrLocked = false;
+          dragging  = false;
+        }
+
+        carousel.addEventListener('pointerdown', e => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          ptrActive   = true;
+          ptrLocked   = false;
+          ptrStartX   = e.clientX;
+          ptrStartY   = e.clientY;
+          xAtPtrStart = x;
+        });
+
+        carousel.addEventListener('pointermove', e => {
+          if (!ptrActive) return;
+
+          const dx = e.clientX - ptrStartX;
+          const dy = e.clientY - ptrStartY;
+
+          if (!ptrLocked) {
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+              ptrLocked = true;
+              dragging  = true;
+              bumpManual(4000);
+              carousel.setPointerCapture(e.pointerId);
+            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+              endPointerDrag();
+              return;
+            } else {
+              return;
+            }
+          }
+
+          e.preventDefault();
+          x = xAtPtrStart + dx;
+          wrapX();
+        });
+
+        carousel.addEventListener('pointerup', endPointerDrag);
+        carousel.addEventListener('pointercancel', endPointerDrag);
+
+        /* ── Keyboard arrows ── */
+        carousel.addEventListener('keydown', e => {
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            bumpManual();
+            x += itemStep;
+            wrapX();
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            bumpManual();
+            x -= itemStep;
+            wrapX();
+          }
         });
 
         /* ── Lazy video playback — only play when visible ── */

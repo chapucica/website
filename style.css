@@ -3012,6 +3012,7 @@ p, li           { text-wrap: pretty; }
   touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
+  outline: none;
   /* subtle top/bottom fade to give a premium edge-fade feel */
   -webkit-mask-image: linear-gradient(
     to right,
@@ -3031,6 +3032,11 @@ p, li           { text-wrap: pretty; }
 
 .moments-carousel:active {
   cursor: grabbing;
+}
+
+.moments-carousel:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 /* ── Track (populated by JS) ── */
