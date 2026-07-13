@@ -1546,20 +1546,21 @@ address { font-style: normal; }
 }
 
 .spotlight__header {
-  max-width: 36rem;
   margin-bottom: var(--sp-8);
 }
 
 .spotlight__heading {
   color: var(--c-white);
   margin-bottom: var(--sp-5);
+  max-width: none;
+  width: 100%;
 }
 
 .spotlight__text {
   font-size: var(--text-md);
   color: rgba(255, 255, 255, 0.72);
   line-height: var(--leading-loose);
-  max-width: 42ch;
+  max-width: none;
 }
 
 .spotlight__text + .spotlight__text {
@@ -1607,10 +1608,10 @@ address { font-style: normal; }
   position: absolute;
   bottom: 50%;
   left: 0;
-  height: 3rem;
+  height: 2.125rem;
   width: auto;
   display: block;
-  animation: spotlight-vehicle-drive 19s linear infinite;
+  animation: spotlight-vehicle-drive 12s linear infinite;
   will-change: left;
 }
 
@@ -1687,22 +1688,8 @@ address { font-style: normal; }
   font-size: var(--text-lg);
   font-weight: 600;
   color: var(--c-white);
-  margin-bottom: var(--sp-5);
+  margin-bottom: 0;
   letter-spacing: -0.01em;
-}
-
-.spotlight-card__btn {
-  margin-top: auto;
-  border-color: rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.92);
-  background: transparent;
-}
-
-.spotlight-card__btn:hover,
-.spotlight-card__btn:focus-visible {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.38);
-  color: var(--c-white);
 }
 
 @media (min-width: 768px) {
@@ -1731,14 +1718,12 @@ address { font-style: normal; }
   }
 
   .spotlight__heading {
-    font-size: clamp(0.8125rem, 2.55vw + 0.55rem, 1.625rem);
-    letter-spacing: -0.03em;
+    font-size: min(1.5rem, 4.2vw + 0.125rem);
+    letter-spacing: -0.02em;
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    line-height: 1.15;
-    overflow-wrap: break-word;
-    text-wrap: balance;
+    max-width: none;
+    line-height: 1.25;
+    white-space: nowrap;
   }
 
   .spotlight__text {
