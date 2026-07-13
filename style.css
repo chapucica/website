@@ -94,7 +94,7 @@
   /* ── Layout ── */
   --container-max:     1200px;
   --container-pad:     1.25rem;
-  --section-pad-y:     3.25rem;
+  --section-pad-y:     2.75rem;
 
   /* ── Radii ── */
   --r-sm:   0.5rem;
@@ -251,7 +251,7 @@ address { font-style: normal; }
 }
 
 .section-header {
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
 }
 
 @media (min-width: 768px) {
@@ -260,7 +260,7 @@ address { font-style: normal; }
 }
 
 @media (min-width: 1024px) {
-  :root { --section-pad-y: 4rem; }
+  :root { --section-pad-y: 3.25rem; }
 }
 
 
@@ -647,7 +647,7 @@ address { font-style: normal; }
 
 .hero {
   position: relative;
-  padding-block: var(--sp-10) var(--sp-16);
+  padding-block: var(--sp-10) var(--sp-12);
   background-color: var(--c-cream);
   overflow: hidden;
 }
@@ -816,7 +816,7 @@ address { font-style: normal; }
 /* Tablet+ */
 @media (min-width: 768px) {
   .hero {
-    padding-block: var(--sp-16) var(--sp-20);
+    padding-block: var(--sp-14) var(--sp-16);
   }
 
   .hero__inner {
@@ -2224,7 +2224,7 @@ address { font-style: normal; }
 
 /* Tablets */
 @media (min-width: 768px) {
-  :root { --section-pad-y: 3.75rem; }
+  :root { --section-pad-y: 3rem; }
   .whatsapp-btn__label { display: block; }
 }
 
@@ -2232,7 +2232,7 @@ address { font-style: normal; }
 @media (min-width: 1200px) {
   :root {
     --container-pad: 2.5rem;
-    --section-pad-y: 5rem;
+    --section-pad-y: 3.75rem;
   }
 }
 
@@ -2268,6 +2268,13 @@ address { font-style: normal; }
   outline: none; /* visible via position change */
 }
 
+
+/* Hero is above the fold — always visible on first paint */
+.hero__content,
+.hero__visual {
+  opacity: 1;
+  transform: none;
+}
 
 /* ── Section reveal — triggered by IntersectionObserver ── */
 .reveal {

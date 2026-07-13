@@ -491,11 +491,9 @@ function initGalleryLazyLoad() {
    ============================================================ */
 
 function initSectionReveal() {
-  // Elements we want to animate in as they enter the viewport
+  // Below-the-fold elements only — hero must show immediately on first visit
   const targets = $$([
     '.section-header',
-    '.hero__content',
-    '.hero__visual',
     '.wizard__header',
     '.gallery__filters',
     '.contact__info',
@@ -506,18 +504,20 @@ function initSectionReveal() {
 
   if (!targets.length) return;
 
-  // Apply base class
-  targets.forEach((el, i) => {
+  targets.forEach((el) => {
     el.classList.add('reveal');
-    // Stagger sibling cards (pricing, etc.)
     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
     const pos = siblings.indexOf(el);
     if (pos > 0) el.style.transitionDelay = `${pos * 0.07}s`;
   });
 
-  // Use IntersectionObserver to trigger the animation
+  /** Reveal elements already on screen without waiting for scroll */
+  function revealIfInView(el) {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+  }
+
   if (!('IntersectionObserver' in window)) {
-    // Fallback: show everything immediately
     targets.forEach(el => el.classList.add('is-visible'));
     return;
   }
@@ -528,9 +528,15 @@ function initSectionReveal() {
       target.classList.add('is-visible');
       observer.unobserve(target);
     });
-  }, { rootMargin: '-48px 0px', threshold: 0.08 });
+  }, { rootMargin: '0px 0px', threshold: 0.05 });
 
-  targets.forEach(el => observer.observe(el));
+  targets.forEach(el => {
+    if (revealIfInView(el)) {
+      el.classList.add('is-visible');
+    } else {
+      observer.observe(el);
+    }
+  });
 }
 
 
