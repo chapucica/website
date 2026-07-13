@@ -785,7 +785,9 @@ address { font-style: normal; }
 /* Visual / image side */
 .hero__visual {
   position: relative;
-  display: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
 }
 
 .hero__image-wrap {
@@ -857,6 +859,34 @@ address { font-style: normal; }
   50% { transform: translateY(5px); }
 }
 
+/* Mobile hero image — compact stack below copy */
+@media (max-width: 767px) {
+  .hero {
+    padding-block: var(--sp-8) var(--sp-10);
+  }
+
+  .hero__inner {
+    gap: var(--sp-8);
+  }
+
+  .hero__image-wrap {
+    aspect-ratio: 16 / 9;
+    max-height: none;
+    border-radius: var(--r-xl);
+  }
+
+  .hero__badge {
+    left: auto;
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+    padding: var(--sp-3) var(--sp-5);
+  }
+
+  .hero__badge-number {
+    font-size: var(--text-xl);
+  }
+}
+
 /* Tablet+ */
 @media (min-width: 768px) {
   .hero {
@@ -868,7 +898,6 @@ address { font-style: normal; }
     gap: var(--sp-16);
   }
 
-  .hero__visual { display: block; }
   .hero__scroll-hint { display: flex; }
 }
 
