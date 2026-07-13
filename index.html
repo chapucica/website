@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=13" />
 </head>
 <body>
 
@@ -438,7 +438,122 @@
 
     </section>
 
-    <!-- (old masonry gallery fully removed — replaced by .moments carousel) -->
+    <!-- Wave: gallery (white) → spotlight (dark) -->
+    <div class="section-wave section-wave--white-dark" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
+
+
+    <!-- ============================================================
+         SPOTLIGHT — Inspiración del momento (monthly campaign)
+         ─ Update each month: data-campaign, modifier class, copy,
+           product images/names/links, and scene markup inside
+           .spotlight__scene — keep layout classes unchanged.
+    ============================================================ -->
+    <section
+      class="spotlight spotlight--ruta"
+      id="spotlight"
+      data-campaign="ruta-moto"
+      aria-labelledby="spotlight-heading"
+    >
+      <div class="spotlight__texture" aria-hidden="true"></div>
+
+      <div class="container spotlight__inner">
+        <header class="spotlight__header section-header">
+          <h2 class="spotlight__heading section-heading" id="spotlight-heading">🏍️ Inspiración del momento</h2>
+          <p class="spotlight__tagline">Este mes nos vamos de ruta.</p>
+          <div class="spotlight__body">
+            <p class="spotlight__text">
+              No todo son bodas.<br />
+              También diseñamos chapas para clubs moteros, concentraciones, rutas, aniversarios y grupos de amigos.
+            </p>
+            <p class="spotlight__text">Porque cualquier historia merece un recuerdo.</p>
+            <p class="spotlight__note">Cada mes cambiamos esta colección para enseñarte nuevas ideas.</p>
+          </div>
+        </header>
+
+        <!-- Scene: swap inner content per campaign (road+moto, snow, ghosts…) -->
+        <div class="spotlight__scene" data-spotlight-scene="road" aria-hidden="true">
+          <div class="spotlight__road">
+            <div class="spotlight__road-surface"></div>
+            <div class="spotlight__road-dash"></div>
+            <svg class="spotlight__vehicle spotlight__vehicle--moto" viewBox="0 0 56 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <circle cx="13" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="43" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M18 20h20M13 20l5-9h7l4 5h8l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M23 11h5M31 16h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Products: replace images, names and hrefs each month -->
+        <ul class="spotlight__products" role="list">
+          <li class="spotlight-card">
+            <article class="spotlight-card__inner">
+              <div class="spotlight-card__media">
+                <img
+                  class="spotlight-card__image"
+                  src="assets/spotlight/ruta-club.svg"
+                  alt="Chapa Club Motero — diseño escudo"
+                  width="320"
+                  height="320"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="spotlight-card__name">Club de la ruta</h3>
+              <a class="btn btn--secondary spotlight-card__btn" href="#personalisation">Ver diseño</a>
+            </article>
+          </li>
+          <li class="spotlight-card">
+            <article class="spotlight-card__inner">
+              <div class="spotlight-card__media">
+                <img
+                  class="spotlight-card__image"
+                  src="assets/spotlight/ruta-aniversario.svg"
+                  alt="Chapa aniversario motero — 10 años"
+                  width="320"
+                  height="320"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="spotlight-card__name">Aniversario MC</h3>
+              <a class="btn btn--secondary spotlight-card__btn" href="#personalisation">Ver diseño</a>
+            </article>
+          </li>
+          <li class="spotlight-card">
+            <article class="spotlight-card__inner">
+              <div class="spotlight-card__media">
+                <img
+                  class="spotlight-card__image"
+                  src="assets/spotlight/ruta-garage.svg"
+                  alt="Chapa personalizada garage motero"
+                  width="320"
+                  height="320"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="spotlight-card__name">Garage custom</h3>
+              <a class="btn btn--secondary spotlight-card__btn" href="#personalisation">Ver diseño</a>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Wave: spotlight (dark) → pricing (white) -->
+    <div class="section-wave section-wave--dark-white" aria-hidden="true">
+      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+      </svg>
+    </div>
 
 
     <!-- ============================================================

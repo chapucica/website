@@ -494,6 +494,8 @@ function initSectionReveal() {
   // Below-the-fold elements only — hero must show immediately on first visit
   const targets = $$([
     '.section-header',
+    '.spotlight__header',
+    '.spotlight-card__inner',
     '.wizard__header',
     '.gallery__filters',
     '.contact__info',
