@@ -94,7 +94,7 @@
   /* ── Layout ── */
   --container-max:     1200px;
   --container-pad:     1.25rem;
-  --section-pad-y:     3.75rem;
+  --section-pad-y:     3.25rem;
 
   /* ── Radii ── */
   --r-sm:   0.5rem;
@@ -251,7 +251,7 @@ address { font-style: normal; }
 }
 
 .section-header {
-  margin-bottom: var(--sp-10);
+  margin-bottom: var(--sp-8);
 }
 
 @media (min-width: 768px) {
@@ -260,7 +260,7 @@ address { font-style: normal; }
 }
 
 @media (min-width: 1024px) {
-  :root { --section-pad-y: 5rem; }
+  :root { --section-pad-y: 4rem; }
 }
 
 
@@ -647,7 +647,7 @@ address { font-style: normal; }
 
 .hero {
   position: relative;
-  padding-block: var(--sp-12) var(--sp-20);
+  padding-block: var(--sp-10) var(--sp-16);
   background-color: var(--c-cream);
   overflow: hidden;
 }
@@ -816,7 +816,7 @@ address { font-style: normal; }
 /* Tablet+ */
 @media (min-width: 768px) {
   .hero {
-    padding-block: var(--sp-20) var(--sp-24);
+    padding-block: var(--sp-16) var(--sp-20);
   }
 
   .hero__inner {
@@ -2224,7 +2224,7 @@ address { font-style: normal; }
 
 /* Tablets */
 @media (min-width: 768px) {
-  :root { --section-pad-y: 4.5rem; }
+  :root { --section-pad-y: 3.75rem; }
   .whatsapp-btn__label { display: block; }
 }
 
@@ -2232,7 +2232,7 @@ address { font-style: normal; }
 @media (min-width: 1200px) {
   :root {
     --container-pad: 2.5rem;
-    --section-pad-y: 6rem;
+    --section-pad-y: 5rem;
   }
 }
 
@@ -3283,14 +3283,14 @@ p, li           { text-wrap: pretty; }
 
 /* Muted "not sure yet" variant */
 .wizard__opt--muted {
-  background-color: transparent;
-  border-style: dashed;
-  border-color: var(--c-champagne);
+  background-color: var(--c-cream);
+  border: 2px dashed rgba(26, 24, 20, 0.32);
 }
 
 .wizard__opt--muted:hover {
-  border-style: solid;
+  border-style: dashed;
   border-color: var(--color-accent);
+  background-color: var(--c-bronze-light);
 }
 
 /* Emoji */
@@ -3354,7 +3354,7 @@ p, li           { text-wrap: pretty; }
 .wizard__opts--sizes .wizard__opt {
   height: 100%;
   width: 100%;
-  min-height: 112px;
+  min-height: 120px;
 }
 
 @media (min-width: 768px) {
@@ -3374,53 +3374,54 @@ p, li           { text-wrap: pretty; }
 }
 
 .wizard__opt--size {
-  padding: var(--sp-4) var(--sp-2);
+  padding: var(--sp-4) var(--sp-3);
   gap: var(--sp-2);
-  min-height: 140px;
 }
 
-/* Size rings */
+/* Size rings — same visual size for every option */
 .wizard__size-ring {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: 2px solid var(--c-champagne);
   background-color: var(--c-white);
   font-family: var(--font-heading);
+  font-size: var(--text-base);
   font-weight: 700;
+  line-height: 1;
   color: var(--color-text);
   transition:
     border-color var(--t-base),
-    background-color var(--t-base),
-    transform var(--t-spring);
+    background-color var(--t-base);
   margin-inline: auto;
   flex-shrink: 0;
 }
 
-.wizard__size-ring--sm {
-  width: 52px;
-  height: 52px;
-  font-size: var(--text-sm);
+/* "Aún no lo sé" in size step — match the ring slot */
+.wizard__opts--sizes .wizard__opt--muted .wizard__opt-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  font-size: 1.625rem;
+  line-height: 1;
+  margin-inline: auto;
+  flex-shrink: 0;
 }
 
-.wizard__size-ring--md {
-  width: 66px;
-  height: 66px;
-  font-size: var(--text-md);
-}
-
-.wizard__size-ring--lg {
-  width: 80px;
-  height: 80px;
-  font-size: var(--text-lg);
+.wizard__opts--sizes .wizard__opt:hover .wizard__opt-emoji,
+.wizard__opts--sizes .wizard__opt.is-selected .wizard__opt-emoji {
+  transform: none;
 }
 
 .wizard__opt:hover .wizard__size-ring,
 .wizard__opt.is-selected .wizard__size-ring {
   border-color: var(--color-accent);
   background-color: var(--color-accent-light);
-  transform: scale(1.06);
 }
 
 /* Featured pill (Recommended) */
@@ -3463,7 +3464,7 @@ p, li           { text-wrap: pretty; }
 }
 
 .wizard__opt--qty.wizard__opt--muted {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   color: var(--color-text-muted);
 }
 
