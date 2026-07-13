@@ -47,6 +47,24 @@
          1. HERO
     ============================================================ -->
     <section class="hero" id="hero" aria-labelledby="hero-heading">
+      <div class="hero__wave-deco" aria-hidden="true">
+        <svg class="hero__wave-band hero__wave-band--1" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M-40,26 C120,6 280,46 440,26 S760,6 920,26 S1160,46 1240,26" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M-40,40 C120,20 280,60 440,40 S760,20 920,40 S1160,60 1240,40" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
+          <path d="M-40,54 C120,34 280,74 440,54 S760,34 920,54 S1160,74 1240,54" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <svg class="hero__wave-band hero__wave-band--2" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M-40,30 C140,10 300,50 480,30 S820,10 1000,30 S1180,50 1240,30" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M-40,44 C140,24 300,64 480,44 S820,24 1000,44 S1180,64 1240,44" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
+          <path d="M-40,58 C140,38 300,78 480,58 S820,38 1000,58 S1180,78 1240,58" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <svg class="hero__wave-band hero__wave-band--3" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M-40,28 C100,8 260,48 420,28 S700,8 860,28 S1100,48 1240,28" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M-40,42 C100,22 260,62 420,42 S700,22 860,42 S1100,62 1240,42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
+          <path d="M-40,56 C100,36 260,76 420,56 S700,36 860,56 S1100,76 1240,56" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+
       <div class="hero__inner container">
         <div class="hero__content">
           <p class="hero__eyebrow">Detalles únicos para momentos únicos</p>
@@ -83,6 +101,12 @@
 
       <div class="hero__scroll-hint" aria-hidden="true">
         <span class="hero__scroll-icon"></span>
+      </div>
+
+      <div class="hero__wave-footer" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0,36 C240,68 480,4 720,36 C960,68 1200,4 1440,36 L1440,80 L0,80 Z"/>
+        </svg>
       </div>
     </section>
 
@@ -267,7 +291,7 @@
                   <li><button class="wizard__opt wizard__opt--qty" data-value="150" type="button">150</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="200" type="button">200</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="Más de 200" type="button">200+</button></li>
-                  <li><button class="wizard__opt wizard__opt--qty wizard__opt--muted" data-value="Aún no lo sé" type="button">?</button></li>
+                  <li><button class="wizard__opt wizard__opt--qty wizard__opt--muted" data-value="Aún no lo sé" type="button">🤔</button></li>
                 </ul>
               </div>
 
@@ -334,9 +358,6 @@
                 aria-label="Pregunta anterior"
                 hidden
               >
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
                 Anterior
               </button>
 
@@ -347,9 +368,6 @@
                 disabled
               >
                 Siguiente
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
               </button>
 
               <a
