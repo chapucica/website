@@ -1607,12 +1607,16 @@ address { font-style: normal; }
   position: absolute;
   top: 50%;
   left: 0;
-  width: 4.25rem;
+  width: 5.75rem;
   height: auto;
-  color: rgba(255, 255, 255, 0.78);
-  transform: translateY(-62%);
+  color: rgba(255, 255, 255, 0.92);
+  transform: translateY(-68%);
   animation: spotlight-vehicle-drive 19s linear infinite;
   will-change: left;
+}
+
+.spotlight__vehicle-body {
+  fill: currentColor;
 }
 
 .spotlight__vehicle-trail {
@@ -1635,8 +1639,8 @@ address { font-style: normal; }
   .spotlight__vehicle {
     animation: none;
     left: 50%;
-    transform: translate(-50%, -62%);
-    opacity: 0.78;
+    transform: translate(-50%, -68%);
+    opacity: 0.92;
   }
 
   .spotlight__vehicle-trail {
@@ -1739,6 +1743,15 @@ address { font-style: normal; }
     padding-inline: var(--container-pad);
     max-width: none;
     margin-bottom: var(--sp-6);
+  }
+
+  .spotlight__heading {
+    font-size: clamp(0.8125rem, 2.55vw + 0.55rem, 1.625rem);
+    white-space: nowrap;
+    letter-spacing: -0.03em;
+    width: 100%;
+    max-width: none;
+    line-height: 1.15;
   }
 
   .spotlight__text {
