@@ -811,9 +811,7 @@ address { font-style: normal; }
 /* Visual / image side */
 .hero__visual {
   position: relative;
-  display: block;
-  width: 100%;
-  min-width: 0;
+  display: none;
 }
 
 .hero__image-wrap {
@@ -885,86 +883,6 @@ address { font-style: normal; }
   50% { transform: translateY(5px); }
 }
 
-/* Mobile hero — full-width banner with gradient into copy */
-@media (max-width: 767px) {
-  .hero {
-    padding-block: 0 var(--sp-8);
-  }
-
-  .hero__inner {
-    gap: 0;
-  }
-
-  .hero__visual {
-    order: -1;
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(50% - 50vw);
-  }
-
-  .hero__image-wrap {
-    position: relative;
-    aspect-ratio: auto;
-    height: clamp(8.5rem, 36vw, 11rem);
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .hero__image-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(254, 252, 245, 0) 15%,
-      rgba(254, 252, 245, 0.55) 62%,
-      var(--c-cream) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .hero__image {
-    object-position: center 25%;
-  }
-
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    margin-top: -2.5rem;
-  }
-
-  .hero__eyebrow {
-    margin-bottom: var(--sp-4);
-  }
-
-  .hero__heading {
-    margin-bottom: var(--sp-5);
-  }
-
-  .hero__subheading {
-    margin-bottom: var(--sp-8);
-  }
-
-  .hero__badge {
-    top: var(--sp-4);
-    right: var(--sp-4);
-    bottom: auto;
-    left: auto;
-    z-index: 2;
-    padding: var(--sp-2) var(--sp-4);
-    box-shadow: var(--shadow-md);
-  }
-
-  .hero__badge-number {
-    font-size: var(--text-lg);
-  }
-
-  .hero__badge-label {
-    font-size: 0.625rem;
-  }
-}
-
 /* Tablet+ */
 @media (min-width: 768px) {
   .hero {
@@ -976,6 +894,7 @@ address { font-style: normal; }
     gap: var(--sp-16);
   }
 
+  .hero__visual { display: block; }
   .hero__scroll-hint { display: flex; }
 }
 
