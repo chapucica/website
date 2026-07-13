@@ -146,6 +146,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -157,6 +158,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 img, video { display: block; max-width: 100%; height: auto; }
@@ -482,11 +484,21 @@ address { font-style: normal; }
   position: sticky;
   top: 0;
   z-index: var(--z-header);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-base), box-shadow var(--t-base);
+}
+
+/* Blur on pseudo-element so fixed mobile nav is not clipped to header height */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background-color: rgba(255,255,255,0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--t-base), box-shadow var(--t-base);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .site-header.is-scrolled {
@@ -576,30 +588,42 @@ address { font-style: normal; }
 
 /* Mobile nav */
 @media (max-width: 768px) {
-  .nav__toggle { display: flex; }
+  .nav__toggle {
+    display: flex;
+    position: relative;
+    z-index: calc(var(--z-header) + 2);
+  }
+
   .nav__cta { display: none; }
 
   .nav__menu {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(320px, 85vw);
+    inset: 0;
+    width: 100%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: var(--sp-8);
     padding: var(--sp-12) var(--sp-8);
+    padding-top: max(var(--sp-16), calc(env(safe-area-inset-top, 0px) + 3rem));
+    padding-bottom: max(var(--sp-12), env(safe-area-inset-bottom, 0px));
     background-color: var(--c-white);
-    box-shadow: var(--shadow-xl);
-    border-radius: var(--r-xl) 0 0 var(--r-xl);
-    transform: translateX(110%);
-    transition: transform var(--t-spring);
-    z-index: var(--z-overlay);
+    box-shadow: none;
+    border-radius: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: none;
+    transition: opacity var(--t-base), visibility var(--t-base);
+    z-index: calc(var(--z-header) + 1);
     margin-left: 0;
   }
 
-  .nav__menu.is-open { transform: translateX(0); }
+  .nav__menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 
   .nav__link {
     font-size: var(--text-xl);
@@ -2066,8 +2090,8 @@ address { font-style: normal; }
 }
 
 @keyframes waSlideIn {
-  from { transform: translateX(-120%) scale(0.8); opacity: 0; }
-  to   { transform: translateX(0) scale(1); opacity: 1; }
+  from { transform: translateY(12px) scale(0.92); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 .whatsapp-btn:hover {
@@ -2137,6 +2161,23 @@ address { font-style: normal; }
 /* ============================================================
    20. RESPONSIVE MOBILE OVERRIDES
    ============================================================ */
+
+/* Prevent horizontal scroll on small screens */
+@media (max-width: 768px) {
+  main {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .moments,
+  .moments-carousel {
+    max-width: 100%;
+  }
+
+  .wizard__card {
+    max-width: 100%;
+  }
+}
 
 /* Small phones — generous tap targets, readable text */
 @media (max-width: 380px) {
