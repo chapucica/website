@@ -94,7 +94,7 @@
   /* ── Layout ── */
   --container-max:     1200px;
   --container-pad:     1.25rem;
-  --section-pad-y:     5rem;
+  --section-pad-y:     3.75rem;
 
   /* ── Radii ── */
   --r-sm:   0.5rem;
@@ -146,7 +146,6 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   font-size: 16px;
-  overflow-x: hidden;
   width: 100%;
   max-width: 100%;
 }
@@ -159,10 +158,14 @@ body {
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   width: 100%;
   max-width: 100%;
   overscroll-behavior-x: none;
+}
+
+main {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 img, video { display: block; max-width: 100%; height: auto; }
@@ -248,7 +251,7 @@ address { font-style: normal; }
 }
 
 .section-header {
-  margin-bottom: var(--sp-12);
+  margin-bottom: var(--sp-10);
 }
 
 @media (min-width: 768px) {
@@ -257,7 +260,7 @@ address { font-style: normal; }
 }
 
 @media (min-width: 1024px) {
-  :root { --section-pad-y: 7rem; }
+  :root { --section-pad-y: 5rem; }
 }
 
 
@@ -644,7 +647,7 @@ address { font-style: normal; }
 
 .hero {
   position: relative;
-  padding-block: var(--sp-16) var(--sp-24);
+  padding-block: var(--sp-12) var(--sp-20);
   background-color: var(--c-cream);
   overflow: hidden;
 }
@@ -813,7 +816,7 @@ address { font-style: normal; }
 /* Tablet+ */
 @media (min-width: 768px) {
   .hero {
-    padding-block: var(--sp-24) var(--sp-32);
+    padding-block: var(--sp-20) var(--sp-24);
   }
 
   .hero__inner {
@@ -2030,8 +2033,8 @@ address { font-style: normal; }
 
 .back-to-top {
   position: fixed;
-  bottom: var(--sp-6);
-  right: var(--sp-6);
+  bottom: max(var(--sp-6), env(safe-area-inset-bottom, 0px));
+  right: max(var(--sp-6), env(safe-area-inset-right, 0px));
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -2066,10 +2069,11 @@ address { font-style: normal; }
 
 .whatsapp-btn {
   position: fixed;
-  bottom: var(--sp-6);
-  left: var(--sp-6);
+  bottom: max(var(--sp-6), env(safe-area-inset-bottom, 0px));
+  left: max(var(--sp-6), env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--sp-3);
   padding: 0.75rem 1.25rem 0.75rem 0.875rem;
   background-color: var(--c-wa-green);
@@ -2081,6 +2085,7 @@ address { font-style: normal; }
   box-shadow: 0 6px 24px rgba(37,211,102,0.40), var(--shadow-md);
   z-index: var(--z-wa);
   text-decoration: none;
+  isolation: isolate;
   transition:
     background-color var(--t-fast),
     transform var(--t-spring),
@@ -2116,6 +2121,30 @@ address { font-style: normal; }
 
 @media (min-width: 540px) {
   .whatsapp-btn__label { display: block; }
+}
+
+@media (max-width: 539px) {
+  .whatsapp-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    border-radius: 50%;
+    gap: 0;
+  }
+
+  .whatsapp-btn__label {
+    display: none;
+  }
+
+  .whatsapp-btn__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  /* Pulse ring can clip fixed buttons on mobile — keep the icon clean */
+  .whatsapp-btn::before {
+    display: none;
+  }
 }
 
 /* Pulse ring */
@@ -2164,7 +2193,6 @@ address { font-style: normal; }
 
 /* Prevent horizontal scroll on small screens */
 @media (max-width: 768px) {
-  main,
   .assistant,
   .hero,
   .pricing,
@@ -2196,7 +2224,7 @@ address { font-style: normal; }
 
 /* Tablets */
 @media (min-width: 768px) {
-  :root { --section-pad-y: 6rem; }
+  :root { --section-pad-y: 4.5rem; }
   .whatsapp-btn__label { display: block; }
 }
 
@@ -2204,7 +2232,7 @@ address { font-style: normal; }
 @media (min-width: 1200px) {
   :root {
     --container-pad: 2.5rem;
-    --section-pad-y: 8rem;
+    --section-pad-y: 6rem;
   }
 }
 
@@ -2868,12 +2896,6 @@ p, li           { text-wrap: pretty; }
   border-radius: var(--r-full);
   vertical-align: middle;
 }
-
-/* Hover rows */
-.pricing-table tbody tr:not(.pricing-table__group-header):hover td {
-  background-color: var(--c-teal-light);
-}
-
 
 /* ── Mobile cards ── */
 .pricing-cards {
