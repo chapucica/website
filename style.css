@@ -1550,7 +1550,12 @@ address { font-style: normal; }
 }
 
 .spotlight__heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  font-variation-settings: var(--font-heading-soft);
   color: var(--c-white);
+  letter-spacing: -0.015em;
   margin-bottom: var(--sp-5);
   max-width: none;
   width: 100%;
@@ -1608,7 +1613,7 @@ address { font-style: normal; }
   position: absolute;
   bottom: 50%;
   left: 0;
-  height: 2.125rem;
+  height: 1.5rem;
   width: auto;
   display: block;
   animation: spotlight-vehicle-drive 12s linear infinite;
@@ -1718,12 +1723,13 @@ address { font-style: normal; }
   }
 
   .spotlight__heading {
-    font-size: min(1.5rem, 4.2vw + 0.125rem);
-    letter-spacing: -0.02em;
-    width: 100%;
-    max-width: none;
-    line-height: 1.25;
-    white-space: nowrap;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    font-variation-settings: var(--font-heading-soft);
+    letter-spacing: -0.01em;
+    line-height: var(--leading-snug);
+    white-space: normal;
+    overflow-wrap: normal;
   }
 
   .spotlight__text {
