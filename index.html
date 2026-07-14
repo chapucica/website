@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=34" />
+  <link rel="stylesheet" href="style.css?v=35" />
 </head>
 <body>
 
@@ -40,7 +40,7 @@
         <li><a class="nav__link" href="#contact">Contacto</a></li>
       </ul>
 
-      <a class="nav__cta btn btn--primary" href="#personalisation">Pedir presupuesto</a>
+      <a class="nav__cta btn btn--primary" href="#personalisation">Calcular precio</a>
     </nav>
   </header>
 
@@ -63,7 +63,7 @@
             Pídelas en WhatsApp, sin complicaciones.
           </p>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="#personalisation">Pide tu presupuesto</a>
+            <a class="btn btn--primary" href="#personalisation">Calcular mi precio</a>
             <a class="btn btn--secondary" href="#gallery">Ver ejemplos reales</a>
           </div>
         </div>
@@ -101,8 +101,8 @@
           <!-- Section header -->
           <header class="wizard__header">
             <p class="section-eyebrow">Tu chapa, a tu manera</p>
-            <h2 class="section-heading" id="wizard-heading">Crea tu chapa perfecta</h2>
-            <p class="wizard__header-sub">Unas pocas preguntas y te damos un presupuesto al momento por WhatsApp.</p>
+            <h2 class="section-heading" id="wizard-heading">Calcula tu precio al instante</h2>
+            <p class="wizard__header-sub">Responde unas preguntas sencillas y verás una estimación orientativa al momento. Diseño incluido, sin pedido automático: tú decides si quieres escribirnos por WhatsApp.</p>
           </header>
 
           <!-- Card shell -->
@@ -390,13 +390,13 @@
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Continuar en WhatsApp con la información del pedido"
+                aria-label="Recibir presupuesto por WhatsApp — el pedido no se confirma hasta que envíes el mensaje"
                 hidden
               >
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true">
                   <path fill="currentColor" d="M16 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.333.627 4.62 1.82 6.627L2.667 29.333l6.9-1.8A13.253 13.253 0 0016 29.333c7.364 0 13.333-5.97 13.333-13.333S23.364 2.667 16 2.667zm5.787 18.787c-.32.16-.613.24-.8.24-.293 0-.613-.08-.88-.267l-3.467-2.24a.96.96 0 00-.8-.08l-1.467.48c-.507.16-1.04-.027-1.333-.453l-2.24-3.147a1 1 0 01.133-1.307l1.12-1.013c.267-.24.347-.64.187-.96L11 9.333a.987.987 0 00-1.2-.507l-.987.347C8.12 9.44 7.573 10.08 7.36 10.853c-.507 1.787.293 4.08 2.08 6.16 1.787 2.107 4.16 3.68 6.24 4.187.693.16 1.44.08 2.133-.24.8-.373 1.493-1.04 1.787-1.787l.293-.72c.187-.48-.08-1.013-.56-1.147l-.947-.267.027.027z"/>
                 </svg>
-                Continuar en WhatsApp
+                Recibir presupuesto por WhatsApp
               </a>
             </div>
 
@@ -604,183 +604,170 @@
           <p class="section-eyebrow">Precios claros y sin sorpresas</p>
           <h2 class="section-heading" id="pricing-heading">Precios y opciones</h2>
           <p class="section-subheading">
-            Elige el tamaño y acabado que mejor se adapte a tu celebración.
+            Consulta el detalle por tamaño o usa el cuestionario de arriba para una estimación personalizada.
           </p>
         </header>
 
-        <!-- Desktop: tabla completa — Mobile: tarjetas por tamaño -->
-        <div class="pricing-table-wrap" role="region" aria-label="Tabla de precios">
+        <div class="pricing-accordion-wrap" role="region" aria-label="Tabla de precios">
+          <ul class="pricing-accordion" id="pricing-accordion">
 
-          <!-- ── DESKTOP TABLE ── -->
-          <table class="pricing-table">
-            <caption class="sr-only">Listado de precios por tamaño, acabado y cantidad</caption>
-            <thead>
-              <tr>
-                <th scope="col" class="pricing-table__label-col">Tamaño y acabado</th>
-                <th scope="col">Ud.</th>
-                <th scope="col">Pack 25</th>
-                <th scope="col">Pack 50</th>
-                <th scope="col">Pack 100</th>
-                <th scope="col">Pack 150</th>
-                <th scope="col">Pack 200</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="pricing-table__group-header">
-                <td colspan="7">38 mm</td>
-              </tr>
-              <tr>
-                <td>Pin</td>
-                <td>1,20&nbsp;€</td><td>30&nbsp;€</td><td>55&nbsp;€</td>
-                <td>100&nbsp;€</td><td>135&nbsp;€</td><td>160&nbsp;€</td>
-              </tr>
-              <tr>
-                <td>Imán</td>
-                <td>1,50&nbsp;€</td><td>37,50&nbsp;€</td><td>70&nbsp;€</td>
-                <td>130&nbsp;€</td><td>180&nbsp;€</td><td>220&nbsp;€</td>
-              </tr>
-
-              <tr class="pricing-table__group-header">
-                <td colspan="7">50 mm</td>
-              </tr>
-              <tr>
-                <td>Pin</td>
-                <td>1,30&nbsp;€</td><td>32,50&nbsp;€</td><td>60&nbsp;€</td>
-                <td>110&nbsp;€</td><td>150&nbsp;€</td><td>180&nbsp;€</td>
-              </tr>
-              <tr>
-                <td>Imán</td>
-                <td>1,70&nbsp;€</td><td>42,50&nbsp;€</td><td>80&nbsp;€</td>
-                <td>150&nbsp;€</td><td>210&nbsp;€</td><td>260&nbsp;€</td>
-              </tr>
-
-              <tr class="pricing-table__group-header">
-                <td colspan="7">59 mm</td>
-              </tr>
-              <tr>
-                <td>Pin</td>
-                <td>1,50&nbsp;€</td><td>37,50&nbsp;€</td><td>70&nbsp;€</td>
-                <td>130&nbsp;€</td><td>180&nbsp;€</td><td>220&nbsp;€</td>
-              </tr>
-              <tr>
-                <td>Imán</td>
-                <td>1,90&nbsp;€</td><td>47,50&nbsp;€</td><td>90&nbsp;€</td>
-                <td>170&nbsp;€</td><td>240&nbsp;€</td><td>300&nbsp;€</td>
-              </tr>
-              <tr>
-                <td>Abridor + Imán</td>
-                <td>2,50&nbsp;€</td><td>62,50&nbsp;€</td><td>120&nbsp;€</td>
-                <td>230&nbsp;€</td><td>330&nbsp;€</td><td>420&nbsp;€</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- ── MOBILE CARDS ── -->
-          <div class="pricing-cards">
-
-            <!-- 38 mm -->
-            <div class="pricing-size-card">
-              <h3 class="pricing-size-card__title">38 mm</h3>
-              <div class="pricing-size-card__options">
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Pin</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,20&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>30&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>55&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>100&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>135&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>160&nbsp;€</dd></div>
-                  </dl>
-                </div>
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Imán</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,50&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>37,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>70&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>130&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>180&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>220&nbsp;€</dd></div>
-                  </dl>
+            <li class="pricing-accordion__item">
+              <h3 class="pricing-accordion__heading">
+                <button
+                  type="button"
+                  class="pricing-accordion__trigger"
+                  id="pricing-trigger-38"
+                  aria-expanded="false"
+                  aria-controls="pricing-panel-38"
+                >
+                  <span class="pricing-accordion__trigger-text">
+                    <span class="pricing-accordion__title">38 mm</span>
+                    <span class="pricing-accordion__summary">Desde 1,20&nbsp;€/ud · Packs desde 30&nbsp;€</span>
+                  </span>
+                  <span class="pricing-accordion__chevron" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="pricing-accordion__panel" id="pricing-panel-38" role="region" aria-labelledby="pricing-trigger-38" aria-hidden="true">
+                <div class="pricing-accordion__panel-inner">
+                  <div class="pricing-panel__options">
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Pin</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,20&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>30&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>55&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>100&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>135&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>160&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Imán</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,50&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>37,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>70&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>130&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>180&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>220&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </li>
 
-            <!-- 50 mm -->
-            <div class="pricing-size-card">
-              <h3 class="pricing-size-card__title">50 mm</h3>
-              <div class="pricing-size-card__options">
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Pin</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,30&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>32,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>60&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>110&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>150&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>180&nbsp;€</dd></div>
-                  </dl>
-                </div>
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Imán</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,70&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>42,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>80&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>150&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>210&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>260&nbsp;€</dd></div>
-                  </dl>
+            <li class="pricing-accordion__item">
+              <h3 class="pricing-accordion__heading">
+                <button
+                  type="button"
+                  class="pricing-accordion__trigger"
+                  id="pricing-trigger-50"
+                  aria-expanded="false"
+                  aria-controls="pricing-panel-50"
+                >
+                  <span class="pricing-accordion__trigger-text">
+                    <span class="pricing-accordion__title">50 mm</span>
+                    <span class="pricing-accordion__summary">Desde 1,30&nbsp;€/ud · Packs desde 32,50&nbsp;€</span>
+                  </span>
+                  <span class="pricing-accordion__chevron" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="pricing-accordion__panel" id="pricing-panel-50" role="region" aria-labelledby="pricing-trigger-50" aria-hidden="true">
+                <div class="pricing-accordion__panel-inner">
+                  <div class="pricing-panel__options">
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Pin</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,30&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>32,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>60&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>110&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>150&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>180&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Imán</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,70&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>42,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>80&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>150&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>210&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>260&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </li>
 
-            <!-- 59 mm -->
-            <div class="pricing-size-card">
-              <h3 class="pricing-size-card__title">59 mm</h3>
-              <div class="pricing-size-card__options">
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Pin</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,50&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>37,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>70&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>130&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>180&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>220&nbsp;€</dd></div>
-                  </dl>
-                </div>
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Imán</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>1,90&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>47,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>90&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>170&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>240&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>300&nbsp;€</dd></div>
-                  </dl>
-                </div>
-                <div class="pricing-size-card__option">
-                  <p class="pricing-size-card__finish">Abridor + Imán</p>
-                  <dl class="pricing-size-card__packs">
-                    <div><dt>Ud.</dt><dd>2,50&nbsp;€</dd></div>
-                    <div><dt>Pack 25</dt><dd>62,50&nbsp;€</dd></div>
-                    <div><dt>Pack 50</dt><dd>120&nbsp;€</dd></div>
-                    <div><dt>Pack 100</dt><dd>230&nbsp;€</dd></div>
-                    <div><dt>Pack 150</dt><dd>330&nbsp;€</dd></div>
-                    <div><dt>Pack 200</dt><dd>420&nbsp;€</dd></div>
-                  </dl>
+            <li class="pricing-accordion__item">
+              <h3 class="pricing-accordion__heading">
+                <button
+                  type="button"
+                  class="pricing-accordion__trigger"
+                  id="pricing-trigger-59"
+                  aria-expanded="false"
+                  aria-controls="pricing-panel-59"
+                >
+                  <span class="pricing-accordion__trigger-text">
+                    <span class="pricing-accordion__title">59 mm</span>
+                    <span class="pricing-accordion__summary">Desde 1,50&nbsp;€/ud · Disponible también como abridor</span>
+                  </span>
+                  <span class="pricing-accordion__chevron" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="pricing-accordion__panel" id="pricing-panel-59" role="region" aria-labelledby="pricing-trigger-59" aria-hidden="true">
+                <div class="pricing-accordion__panel-inner">
+                  <div class="pricing-panel__options">
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Pin</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,50&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>37,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>70&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>130&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>180&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>220&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Imán</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>1,90&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>47,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>90&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>170&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>240&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>300&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                    <div class="pricing-panel__option">
+                      <p class="pricing-panel__finish">Abridor + Imán</p>
+                      <dl class="pricing-panel__packs">
+                        <div><dt>Ud.</dt><dd>2,50&nbsp;€</dd></div>
+                        <div><dt>Pack 25</dt><dd>62,50&nbsp;€</dd></div>
+                        <div><dt>Pack 50</dt><dd>120&nbsp;€</dd></div>
+                        <div><dt>Pack 100</dt><dd>230&nbsp;€</dd></div>
+                        <div><dt>Pack 150</dt><dd>330&nbsp;€</dd></div>
+                        <div><dt>Pack 200</dt><dd>420&nbsp;€</dd></div>
+                      </dl>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </li>
 
-          </div>
-          <!-- /pricing-cards -->
+          </ul>
 
+          <ul class="pricing-notes" role="list">
+            <li class="pricing-notes__item">Diseño personalizado incluido.</li>
+            <li class="pricing-notes__item">Envío 3&nbsp;€.</li>
+            <li class="pricing-notes__item">Envío gratuito a partir del pack de 50 unidades.</li>
+          </ul>
         </div>
-        <!-- /pricing-table-wrap -->
       </div>
     </section>
 
@@ -1104,6 +1091,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=10" charset="UTF-8"></script>
+  <script src="script.js?v=11" charset="UTF-8"></script>
 </body>
 </html>

@@ -555,7 +555,7 @@ function initSectionReveal() {
     '.contact__inner',
     '.contact__panel',
     '.faq__list',
-    '.pricing-card',
+    '.pricing-accordion-wrap',
   ].join(','));
 
   if (!targets.length) return;
@@ -1341,30 +1341,33 @@ function initWizard() {
 
 
 /* ============================================================
-   PRICING — Monthly / Annual toggle
+   PRICING — Size accordion (single-open)
    ============================================================ */
 
-function initPricingToggle() {
-  const toggleBtns = $$('.pricing__toggle-btn');
-  const amounts    = $$('.pricing-card__amount');
-  if (!toggleBtns.length) return;
+function initPricingAccordion() {
+  const triggers = $$('.pricing-accordion__trigger');
+  if (!triggers.length) return;
 
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const billing = btn.dataset.billing;
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item     = trigger.closest('.pricing-accordion__item');
+      const panelId  = trigger.getAttribute('aria-controls');
+      const panel    = panelId ? document.getElementById(panelId) : null;
+      const isOpen   = trigger.getAttribute('aria-expanded') === 'true';
 
-      toggleBtns.forEach(b => {
-        b.classList.remove('is-active');
-        b.setAttribute('aria-pressed', 'false');
+      triggers.forEach(t => {
+        const otherItem  = t.closest('.pricing-accordion__item');
+        const otherPanel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-expanded', 'false');
+        otherItem?.classList.remove('is-open');
+        if (otherPanel) otherPanel.setAttribute('aria-hidden', 'true');
       });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-pressed', 'true');
 
-      // Swap displayed prices using data attributes
-      amounts.forEach(el => {
-        const val = el.dataset[billing];
-        if (val) el.textContent = val;
-      });
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        item?.classList.add('is-open');
+        if (panel) panel.setAttribute('aria-hidden', 'false');
+      }
     });
   });
 }
@@ -1502,7 +1505,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMomentsCarousel();  /* new: real-moments infinite carousel */
   initSectionReveal();
   initWizard();
-  initPricingToggle();
+  initPricingAccordion();
   initFaqAccordion();
   initContactSection();
   initNewsletterForm();
