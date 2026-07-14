@@ -792,27 +792,47 @@ function buildWhatsAppPriceLines(result) {
 
 function initWizard() {
   const TOTAL_STEPS = 6;
+  const AUTO_ADVANCE_DELAY = 280;
+  const CUSTOM_QTY_DEBOUNCE = 700;
 
   const progressFill  = document.getElementById('wizard-progress-fill');
   const progressTrack = document.getElementById('wizard-progress-track');
   const stepNumEl     = document.getElementById('wizard-step-num');
-  const prevBtn       = document.getElementById('wizard-prev');
-  const nextBtn       = document.getElementById('wizard-next');
+  const backBtn       = document.getElementById('wizard-back');
+  const footerEl      = document.getElementById('wizard-footer');
   const waBtn         = document.getElementById('wizard-wa');
   const privacyNote   = document.getElementById('wizard-privacy-note');
   const qtyCustomCard = document.getElementById('wizard-qty-custom-card');
   const qtyCustomInput = document.getElementById('wizard-qty-input');
-  const qtyCustomError = document.getElementById('wizard-qty-error');
   const priceSlot     = document.getElementById('wizard-price-slot');
   const priceCard     = document.getElementById('wizard-price');
 
   const QTY_CUSTOM = '__custom__';
 
-  if (!progressFill || !prevBtn || !nextBtn || !waBtn) return;
+  if (!progressFill || !backBtn || !waBtn) return;
 
   let currentStep = 1;
+  let autoAdvanceTimer = null;
 
   const answers = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: '' };
+
+  function clearAutoAdvance() {
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
+  }
+
+  function scheduleAutoAdvance(fromStep, delay = AUTO_ADVANCE_DELAY) {
+    if (fromStep >= TOTAL_STEPS) return;
+    clearAutoAdvance();
+    autoAdvanceTimer = setTimeout(() => {
+      autoAdvanceTimer = null;
+      if (currentStep !== fromStep) return;
+      if (!canAdvanceFromStep(fromStep)) return;
+      transitionTo(currentStep + 1, 'forward');
+    }, delay);
+  }
 
   /* ── Update progress bar and step counter ── */
   function updateProgress() {
@@ -831,19 +851,18 @@ function initWizard() {
   }
 
   function updateNav() {
-    prevBtn.hidden = currentStep === 1;
+    backBtn.hidden = currentStep === 1;
 
     if (currentStep === TOTAL_STEPS) {
-      nextBtn.hidden = true;
-      waBtn.hidden   = false;
+      if (footerEl) footerEl.hidden = false;
+      waBtn.hidden = false;
       if (privacyNote) privacyNote.hidden = false;
       updatePriceEstimate();
     } else {
-      nextBtn.hidden   = false;
-      waBtn.hidden     = true;
+      if (footerEl) footerEl.hidden = true;
+      waBtn.hidden = true;
       if (privacyNote) privacyNote.hidden = true;
       if (priceSlot) priceSlot.hidden = true;
-      nextBtn.disabled = !canAdvanceFromStep(currentStep);
     }
   }
 
@@ -912,8 +931,6 @@ function initWizard() {
   function clearCustomQuantityInput() {
     if (!qtyCustomInput) return;
     qtyCustomInput.value = '';
-    qtyCustomInput.classList.remove('has-error');
-    if (qtyCustomError) qtyCustomError.hidden = true;
   }
 
   function selectCustomQuantityCard(focusInput = false) {
@@ -925,7 +942,6 @@ function initWizard() {
     answers[4] = null;
     syncCustomQuantityAnswer();
     if (focusInput) qtyCustomInput?.focus({ preventScroll: true });
-    if (currentStep === 4) updateNav();
     updatePriceEstimate();
   }
 
@@ -934,8 +950,6 @@ function initWizard() {
     const raw = qtyCustomInput.value.trim();
 
     if (!raw) {
-      if (qtyCustomError) qtyCustomError.hidden = true;
-      qtyCustomInput.classList.remove('has-error');
       answers[4] = null;
       updatePriceEstimate();
       return;
@@ -943,15 +957,11 @@ function initWizard() {
 
     const parsed = parsePositiveInt(raw);
     if (parsed === null) {
-      if (qtyCustomError) qtyCustomError.hidden = false;
-      qtyCustomInput.classList.add('has-error');
       answers[4] = null;
       updatePriceEstimate();
       return;
     }
 
-    if (qtyCustomError) qtyCustomError.hidden = true;
-    qtyCustomInput.classList.remove('has-error');
     answers[4] = parsed;
     updatePriceEstimate();
   }
@@ -991,10 +1001,8 @@ function initWizard() {
       answers[4] = parseInt(value, 10);
     }
 
-    if (currentStep === 4) updateNav();
-    else if (currentStep < TOTAL_STEPS && canAdvanceFromStep(4)) nextBtn.disabled = false;
-
     updatePriceEstimate();
+    if (currentStep === 4) scheduleAutoAdvance(4);
   }
 
   /**
@@ -1003,6 +1011,7 @@ function initWizard() {
    * @param {'forward'|'back'} direction
    */
   function transitionTo(to, direction) {
+    clearAutoAdvance();
     const from = currentStep;
     const fromEl = document.getElementById(`wizard-step-${from}`);
     const toEl   = document.getElementById(`wizard-step-${to}`);
@@ -1047,8 +1056,6 @@ function initWizard() {
     btn.classList.add('is-selected');
     answers[stepNum] = btn.dataset.value;
 
-    if (stepNum < TOTAL_STEPS) nextBtn.disabled = false;
-
     // Special logic: show/hide Bottle opener option based on size
     if (stepNum === 2) {
       const bottleItem = document.getElementById('bottle-opener-option');
@@ -1066,6 +1073,8 @@ function initWizard() {
     }
 
     if (stepNum === 2 || stepNum === 3) updatePriceEstimate();
+
+    if (stepNum < TOTAL_STEPS) scheduleAutoAdvance(stepNum);
   }
 
   // Attach click handlers to every option in every step
@@ -1102,21 +1111,20 @@ function initWizard() {
   qtyCustomInput?.addEventListener('input', () => {
     qtyCustomInput.value = qtyCustomInput.value.replace(/\D/g, '');
     syncCustomQuantityAnswer();
-    if (currentStep === 4) updateNav();
+    if (currentStep === 4 && typeof answers[4] === 'number' && answers[4] >= 1) {
+      scheduleAutoAdvance(4, CUSTOM_QTY_DEBOUNCE);
+    } else {
+      clearAutoAdvance();
+    }
   });
 
   qtyCustomInput?.addEventListener('keydown', e => {
     if (['e', 'E', '+', '-', '.', ','].includes(e.key)) e.preventDefault();
   });
 
-  /* ── Previous / Next navigation ── */
-  prevBtn.addEventListener('click', () => {
+  /* ── Back navigation (topbar link) ── */
+  backBtn.addEventListener('click', () => {
     if (currentStep > 1) transitionTo(currentStep - 1, 'back');
-  });
-
-  nextBtn.addEventListener('click', () => {
-    if (currentStep < TOTAL_STEPS && canAdvanceFromStep(currentStep))
-      transitionTo(currentStep + 1, 'forward');
   });
 
   /* ── WhatsApp message builder ── */
