@@ -3669,18 +3669,6 @@ p, li           { text-wrap: pretty; }
   box-shadow: 0 0 0 3px rgba(196,149,106,0.22), var(--shadow-sm);
 }
 
-/* Selected checkmark */
-.wizard__opt.is-selected::after {
-  content: '✓';
-  position: absolute;
-  top: var(--sp-2);
-  right: var(--sp-3);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-accent);
-  line-height: 1;
-}
-
 /* Muted "not sure yet" variant */
 .wizard__opt--muted {
   background-color: var(--c-cream);
@@ -3847,8 +3835,15 @@ p, li           { text-wrap: pretty; }
 /* ── Quantities layout (step 4) ── */
 .wizard__opts--quantities {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--sp-3);
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .wizard__opts--quantities {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .wizard__opt--qty {
@@ -3871,6 +3866,7 @@ p, li           { text-wrap: pretty; }
   font-weight: 600;
   color: var(--color-text-muted);
   padding: var(--sp-4) var(--sp-2);
+  min-height: 72px;
 }
 
 .wizard__opts--quantities .wizard__opt--muted .wizard__opt-emoji {
@@ -3885,10 +3881,25 @@ p, li           { text-wrap: pretty; }
   line-height: var(--leading-snug);
 }
 
-/* Custom quantity card — integrated input, same footprint as preset qty buttons */
+/* Full-width custom row; "Aún no lo sé" aligns with right column (same as 200) */
 .wizard__qty-custom-item {
+  grid-column: 1 / -1;
   position: relative;
   overflow: visible;
+}
+
+.wizard__qty-unsure-item {
+  grid-column: 2;
+}
+
+@media (min-width: 768px) {
+  .wizard__qty-custom-item {
+    grid-column: span 2;
+  }
+
+  .wizard__qty-unsure-item {
+    grid-column: auto;
+  }
 }
 
 .wizard__opts--quantities .wizard__opt--qty,
@@ -3896,23 +3907,28 @@ p, li           { text-wrap: pretty; }
   height: 100%;
 }
 
+/* Custom quantity — horizontal card with integrated confirm */
 .wizard__opt--qty-custom {
   cursor: pointer;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--sp-1);
-  padding: var(--sp-2) var(--sp-2);
-  min-height: 72px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  min-height: 56px;
+  width: 100%;
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
 }
 
 .wizard__opt-label--qty-custom {
-  font-size: var(--text-xs);
+  flex: 0 0 auto;
+  font-size: var(--text-sm);
   font-weight: 600;
   line-height: 1.2;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .wizard__opt--qty-custom.is-selected .wizard__opt-label--qty-custom {
@@ -3922,22 +3938,22 @@ p, li           { text-wrap: pretty; }
 .wizard__qty-custom-field {
   display: flex;
   align-items: center;
-  gap: var(--sp-1);
-  width: 100%;
+  gap: var(--sp-2);
+  flex: 1 1 auto;
   min-width: 0;
 }
 
 .wizard__opt--qty-custom .wizard__qty-custom-input {
   flex: 1 1 auto;
   width: auto;
+  min-width: 3.5rem;
   max-width: 100%;
-  min-width: 0;
-  padding: 0.3125rem 0.375rem;
+  padding: 0.5rem 0.625rem;
   border: 1.5px solid var(--color-border);
   border-radius: var(--r-md);
   background-color: var(--c-white);
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-text);
@@ -3952,14 +3968,14 @@ p, li           { text-wrap: pretty; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.625rem;
-  height: 1.625rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   border: none;
   border-radius: 50%;
   background-color: var(--color-accent);
   color: var(--c-white);
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -3984,7 +4000,7 @@ p, li           { text-wrap: pretty; }
 
 .wizard__qty-custom-confirm:not(:disabled):hover {
   background-color: var(--color-accent-dark);
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .wizard__qty-custom-confirm:not(:disabled):active {
@@ -4034,32 +4050,52 @@ p, li           { text-wrap: pretty; }
   display: none;
 }
 
-@media (max-width: 479px) {
-  .wizard__opts--quantities {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
+@media (max-width: 767px) {
   .wizard__opt--qty {
     font-size: var(--text-lg);
-    padding: var(--sp-5) var(--sp-1);
+    padding: var(--sp-5) var(--sp-2);
     min-height: 68px;
   }
 
   .wizard__opt--qty-custom {
-    min-height: 68px;
-    padding: var(--sp-2) var(--sp-1);
+    min-height: 52px;
+    padding: var(--sp-3);
+    gap: var(--sp-2);
   }
 
-  .wizard__qty-custom-confirm {
-    width: 1.75rem;
-    height: 1.75rem;
-    font-size: 0.875rem;
+  .wizard__opt-label--qty-custom {
+    font-size: var(--text-xs);
+  }
+
+  .wizard__opt--qty-custom .wizard__qty-custom-input {
+    font-size: var(--text-sm);
+    padding: 0.4375rem 0.5rem;
   }
 }
 
 @media (max-width: 380px) {
-  .wizard__opts--quantities {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .wizard__opt-label--qty-custom {
+    max-width: 4.25rem;
+    white-space: normal;
+    text-align: left;
+    line-height: 1.15;
+  }
+}
+
+@media (min-width: 768px) {
+  .wizard__opt--qty-custom {
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    min-height: 72px;
+  }
+
+  .wizard__opt-label--qty-custom {
+    font-size: var(--text-xs);
+  }
+
+  .wizard__opt--qty-custom .wizard__qty-custom-input {
+    font-size: var(--text-sm);
+    max-width: 7rem;
   }
 }
 
@@ -4234,11 +4270,6 @@ p, li           { text-wrap: pretty; }
 .wizard__opt--design-card.is-selected .wizard__opt-arrow {
   transform: translateX(4px);
   color: var(--color-accent);
-}
-
-/* Design cards use arrow affordance — no checkmark overlay */
-.wizard__opt--design-card.is-selected::after {
-  content: none;
 }
 
 /* ── Notes (step 6) ── */
