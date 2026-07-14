@@ -2054,111 +2054,136 @@ address { font-style: normal; }
 }
 
 .contact__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-12);
-  align-items: flex-start;
-}
-
-@media (min-width: 900px) {
-  .contact__inner { grid-template-columns: 1fr 1.6fr; gap: var(--sp-20); }
-}
-
-.contact__info .section-heading { margin-bottom: var(--sp-4); }
-
-.contact__description {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-loose);
-  margin-bottom: var(--sp-8);
-  max-width: 40ch;
-}
-
-.contact__details {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
-  margin-bottom: var(--sp-8);
+  align-items: center;
+  gap: var(--sp-10);
+  max-width: 36rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
-.contact__detail {
+.contact__header {
+  width: 100%;
+}
+
+.contact__intro {
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+.contact__panel {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--sp-4);
+  gap: var(--sp-6);
+  padding: var(--sp-8) var(--sp-6);
+  background-color: var(--c-cream);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--r-2xl);
+}
+
+@media (min-width: 480px) {
+  .contact__panel {
+    padding: var(--sp-10) var(--sp-8);
+  }
+}
+
+.contact__wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  max-width: 22rem;
+  min-height: 3.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--r-lg);
+  background-color: var(--c-wa-green);
+  border: 2px solid var(--c-wa-green);
+  color: var(--c-white);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow:
+    0 4px 16px rgba(37,211,102,0.35),
+    0 1px 4px rgba(37,211,102,0.25);
+  transition:
+    background-color var(--t-fast),
+    border-color var(--t-fast),
+    transform var(--t-spring),
+    box-shadow var(--t-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact__wa-btn:hover {
+  background-color: var(--c-wa-green-dark);
+  border-color: var(--c-wa-green-dark);
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 28px rgba(37,211,102,0.48),
+    0 2px 8px rgba(37,211,102,0.28);
+}
+
+.contact__wa-btn:active {
+  transform: scale(0.98);
+}
+
+.contact__wa-btn svg {
+  flex-shrink: 0;
+}
+
+.contact__channels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4) var(--sp-8);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact__channel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
   font-size: var(--text-sm);
   font-weight: 500;
 }
 
-.contact__detail-icon {
-  width: 40px;
-  height: 40px;
+.contact__channel-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--c-cream);
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--c-white);
   border-radius: var(--r-md);
   font-size: var(--text-md);
   flex-shrink: 0;
 }
 
-.contact__detail a {
-  color: var(--color-text);
-  transition: color var(--t-fast);
-}
-
-.contact__detail a:hover { color: var(--color-accent); }
-
-.contact__social {
-  display: flex;
-  gap: var(--sp-4);
-  flex-wrap: wrap;
-}
-
-.contact__social-link {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+.contact__channel-link {
   color: var(--color-text-muted);
-  transition: color var(--t-fast);
-  padding-bottom: 2px;
+  text-decoration: none;
   border-bottom: 1.5px solid var(--color-border);
+  padding-bottom: 1px;
+  transition: color var(--t-fast), border-color var(--t-fast);
 }
 
-.contact__social-link:hover {
+.contact__channel-link:hover {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
 }
 
-/* Form card */
-.contact__form-wrap {
-  background-color: var(--c-cream);
-  padding: var(--sp-8);
-  border-radius: var(--r-2xl);
-  border: 1.5px solid var(--color-border);
-}
-
-@media (min-width: 480px) {
-  .contact__form-wrap { padding: var(--sp-10); }
-}
-
-.contact__form .btn--primary {
-  width: 100%;
-}
-
-.contact__form-success {
-  margin-top: var(--sp-5);
-  padding: var(--sp-4) var(--sp-5);
-  background-color: var(--c-success-light);
-  border-radius: var(--r-lg);
-  color: var(--c-success);
-  font-size: var(--text-sm);
-  font-weight: 600;
-}
-
-.contact__form-success[hidden] { display: none; }
-
-.contact__form-success p::before {
-  content: '✓ ';
+@media (min-width: 900px) {
+  .contact__inner {
+    gap: var(--sp-12);
+  }
 }
 
 
@@ -2900,9 +2925,7 @@ p, li           { text-wrap: pretty; }
 
 
 /* ── Programmatic focus: suppress visible ring on non-interactive elements ── */
-/* Focus is moved via JS for a11y but shouldn't show a visual ring on headings */
-.wizard__question:focus,
-.contact__form-success:focus {
+.wizard__question:focus {
   outline: none;
 }
 

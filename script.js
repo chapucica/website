@@ -5,6 +5,11 @@
 
 'use strict';
 
+/** WhatsApp — número y enlace general reutilizado (botón flotante, contacto) */
+const CHAPUCICA_WHATSAPP_PHONE = '34623944601';
+const CHAPUCICA_WHATSAPP_GENERAL_URL =
+  `https://wa.me/${CHAPUCICA_WHATSAPP_PHONE}?text=${encodeURIComponent('¡Hola!\n\nMe gustaría información sobre chapas personalizadas.')}`;
+
 
 /* ============================================================
    UTILITIES
@@ -547,8 +552,8 @@ function initSectionReveal() {
     '.spotlight-card__inner',
     '.wizard__header',
     '.gallery__filters',
-    '.contact__info',
-    '.contact__form-wrap',
+    '.contact__inner',
+    '.contact__panel',
     '.faq__list',
     '.pricing-card',
   ].join(','));
@@ -1394,54 +1399,12 @@ function initFaqAccordion() {
 
 
 /* ============================================================
-   CONTACT FORM — Client-side validation
+   CONTACT — WhatsApp CTA + secondary channels
    ============================================================ */
 
-function initContactForm() {
-  const form    = $('#contact-form');
-  const success = $('#contact-form-success');
-  if (!form) return;
-
-  const RULES = {
-    'contact-name':    { test: v => v.trim().length > 0,                         msg: 'Por favor, introduce tu nombre completo.' },
-    'contact-email':   { test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()), msg: 'Por favor, introduce un email válido.' },
-    'contact-message': { test: v => v.trim().length > 0,                         msg: 'Por favor, escribe un mensaje.' },
-  };
-
-  /** Show or clear an inline error for a field */
-  function setError(id, msg) {
-    const el = document.getElementById(`${id}-error`);
-    if (el) el.textContent = msg;
-  }
-
-  function clearErrors() {
-    Object.keys(RULES).forEach(id => setError(id, ''));
-  }
-
-  function validate() {
-    clearErrors();
-    let valid = true;
-    Object.entries(RULES).forEach(([id, { test, msg }]) => {
-      const input = document.getElementById(id);
-      if (!input || !test(input.value)) {
-        setError(id, msg);
-        valid = false;
-      }
-    });
-    return valid;
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (!validate()) return;
-    form.reset();
-    if (success) {
-      success.hidden = false;
-      // Scroll into view and shift focus so screen readers announce the confirmation
-      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      success.focus({ preventScroll: true });
-    }
-  });
+function initContactSection() {
+  const waBtn = $('#contact-wa-btn');
+  if (waBtn) waBtn.href = CHAPUCICA_WHATSAPP_GENERAL_URL;
 }
 
 
@@ -1512,7 +1475,7 @@ function initSmoothScroll() {
 function initWhatsAppButton() {
   const wa = document.createElement('a');
   wa.className = 'whatsapp-btn';
-  wa.href      = 'https://wa.me/34623944601?text=%C2%A1Hola%21%0A%0AMe%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20chapas%20personalizadas.';
+  wa.href      = CHAPUCICA_WHATSAPP_GENERAL_URL;
   wa.target    = '_blank';
   wa.rel       = 'noopener noreferrer';
   wa.setAttribute('aria-label', 'Escríbenos por WhatsApp');
@@ -1541,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWizard();
   initPricingToggle();
   initFaqAccordion();
-  initContactForm();
+  initContactSection();
   initNewsletterForm();
   initBackToTop();
   initFooterYear();
