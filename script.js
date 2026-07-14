@@ -793,7 +793,7 @@ function buildWhatsAppPriceLines(result) {
 function initWizard() {
   const TOTAL_STEPS = 6;
   const AUTO_ADVANCE_DELAY = 280;
-  const CUSTOM_QTY_DEBOUNCE = 700;
+  const QTY_PRESETS = [25, 50, 75, 100, 150, 200];
 
   const progressFill  = document.getElementById('wizard-progress-fill');
   const progressTrack = document.getElementById('wizard-progress-track');
@@ -804,6 +804,8 @@ function initWizard() {
   const privacyNote   = document.getElementById('wizard-privacy-note');
   const qtyCustomCard = document.getElementById('wizard-qty-custom-card');
   const qtyCustomInput = document.getElementById('wizard-qty-input');
+  const qtyCustomConfirm = document.getElementById('wizard-qty-confirm');
+  const qtyCustomError = document.getElementById('wizard-qty-error');
   const priceSlot     = document.getElementById('wizard-price-slot');
   const priceCard     = document.getElementById('wizard-price');
 
@@ -852,6 +854,11 @@ function initWizard() {
 
   function updateNav() {
     backBtn.hidden = currentStep === 1;
+
+    const viewport = document.getElementById('wizard-viewport');
+    if (viewport) {
+      viewport.classList.toggle('wizard__viewport--compact', currentStep === TOTAL_STEPS);
+    }
 
     if (currentStep === TOTAL_STEPS) {
       if (footerEl) footerEl.hidden = false;
@@ -931,6 +938,33 @@ function initWizard() {
   function clearCustomQuantityInput() {
     if (!qtyCustomInput) return;
     qtyCustomInput.value = '';
+    qtyCustomInput.classList.remove('has-error');
+    if (qtyCustomError) qtyCustomError.hidden = true;
+    updateCustomConfirmState();
+  }
+
+  function updateCustomConfirmState() {
+    if (!qtyCustomConfirm || !qtyCustomInput) return;
+    const valid = parsePositiveInt(qtyCustomInput.value) !== null;
+    qtyCustomConfirm.disabled = !valid;
+  }
+
+  function confirmCustomQuantity() {
+    if (!qtyCustomInput) return;
+    const parsed = parsePositiveInt(qtyCustomInput.value.trim());
+
+    if (parsed === null) {
+      if (qtyCustomError) qtyCustomError.hidden = false;
+      qtyCustomInput.classList.add('has-error');
+      return;
+    }
+
+    if (qtyCustomError) qtyCustomError.hidden = true;
+    qtyCustomInput.classList.remove('has-error');
+    answers[4] = parsed;
+    updatePriceEstimate();
+
+    if (currentStep === 4) transitionTo(5, 'forward');
   }
 
   function selectCustomQuantityCard(focusInput = false) {
@@ -940,29 +974,8 @@ function initWizard() {
     stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
     qtyCustomCard.classList.add('is-selected');
     answers[4] = null;
-    syncCustomQuantityAnswer();
+    updateCustomConfirmState();
     if (focusInput) qtyCustomInput?.focus({ preventScroll: true });
-    updatePriceEstimate();
-  }
-
-  function syncCustomQuantityAnswer() {
-    if (!qtyCustomInput) return;
-    const raw = qtyCustomInput.value.trim();
-
-    if (!raw) {
-      answers[4] = null;
-      updatePriceEstimate();
-      return;
-    }
-
-    const parsed = parsePositiveInt(raw);
-    if (parsed === null) {
-      answers[4] = null;
-      updatePriceEstimate();
-      return;
-    }
-
-    answers[4] = parsed;
     updatePriceEstimate();
   }
 
@@ -970,13 +983,32 @@ function initWizard() {
     const stepEl = document.getElementById('wizard-step-4');
     if (!stepEl || !qtyCustomCard) return;
 
-    const selected = stepEl.querySelector('.wizard__opt.is-selected');
-    if (selected?.dataset.value === QTY_CUSTOM) {
-      if (typeof answers[4] === 'number') {
-        qtyCustomInput.value = String(answers[4]);
-      }
-      syncCustomQuantityAnswer();
+    const qty = answers[4];
+    stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+
+    if (typeof qty === 'number' && !QTY_PRESETS.includes(qty)) {
+      qtyCustomCard.classList.add('is-selected');
+      qtyCustomInput.value = String(qty);
+      updateCustomConfirmState();
+      return;
     }
+
+    if (qty === 'Aún no lo sé') {
+      stepEl.querySelector('.wizard__opt[data-value="Aún no lo sé"]')?.classList.add('is-selected');
+      clearCustomQuantityInput();
+      return;
+    }
+
+    if (typeof qty === 'number') {
+      const presetBtn = stepEl.querySelector(`.wizard__opt[data-value="${qty}"]`);
+      if (presetBtn) {
+        presetBtn.classList.add('is-selected');
+        clearCustomQuantityInput();
+        return;
+      }
+    }
+
+    clearCustomQuantityInput();
   }
 
   function selectQuantityOption(btn) {
@@ -1016,6 +1048,10 @@ function initWizard() {
     const fromEl = document.getElementById(`wizard-step-${from}`);
     const toEl   = document.getElementById(`wizard-step-${to}`);
     if (!fromEl || !toEl) return;
+
+    // Drop entry animations so inline transitions behave the same on every step
+    fromEl.classList.remove('wizard__step--active', 'wizard__step--enter-back');
+    toEl.classList.remove('wizard__step--active', 'wizard__step--enter-back');
 
     // Exit current step
     fromEl.style.cssText = `transition:opacity .18s ease,transform .18s ease;opacity:0;transform:translateY(${direction === 'forward' ? '-12px' : '12px'})`;
@@ -1091,8 +1127,9 @@ function initWizard() {
   }
 
   qtyCustomCard?.addEventListener('click', e => {
-    if (e.target === qtyCustomInput) {
-      if (!qtyCustomCard.classList.contains('is-selected')) selectCustomQuantityCard(false);
+    if (e.target === qtyCustomInput || e.target.closest('.wizard__qty-custom-confirm')) return;
+    if (qtyCustomCard.classList.contains('is-selected')) {
+      qtyCustomInput?.focus({ preventScroll: true });
       return;
     }
     selectCustomQuantityCard(true);
@@ -1108,18 +1145,22 @@ function initWizard() {
     e.stopPropagation();
   });
 
+  qtyCustomConfirm?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!qtyCustomCard?.classList.contains('is-selected')) selectCustomQuantityCard(false);
+    confirmCustomQuantity();
+  });
+
   qtyCustomInput?.addEventListener('input', () => {
     qtyCustomInput.value = qtyCustomInput.value.replace(/\D/g, '');
-    syncCustomQuantityAnswer();
-    if (currentStep === 4 && typeof answers[4] === 'number' && answers[4] >= 1) {
-      scheduleAutoAdvance(4, CUSTOM_QTY_DEBOUNCE);
-    } else {
-      clearAutoAdvance();
-    }
+    qtyCustomInput.classList.remove('has-error');
+    if (qtyCustomError) qtyCustomError.hidden = true;
+    updateCustomConfirmState();
   });
 
   qtyCustomInput?.addEventListener('keydown', e => {
     if (['e', 'E', '+', '-', '.', ','].includes(e.key)) e.preventDefault();
+    if (e.key === 'Enter') e.preventDefault();
   });
 
   /* ── Back navigation (topbar link) ── */

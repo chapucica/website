@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=28" />
+  <link rel="stylesheet" href="style.css?v=30" />
 </head>
 <body>
 
@@ -289,16 +289,27 @@
                       aria-label="Otra cantidad"
                     >
                       <span class="wizard__opt-label wizard__opt-label--qty-custom">Otra cantidad</span>
-                      <input
-                        class="wizard__qty-custom-input"
-                        id="wizard-qty-input"
-                        type="text"
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        autocomplete="off"
-                        placeholder="Ej. 248"
-                        aria-label="Introduce otra cantidad"
-                      />
+                      <div class="wizard__qty-custom-field">
+                        <input
+                          class="wizard__qty-custom-input"
+                          id="wizard-qty-input"
+                          type="text"
+                          inputmode="numeric"
+                          pattern="[0-9]*"
+                          autocomplete="off"
+                          placeholder="Ej. 248"
+                          aria-label="Introduce otra cantidad"
+                        />
+                        <button
+                          class="wizard__qty-custom-confirm"
+                          id="wizard-qty-confirm"
+                          type="button"
+                          aria-label="Continuar con esta cantidad"
+                          disabled
+                        >
+                          <span aria-hidden="true">→</span>
+                        </button>
+                      </div>
                       <p class="wizard__qty-custom-error" id="wizard-qty-error" role="alert" hidden>
                         Introduce un número entero válido (mínimo 1).
                       </p>
@@ -359,7 +370,7 @@
                   class="wizard__textarea"
                   id="wizard-notes"
                   name="notes"
-                  rows="5"
+                  rows="3"
                   placeholder="Ej. Temática oro rosa, necesito para el 15 de agosto, enviaré fotos después…"
                 ></textarea>
               </div>
@@ -379,13 +390,13 @@
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Recibir presupuesto por WhatsApp"
+                aria-label="Continuar en WhatsApp con la información del pedido"
                 hidden
               >
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true">
                   <path fill="currentColor" d="M16 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.333.627 4.62 1.82 6.627L2.667 29.333l6.9-1.8A13.253 13.253 0 0016 29.333c7.364 0 13.333-5.97 13.333-13.333S23.364 2.667 16 2.667zm5.787 18.787c-.32.16-.613.24-.8.24-.293 0-.613-.08-.88-.267l-3.467-2.24a.96.96 0 00-.8-.08l-1.467.48c-.507.16-1.04-.027-1.333-.453l-2.24-3.147a1 1 0 01.133-1.307l1.12-1.013c.267-.24.347-.64.187-.96L11 9.333a.987.987 0 00-1.2-.507l-.987.347C8.12 9.44 7.573 10.08 7.36 10.853c-.507 1.787.293 4.08 2.08 6.16 1.787 2.107 4.16 3.68 6.24 4.187.693.16 1.44.08 2.133-.24.8-.373 1.493-1.04 1.787-1.787l.293-.72c.187-.48-.08-1.013-.56-1.147l-.947-.267.027.027z"/>
                 </svg>
-                Recibir presupuesto
+                Continuar en WhatsApp
               </a>
             </div>
 
@@ -1140,6 +1151,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=7" charset="UTF-8"></script>
+  <script src="script.js?v=9" charset="UTF-8"></script>
 </body>
 </html>
