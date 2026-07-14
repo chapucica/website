@@ -592,11 +592,11 @@ function initSectionReveal() {
 
 
 /* ============================================================
-   WIZARD — 6-step quote assistant
+   WIZARD — 5-step quote assistant
    ============================================================ */
 
 function initWizard() {
-  const TOTAL_STEPS = 6;
+  const TOTAL_STEPS = 5;
 
   const progressFill  = document.getElementById('wizard-progress-fill');
   const progressTrack = document.getElementById('wizard-progress-track');
@@ -605,12 +605,13 @@ function initWizard() {
   const nextBtn       = document.getElementById('wizard-next');
   const waBtn         = document.getElementById('wizard-wa');
   const privacyNote   = document.getElementById('wizard-privacy-note');
+  const reassurance   = document.getElementById('wizard-reassurance');
 
   if (!progressFill || !prevBtn || !nextBtn || !waBtn) return;
 
   let currentStep = 1;
 
-  const answers = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: '' };
+  const answers = { 1: null, 2: null, 3: null, 4: null, 5: '' };
 
   /* ── Update progress bar and step counter ── */
   function updateProgress() {
@@ -627,10 +628,12 @@ function initWizard() {
       nextBtn.hidden = true;
       waBtn.hidden   = false;
       if (privacyNote) privacyNote.hidden = false;
+      if (reassurance) reassurance.hidden = false;
     } else {
       nextBtn.hidden   = false;
       waBtn.hidden     = true;
       if (privacyNote) privacyNote.hidden = true;
+      if (reassurance) reassurance.hidden = true;
       nextBtn.disabled = !answers[currentStep];
     }
   }
@@ -684,22 +687,6 @@ function initWizard() {
     answers[stepNum] = btn.dataset.value;
 
     if (stepNum < TOTAL_STEPS) nextBtn.disabled = false;
-
-    // Special logic: show/hide Bottle opener option based on size
-    if (stepNum === 2) {
-      const bottleItem = document.getElementById('bottle-opener-option');
-      if (bottleItem) {
-        const show = btn.dataset.value === '59mm';
-        bottleItem.hidden = !show;
-        // Clear stale selection if the option is now hidden
-        if (!show && answers[3] === 'Abridor de botellas') {
-          answers[3] = null;
-          document.getElementById('wizard-step-3')
-            ?.querySelectorAll('.wizard__opt')
-            .forEach(b => b.classList.remove('is-selected'));
-        }
-      }
-    }
   }
 
   // Attach click handlers to every option in every step
@@ -727,11 +714,18 @@ function initWizard() {
 
   const FIELD_LABELS = {
     1: 'Evento',
-    2: 'Tamaño',
-    3: 'Acabado',
-    4: 'Cantidad',
-    5: 'Diseño',
+    3: 'Cantidad',
+    4: 'Diseño',
   };
+
+  /** Split combined size + finish selection for the WhatsApp message */
+  function parseSizeFinish(raw) {
+    if (!raw?.trim() || raw.trim() === 'Aún no lo sé') {
+      return { size: null, finish: null };
+    }
+    const [size, finish] = raw.split(' + ');
+    return { size: size?.trim() || null, finish: finish?.trim() || null };
+  }
 
   /** Returns the display value for an answer, substituting the UNSURE phrase when needed */
   function resolveAnswer(raw) {
@@ -746,7 +740,7 @@ function initWizard() {
    */
   function buildWhatsAppMessage() {
     const notesEl = document.getElementById('wizard-notes');
-    if (notesEl) answers[6] = notesEl.value.trim();
+    if (notesEl) answers[5] = notesEl.value.trim();
 
     const lines = [
       '¡Hola, Chapucica! 😊',
@@ -757,13 +751,17 @@ function initWizard() {
       '',
     ];
 
-    // Steps 1–5: one bullet per field
-    for (let i = 1; i <= 5; i++) {
+    lines.push(`• ${FIELD_LABELS[1]}: ${resolveAnswer(answers[1])}`);
+
+    const { size, finish } = parseSizeFinish(answers[2]);
+    lines.push(`• Tamaño: ${resolveAnswer(size || 'Aún no lo sé')}`);
+    lines.push(`• Acabado: ${resolveAnswer(finish || 'Aún no lo sé')}`);
+
+    for (let i = 3; i <= 4; i++) {
       lines.push(`• ${FIELD_LABELS[i]}: ${resolveAnswer(answers[i])}`);
     }
 
-    // Step 6: notes — optional
-    const notes = answers[6]?.trim();
+    const notes = answers[5]?.trim();
     if (notes) {
       lines.push(`• Notas: ${notes}`);
     }
@@ -782,8 +780,8 @@ function initWizard() {
   /** Reset wizard to step 1 after WhatsApp handoff */
   function resetWizard() {
     currentStep = 1;
-    for (let i = 1; i <= 5; i++) answers[i] = null;
-    answers[6] = '';
+    for (let i = 1; i <= 4; i++) answers[i] = null;
+    answers[5] = '';
 
     for (let s = 1; s <= TOTAL_STEPS; s++) {
       const stepEl = document.getElementById(`wizard-step-${s}`);
@@ -796,9 +794,6 @@ function initWizard() {
 
     const notesEl = document.getElementById('wizard-notes');
     if (notesEl) notesEl.value = '';
-
-    const bottleItem = document.getElementById('bottle-opener-option');
-    if (bottleItem) bottleItem.hidden = true;
 
     updateProgress();
     updateNav();
