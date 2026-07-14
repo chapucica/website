@@ -605,6 +605,12 @@ function initWizard() {
   const nextBtn       = document.getElementById('wizard-next');
   const waBtn         = document.getElementById('wizard-wa');
   const privacyNote   = document.getElementById('wizard-privacy-note');
+  const qtyCustomWrap = document.getElementById('wizard-qty-custom');
+  const qtyCustomInput = document.getElementById('wizard-qty-input');
+  const qtyCustomError = document.getElementById('wizard-qty-error');
+  const qtyFieldSlot  = document.querySelector('.wizard__qty-field-slot');
+
+  const QTY_CUSTOM = '__custom__';
 
   if (!progressFill || !prevBtn || !nextBtn || !waBtn) return;
 
@@ -620,6 +626,14 @@ function initWizard() {
   }
 
   /* ── Show / hide navigation buttons based on current step ── */
+  function canAdvanceFromStep(stepNum) {
+    if (stepNum === 4) {
+      if (answers[4] === 'Aún no lo sé') return true;
+      return typeof answers[4] === 'number' && answers[4] >= 1;
+    }
+    return answers[stepNum] !== null && answers[stepNum] !== '';
+  }
+
   function updateNav() {
     prevBtn.hidden = currentStep === 1;
 
@@ -631,8 +645,103 @@ function initWizard() {
       nextBtn.hidden   = false;
       waBtn.hidden     = true;
       if (privacyNote) privacyNote.hidden = true;
-      nextBtn.disabled = !answers[currentStep];
+      nextBtn.disabled = !canAdvanceFromStep(currentStep);
     }
+  }
+
+  function parsePositiveInt(value) {
+    const trimmed = String(value).trim();
+    if (!trimmed || !/^\d+$/.test(trimmed)) return null;
+    const n = parseInt(trimmed, 10);
+    if (!Number.isFinite(n) || n < 1) return null;
+    return n;
+  }
+
+  function setQtyFieldSlotVisible(show) {
+    if (qtyFieldSlot) qtyFieldSlot.setAttribute('aria-hidden', show ? 'false' : 'true');
+  }
+
+  function hideCustomQuantityField(clearInput = false) {
+    if (!qtyCustomWrap || !qtyCustomInput) return;
+    qtyCustomWrap.hidden = true;
+    setQtyFieldSlotVisible(false);
+    qtyCustomInput.classList.remove('has-error');
+    if (qtyCustomError) qtyCustomError.hidden = true;
+    if (clearInput) qtyCustomInput.value = '';
+  }
+
+  function showCustomQuantityField() {
+    if (!qtyCustomWrap || !qtyCustomInput) return;
+    qtyCustomWrap.hidden = false;
+    setQtyFieldSlotVisible(true);
+    qtyCustomInput.classList.remove('has-error');
+    if (qtyCustomError) qtyCustomError.hidden = true;
+  }
+
+  function syncCustomQuantityAnswer() {
+    if (!qtyCustomInput) return;
+    const raw = qtyCustomInput.value.trim();
+
+    if (!raw) {
+      if (qtyCustomError) qtyCustomError.hidden = true;
+      qtyCustomInput.classList.remove('has-error');
+      answers[4] = null;
+      return;
+    }
+
+    const parsed = parsePositiveInt(raw);
+    if (parsed === null) {
+      if (qtyCustomError) qtyCustomError.hidden = false;
+      qtyCustomInput.classList.add('has-error');
+      answers[4] = null;
+      return;
+    }
+
+    if (qtyCustomError) qtyCustomError.hidden = true;
+    qtyCustomInput.classList.remove('has-error');
+    answers[4] = parsed;
+  }
+
+  function restoreQuantityStepUI() {
+    const stepEl = document.getElementById('wizard-step-4');
+    if (!stepEl || !qtyCustomWrap) return;
+
+    const selected = stepEl.querySelector('.wizard__opt.is-selected');
+    if (selected?.dataset.value === QTY_CUSTOM) {
+      showCustomQuantityField();
+      if (typeof answers[4] === 'number') {
+        qtyCustomInput.value = String(answers[4]);
+      }
+      syncCustomQuantityAnswer();
+    } else {
+      hideCustomQuantityField(false);
+    }
+  }
+
+  function selectQuantityOption(btn) {
+    const stepEl = document.getElementById('wizard-step-4');
+    if (!stepEl) return;
+
+    stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+    btn.classList.add('is-selected');
+
+    const value = btn.dataset.value;
+
+    if (value === QTY_CUSTOM) {
+      showCustomQuantityField();
+      answers[4] = null;
+      syncCustomQuantityAnswer();
+      if (currentStep === 4) qtyCustomInput?.focus({ preventScroll: true });
+    } else if (value === 'Aún no lo sé') {
+      hideCustomQuantityField(true);
+      answers[4] = 'Aún no lo sé';
+    } else {
+      hideCustomQuantityField(true);
+      answers[4] = parseInt(value, 10);
+    }
+
+    if (currentStep === 4) updateNav();
+    else if (currentStep < TOTAL_STEPS && canAdvanceFromStep(4)) nextBtn.disabled = false;
   }
 
   /**
@@ -653,6 +762,7 @@ function initWizard() {
       fromEl.hidden = true;
       fromEl.style.cssText = '';
       currentStep = to;
+      if (to === 4) restoreQuantityStepUI();
       updateProgress();
       updateNav();
 
@@ -666,8 +776,9 @@ function initWizard() {
       toEl.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
       toEl.addEventListener('transitionend', () => {
         toEl.style.cssText = '';
-        // Move focus to the new step for keyboard and screen-reader users
-        const focusTarget = toEl.querySelector('.wizard__question, .wizard__opt, .wizard__textarea');
+        const focusTarget = to === 4 && qtyCustomWrap && !qtyCustomWrap.hidden
+          ? qtyCustomInput
+          : toEl.querySelector('.wizard__question, .wizard__opt, .wizard__textarea, .wizard__qty-custom-input');
         if (focusTarget) focusTarget.focus({ preventScroll: true });
       }, { once: true });
     }, 200);
@@ -707,9 +818,22 @@ function initWizard() {
     const stepEl = document.getElementById(`wizard-step-${s}`);
     if (!stepEl) continue;
     stepEl.querySelectorAll('.wizard__opt').forEach(btn => {
-      btn.addEventListener('click', () => selectOption(btn, s));
+      btn.addEventListener('click', () => {
+        if (s === 4) selectQuantityOption(btn);
+        else selectOption(btn, s);
+      });
     });
   }
+
+  qtyCustomInput?.addEventListener('input', () => {
+    qtyCustomInput.value = qtyCustomInput.value.replace(/\D/g, '');
+    syncCustomQuantityAnswer();
+    if (currentStep === 4) updateNav();
+  });
+
+  qtyCustomInput?.addEventListener('keydown', e => {
+    if (['e', 'E', '+', '-', '.', ','].includes(e.key)) e.preventDefault();
+  });
 
   /* ── Previous / Next navigation ── */
   prevBtn.addEventListener('click', () => {
@@ -717,7 +841,7 @@ function initWizard() {
   });
 
   nextBtn.addEventListener('click', () => {
-    if (currentStep < TOTAL_STEPS && answers[currentStep] !== null)
+    if (currentStep < TOTAL_STEPS && canAdvanceFromStep(currentStep))
       transitionTo(currentStep + 1, 'forward');
   });
 
@@ -735,8 +859,15 @@ function initWizard() {
 
   /** Returns the display value for an answer, substituting the UNSURE phrase when needed */
   function resolveAnswer(raw) {
-    if (!raw?.trim() || raw.trim() === 'Aún no lo sé') return UNSURE;
-    return raw.trim();
+    const text = raw?.toString().trim();
+    if (!text || text === 'Aún no lo sé') return UNSURE;
+    return text;
+  }
+
+  function formatQuantityAnswer() {
+    if (answers[4] === 'Aún no lo sé') return 'Aún no lo sé';
+    if (typeof answers[4] === 'number') return String(answers[4]);
+    return UNSURE;
   }
 
   /**
@@ -759,7 +890,14 @@ function initWizard() {
 
     // Steps 1–5: one bullet per field
     for (let i = 1; i <= 5; i++) {
-      lines.push(`• ${FIELD_LABELS[i]}: ${resolveAnswer(answers[i])}`);
+      if (i === 4) {
+        lines.push(`• ${FIELD_LABELS[4]}: ${formatQuantityAnswer()}`);
+        if (answers[4] === 'Aún no lo sé') {
+          lines.push('• Nota: Me gustaría recibir vuestra recomendación sobre la cantidad.');
+        }
+      } else {
+        lines.push(`• ${FIELD_LABELS[i]}: ${resolveAnswer(answers[i])}`);
+      }
     }
 
     // Step 6: notes — optional
@@ -796,6 +934,8 @@ function initWizard() {
 
     const notesEl = document.getElementById('wizard-notes');
     if (notesEl) notesEl.value = '';
+
+    hideCustomQuantityField(true);
 
     const bottleItem = document.getElementById('bottle-opener-option');
     if (bottleItem) bottleItem.hidden = true;

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=24" />
+  <link rel="stylesheet" href="style.css?v=25" />
 </head>
 <body>
 
@@ -270,9 +270,32 @@
                   <li><button class="wizard__opt wizard__opt--qty" data-value="100" type="button">100</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="150" type="button">150</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="200" type="button">200</button></li>
-                  <li><button class="wizard__opt wizard__opt--qty" data-value="Más de 200" type="button">200+</button></li>
-                  <li><button class="wizard__opt wizard__opt--qty wizard__opt--muted" data-value="Aún no lo sé" type="button">🤔</button></li>
+                  <li><button class="wizard__opt wizard__opt--qty" data-value="__custom__" type="button">Otra cantidad</button></li>
+                  <li>
+                    <button class="wizard__opt wizard__opt--qty wizard__opt--muted" data-value="Aún no lo sé" type="button">
+                      <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
+                      <span class="wizard__opt-label">Aún no lo sé</span>
+                    </button>
+                  </li>
                 </ul>
+
+                <div class="wizard__qty-field-slot" aria-hidden="true">
+                  <div class="wizard__qty-custom" id="wizard-qty-custom" hidden>
+                    <label class="wizard__qty-custom-label" for="wizard-qty-input">¿Cuántas necesitas?</label>
+                    <input
+                      class="wizard__qty-custom-input"
+                      id="wizard-qty-input"
+                      type="text"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      autocomplete="off"
+                      placeholder="Ej. 30, 78, 225…"
+                    />
+                    <p class="wizard__qty-custom-error" id="wizard-qty-error" role="alert" hidden>
+                      Introduce un número entero válido (mínimo 1).
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <!-- ── Step 5 · Design ── -->
@@ -1116,6 +1139,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=3" charset="UTF-8"></script>
+  <script src="script.js?v=4" charset="UTF-8"></script>
 </body>
 </html>
