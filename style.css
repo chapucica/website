@@ -2004,16 +2004,26 @@ address { font-style: normal; }
   width: 28px;
   height: 28px;
   min-width: 28px;
-  display: flex;
+  flex-shrink: 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1.5px solid var(--color-border);
   border-radius: 50%;
-  font-size: var(--text-lg);
-  font-weight: 300;
-  line-height: 1;
+  font-size: 0;
+  line-height: 0;
   color: var(--color-text-muted);
   transition: transform var(--t-base), background-color var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+}
+
+.faq__icon::before {
+  content: '+';
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1;
+  color: inherit;
+  transform: translateY(-1px);
 }
 
 .faq__toggle[aria-expanded="true"] .faq__icon {
