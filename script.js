@@ -592,6 +592,201 @@ function initSectionReveal() {
 
 
 /* ============================================================
+   PRICING — Tabla única y calculadora de presupuesto
+   ============================================================ */
+
+const CHAPUCICA_PRICE_TABLE = {
+  '38mm': {
+    pin: {
+      unit: 1.20,
+      packs: { 25: 30, 50: 55, 100: 100, 150: 135, 200: 160 },
+    },
+    magnet: {
+      unit: 1.50,
+      packs: { 25: 37.50, 50: 70, 100: 130, 150: 180, 200: 220 },
+    },
+  },
+  '50mm': {
+    pin: {
+      unit: 1.30,
+      packs: { 25: 32.50, 50: 60, 100: 110, 150: 150, 200: 180 },
+    },
+    magnet: {
+      unit: 1.70,
+      packs: { 25: 42.50, 50: 80, 100: 150, 150: 210, 200: 260 },
+    },
+  },
+  '59mm': {
+    pin: {
+      unit: 1.50,
+      packs: { 25: 37.50, 50: 70, 100: 130, 150: 180, 200: 220 },
+    },
+    magnet: {
+      unit: 1.90,
+      packs: { 25: 47.50, 50: 90, 100: 170, 150: 240, 200: 300 },
+    },
+    opener: {
+      unit: 2.50,
+      packs: { 25: 62.50, 50: 120, 100: 230, 150: 330, 200: 420 },
+    },
+  },
+};
+
+const CHAPUCICA_PACK_SIZES = [200, 150, 100, 50, 25];
+const CHAPUCICA_SHIPPING_FEE = 3;
+const CHAPUCICA_FREE_SHIPPING_MIN = 50;
+
+const WIZARD_FINISH_TO_PRICE_KEY = {
+  'Imperdible': 'pin',
+  'Imán': 'magnet',
+  'Abridor de botellas': 'opener',
+};
+
+/** @returns {{ unit: number, packs: Record<number, number> }|null} */
+function getPricingProfile(size, finish) {
+  const sizeKey = size?.trim();
+  const finishKey = WIZARD_FINISH_TO_PRICE_KEY[finish];
+  if (!sizeKey || !finishKey) return null;
+  return CHAPUCICA_PRICE_TABLE[sizeKey]?.[finishKey] ?? null;
+}
+
+/**
+ * Calcula la combinación más barata para una cantidad exacta.
+ * @returns {null|{
+ *   quantity: number,
+ *   packs: Record<number, number>,
+ *   units: number,
+ *   subtotal: number,
+ *   shipping: number,
+ *   total: number,
+ *   shippingFree: boolean,
+ *   lines: Array<{ kind: 'pack'|'units', size?: number, count: number, amount: number }>
+ * }}
+ */
+function calculatePrice(size, finish, quantity) {
+  const profile = getPricingProfile(size, finish);
+  if (!profile || !Number.isInteger(quantity) || quantity < 1) return null;
+
+  const dp = new Array(quantity + 1).fill(Infinity);
+  const prev = new Array(quantity + 1).fill(null);
+  dp[0] = 0;
+
+  for (let i = 1; i <= quantity; i++) {
+    let bestCost = dp[i - 1] + profile.unit;
+    let bestStep = { kind: 'unit', from: i - 1 };
+
+    for (const packSize of CHAPUCICA_PACK_SIZES) {
+      if (i < packSize) continue;
+      const packCost = dp[i - packSize] + profile.packs[packSize];
+      if (packCost < bestCost) {
+        bestCost = packCost;
+        bestStep = { kind: 'pack', size: packSize, from: i - packSize };
+      }
+    }
+
+    dp[i] = bestCost;
+    prev[i] = bestStep;
+  }
+
+  const packs = { 25: 0, 50: 0, 100: 0, 150: 0, 200: 0 };
+  let units = 0;
+  let cursor = quantity;
+
+  while (cursor > 0) {
+    const step = prev[cursor];
+    if (!step) return null;
+    if (step.kind === 'unit') {
+      units += 1;
+      cursor -= 1;
+    } else {
+      packs[step.size] += 1;
+      cursor -= step.size;
+    }
+  }
+
+  const lines = [];
+  for (const packSize of CHAPUCICA_PACK_SIZES.slice().reverse()) {
+    const count = packs[packSize];
+    if (!count) continue;
+    lines.push({
+      kind: 'pack',
+      size: packSize,
+      count,
+      amount: profile.packs[packSize] * count,
+    });
+  }
+  if (units > 0) {
+    lines.push({
+      kind: 'units',
+      count: units,
+      amount: profile.unit * units,
+    });
+  }
+
+  const subtotal = dp[quantity];
+  const shippingFree = quantity >= CHAPUCICA_FREE_SHIPPING_MIN;
+  const shipping = shippingFree ? 0 : CHAPUCICA_SHIPPING_FEE;
+  const total = subtotal + shipping;
+
+  return {
+    quantity,
+    packs,
+    units,
+    subtotal,
+    shipping,
+    total,
+    shippingFree,
+    lines,
+  };
+}
+
+function formatEuroES(amount) {
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+}
+
+function getWizardQuoteInputs(answers) {
+  const size = answers[2];
+  const finish = answers[3];
+  const quantity = answers[4];
+
+  if (size === 'Aún no lo sé' || finish === 'Aún no lo sé' || quantity === 'Aún no lo sé') {
+    return null;
+  }
+  if (!size || !finish || typeof quantity !== 'number' || quantity < 1) return null;
+  if (!getPricingProfile(size, finish)) return null;
+
+  return { size, finish, quantity };
+}
+
+function buildWhatsAppPriceLines(result) {
+  if (!result) return [];
+
+  const lines = ['', 'Precio calculado', ''];
+
+  result.lines.forEach(item => {
+    if (item.kind === 'pack') {
+      const label = item.count > 1 ? `Pack${item.size} (×${item.count})` : `Pack${item.size}`;
+      lines.push(`${label}: ${formatEuroES(item.amount)}`);
+    } else {
+      lines.push(`${item.count} unidad${item.count === 1 ? '' : 'es'}: ${formatEuroES(item.amount)}`);
+    }
+  });
+
+  lines.push(`Envío: ${result.shippingFree ? 'Gratis' : formatEuroES(result.shipping)}`);
+  lines.push(`Total: ${formatEuroES(result.total)}`);
+  lines.push('');
+  lines.push('El diseño personalizado está incluido en este precio.');
+
+  return lines;
+}
+
+
+/* ============================================================
    WIZARD — 6-step quote assistant
    ============================================================ */
 
@@ -609,6 +804,8 @@ function initWizard() {
   const qtyCustomInput = document.getElementById('wizard-qty-input');
   const qtyCustomError = document.getElementById('wizard-qty-error');
   const qtyFieldSlot  = document.querySelector('.wizard__qty-field-slot');
+  const priceSlot     = document.getElementById('wizard-price-slot');
+  const priceCard     = document.getElementById('wizard-price');
 
   const QTY_CUSTOM = '__custom__';
 
@@ -641,12 +838,68 @@ function initWizard() {
       nextBtn.hidden = true;
       waBtn.hidden   = false;
       if (privacyNote) privacyNote.hidden = false;
+      updatePriceEstimate();
     } else {
       nextBtn.hidden   = false;
       waBtn.hidden     = true;
       if (privacyNote) privacyNote.hidden = true;
+      if (priceSlot) priceSlot.hidden = true;
       nextBtn.disabled = !canAdvanceFromStep(currentStep);
     }
+  }
+
+  function priceLineHtml(label, value) {
+    return `
+      <div class="wizard__price-line">
+        <span class="wizard__price-line-label">${label}</span>
+        <span class="wizard__price-line-dots" aria-hidden="true"></span>
+        <span class="wizard__price-line-value">${value}</span>
+      </div>`;
+  }
+
+  function renderPriceEmptyState() {
+    if (!priceCard) return;
+    priceCard.className = 'wizard__price wizard__price--empty';
+    priceCard.innerHTML = `
+      <p class="wizard__price-empty-title">Todavía no podemos calcular el precio.</p>
+      <p class="wizard__price-empty-text">Selecciona tamaño, acabado y cantidad para ver una estimación.</p>`;
+  }
+
+  function renderPriceReadyState(result) {
+    if (!priceCard) return;
+    priceCard.className = 'wizard__price wizard__price--ready';
+
+    const breakdown = result.lines.map(item => {
+      if (item.kind === 'pack') {
+        const label = item.count > 1 ? `Pack ${item.size} (×${item.count})` : `Pack ${item.size}`;
+        return priceLineHtml(label, formatEuroES(item.amount));
+      }
+      const unitLabel = item.count === 1 ? '1 unidad' : `${item.count} unidades`;
+      return priceLineHtml(unitLabel, formatEuroES(item.amount));
+    }).join('');
+
+    const shippingLabel = result.shippingFree ? 'Gratis' : formatEuroES(result.shipping);
+
+    priceCard.innerHTML = `
+      <p class="wizard__price-eyebrow">Precio calculado</p>
+      <p class="wizard__price-total">${formatEuroES(result.total)}</p>
+      <p class="wizard__price-note">Diseño personalizado incluido.</p>
+      <div class="wizard__price-breakdown">
+        ${breakdown}
+        ${priceLineHtml('Envío', shippingLabel)}
+        ${priceLineHtml('Total', formatEuroES(result.total))}
+      </div>`;
+  }
+
+  function updatePriceEstimate() {
+    if (!priceSlot || !priceCard || currentStep !== TOTAL_STEPS) return;
+
+    priceSlot.hidden = false;
+    const inputs = getWizardQuoteInputs(answers);
+    const result = inputs ? calculatePrice(inputs.size, inputs.finish, inputs.quantity) : null;
+
+    if (!result) renderPriceEmptyState();
+    else renderPriceReadyState(result);
   }
 
   function parsePositiveInt(value) {
@@ -686,6 +939,7 @@ function initWizard() {
       if (qtyCustomError) qtyCustomError.hidden = true;
       qtyCustomInput.classList.remove('has-error');
       answers[4] = null;
+      updatePriceEstimate();
       return;
     }
 
@@ -694,12 +948,14 @@ function initWizard() {
       if (qtyCustomError) qtyCustomError.hidden = false;
       qtyCustomInput.classList.add('has-error');
       answers[4] = null;
+      updatePriceEstimate();
       return;
     }
 
     if (qtyCustomError) qtyCustomError.hidden = true;
     qtyCustomInput.classList.remove('has-error');
     answers[4] = parsed;
+    updatePriceEstimate();
   }
 
   function restoreQuantityStepUI() {
@@ -742,6 +998,8 @@ function initWizard() {
 
     if (currentStep === 4) updateNav();
     else if (currentStep < TOTAL_STEPS && canAdvanceFromStep(4)) nextBtn.disabled = false;
+
+    updatePriceEstimate();
   }
 
   /**
@@ -811,6 +1069,8 @@ function initWizard() {
         }
       }
     }
+
+    if (stepNum === 2 || stepNum === 3) updatePriceEstimate();
   }
 
   // Attach click handlers to every option in every step
@@ -906,6 +1166,14 @@ function initWizard() {
       lines.push(`• Notas: ${notes}`);
     }
 
+    const quoteInputs = getWizardQuoteInputs(answers);
+    const priceResult = quoteInputs
+      ? calculatePrice(quoteInputs.size, quoteInputs.finish, quoteInputs.quantity)
+      : null;
+    if (priceResult) {
+      lines.push(...buildWhatsAppPriceLines(priceResult));
+    }
+
     lines.push('');
     lines.push('Quedo pendiente de vuestra respuesta. ¡Muchas gracias!');
 
@@ -936,6 +1204,7 @@ function initWizard() {
     if (notesEl) notesEl.value = '';
 
     hideCustomQuantityField(true);
+    if (priceSlot) priceSlot.hidden = true;
 
     const bottleItem = document.getElementById('bottle-opener-option');
     if (bottleItem) bottleItem.hidden = true;
