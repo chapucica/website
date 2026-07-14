@@ -800,10 +800,9 @@ function initWizard() {
   const nextBtn       = document.getElementById('wizard-next');
   const waBtn         = document.getElementById('wizard-wa');
   const privacyNote   = document.getElementById('wizard-privacy-note');
-  const qtyCustomWrap = document.getElementById('wizard-qty-custom');
+  const qtyCustomCard = document.getElementById('wizard-qty-custom-card');
   const qtyCustomInput = document.getElementById('wizard-qty-input');
   const qtyCustomError = document.getElementById('wizard-qty-error');
-  const qtyFieldSlot  = document.querySelector('.wizard__qty-field-slot');
   const priceSlot     = document.getElementById('wizard-price-slot');
   const priceCard     = document.getElementById('wizard-price');
 
@@ -910,25 +909,24 @@ function initWizard() {
     return n;
   }
 
-  function setQtyFieldSlotVisible(show) {
-    if (qtyFieldSlot) qtyFieldSlot.setAttribute('aria-hidden', show ? 'false' : 'true');
-  }
-
-  function hideCustomQuantityField(clearInput = false) {
-    if (!qtyCustomWrap || !qtyCustomInput) return;
-    qtyCustomWrap.hidden = true;
-    setQtyFieldSlotVisible(false);
+  function clearCustomQuantityInput() {
+    if (!qtyCustomInput) return;
+    qtyCustomInput.value = '';
     qtyCustomInput.classList.remove('has-error');
     if (qtyCustomError) qtyCustomError.hidden = true;
-    if (clearInput) qtyCustomInput.value = '';
   }
 
-  function showCustomQuantityField() {
-    if (!qtyCustomWrap || !qtyCustomInput) return;
-    qtyCustomWrap.hidden = false;
-    setQtyFieldSlotVisible(true);
-    qtyCustomInput.classList.remove('has-error');
-    if (qtyCustomError) qtyCustomError.hidden = true;
+  function selectCustomQuantityCard(focusInput = false) {
+    const stepEl = document.getElementById('wizard-step-4');
+    if (!stepEl || !qtyCustomCard) return;
+
+    stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+    qtyCustomCard.classList.add('is-selected');
+    answers[4] = null;
+    syncCustomQuantityAnswer();
+    if (focusInput) qtyCustomInput?.focus({ preventScroll: true });
+    if (currentStep === 4) updateNav();
+    updatePriceEstimate();
   }
 
   function syncCustomQuantityAnswer() {
@@ -960,17 +958,14 @@ function initWizard() {
 
   function restoreQuantityStepUI() {
     const stepEl = document.getElementById('wizard-step-4');
-    if (!stepEl || !qtyCustomWrap) return;
+    if (!stepEl || !qtyCustomCard) return;
 
     const selected = stepEl.querySelector('.wizard__opt.is-selected');
     if (selected?.dataset.value === QTY_CUSTOM) {
-      showCustomQuantityField();
       if (typeof answers[4] === 'number') {
         qtyCustomInput.value = String(answers[4]);
       }
       syncCustomQuantityAnswer();
-    } else {
-      hideCustomQuantityField(false);
     }
   }
 
@@ -984,15 +979,15 @@ function initWizard() {
     const value = btn.dataset.value;
 
     if (value === QTY_CUSTOM) {
-      showCustomQuantityField();
-      answers[4] = null;
-      syncCustomQuantityAnswer();
-      if (currentStep === 4) qtyCustomInput?.focus({ preventScroll: true });
-    } else if (value === 'Aún no lo sé') {
-      hideCustomQuantityField(true);
+      selectCustomQuantityCard(true);
+      return;
+    }
+
+    clearCustomQuantityInput();
+
+    if (value === 'Aún no lo sé') {
       answers[4] = 'Aún no lo sé';
     } else {
-      hideCustomQuantityField(true);
       answers[4] = parseInt(value, 10);
     }
 
@@ -1034,7 +1029,7 @@ function initWizard() {
       toEl.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
       toEl.addEventListener('transitionend', () => {
         toEl.style.cssText = '';
-        const focusTarget = to === 4 && qtyCustomWrap && !qtyCustomWrap.hidden
+        const focusTarget = to === 4 && qtyCustomCard?.classList.contains('is-selected')
           ? qtyCustomInput
           : toEl.querySelector('.wizard__question, .wizard__opt, .wizard__textarea, .wizard__qty-custom-input');
         if (focusTarget) focusTarget.focus({ preventScroll: true });
@@ -1078,12 +1073,31 @@ function initWizard() {
     const stepEl = document.getElementById(`wizard-step-${s}`);
     if (!stepEl) continue;
     stepEl.querySelectorAll('.wizard__opt').forEach(btn => {
+      if (btn.id === 'wizard-qty-custom-card') return;
       btn.addEventListener('click', () => {
         if (s === 4) selectQuantityOption(btn);
         else selectOption(btn, s);
       });
     });
   }
+
+  qtyCustomCard?.addEventListener('click', e => {
+    if (e.target === qtyCustomInput) {
+      if (!qtyCustomCard.classList.contains('is-selected')) selectCustomQuantityCard(false);
+      return;
+    }
+    selectCustomQuantityCard(true);
+  });
+
+  qtyCustomInput?.addEventListener('focus', () => {
+    if (!qtyCustomCard?.classList.contains('is-selected')) {
+      selectCustomQuantityCard(false);
+    }
+  });
+
+  qtyCustomInput?.addEventListener('click', e => {
+    e.stopPropagation();
+  });
 
   qtyCustomInput?.addEventListener('input', () => {
     qtyCustomInput.value = qtyCustomInput.value.replace(/\D/g, '');
@@ -1203,8 +1217,7 @@ function initWizard() {
     const notesEl = document.getElementById('wizard-notes');
     if (notesEl) notesEl.value = '';
 
-    hideCustomQuantityField(true);
-    if (priceSlot) priceSlot.hidden = true;
+    clearCustomQuantityInput();
 
     const bottleItem = document.getElementById('bottle-opener-option');
     if (bottleItem) bottleItem.hidden = true;

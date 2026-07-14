@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=26" />
+  <link rel="stylesheet" href="style.css?v=27" />
 </head>
 <body>
 
@@ -270,7 +270,30 @@
                   <li><button class="wizard__opt wizard__opt--qty" data-value="100" type="button">100</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="150" type="button">150</button></li>
                   <li><button class="wizard__opt wizard__opt--qty" data-value="200" type="button">200</button></li>
-                  <li><button class="wizard__opt wizard__opt--qty" data-value="__custom__" type="button">Otra cantidad</button></li>
+                  <li class="wizard__qty-custom-item">
+                    <div
+                      class="wizard__opt wizard__opt--qty wizard__opt--qty-custom"
+                      id="wizard-qty-custom-card"
+                      data-value="__custom__"
+                      role="group"
+                      aria-label="Otra cantidad"
+                    >
+                      <span class="wizard__opt-label wizard__opt-label--qty-custom">Otra cantidad</span>
+                      <input
+                        class="wizard__qty-custom-input"
+                        id="wizard-qty-input"
+                        type="text"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        autocomplete="off"
+                        placeholder="Ej. 248"
+                        aria-label="Introduce otra cantidad"
+                      />
+                      <p class="wizard__qty-custom-error" id="wizard-qty-error" role="alert" hidden>
+                        Introduce un número entero válido (mínimo 1).
+                      </p>
+                    </div>
+                  </li>
                   <li>
                     <button class="wizard__opt wizard__opt--qty wizard__opt--muted" data-value="Aún no lo sé" type="button">
                       <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
@@ -278,24 +301,6 @@
                     </button>
                   </li>
                 </ul>
-
-                <div class="wizard__qty-field-slot" aria-hidden="true">
-                  <div class="wizard__qty-custom" id="wizard-qty-custom" hidden>
-                    <label class="wizard__qty-custom-label" for="wizard-qty-input">¿Cuántas necesitas?</label>
-                    <input
-                      class="wizard__qty-custom-input"
-                      id="wizard-qty-input"
-                      type="text"
-                      inputmode="numeric"
-                      pattern="[0-9]*"
-                      autocomplete="off"
-                      placeholder="Ej. 30, 78, 225…"
-                    />
-                    <p class="wizard__qty-custom-error" id="wizard-qty-error" role="alert" hidden>
-                      Introduce un número entero válido (mínimo 1).
-                    </p>
-                  </div>
-                </div>
               </div>
 
               <!-- ── Step 5 · Design ── -->
@@ -352,12 +357,12 @@
             </div>
             <!-- /viewport -->
 
-            <div class="wizard__price-slot" id="wizard-price-slot" hidden>
-              <div class="wizard__price" id="wizard-price" aria-live="polite"></div>
-            </div>
+            <div class="wizard__card-bottom">
+              <div class="wizard__price-slot" id="wizard-price-slot" hidden>
+                <div class="wizard__price" id="wizard-price" aria-live="polite"></div>
+              </div>
 
-            <!-- Footer navigation -->
-            <div class="wizard__footer" id="wizard-footer">
+              <div class="wizard__footer" id="wizard-footer">
               <button
                 class="wizard__prev-btn btn btn--secondary"
                 id="wizard-prev"
@@ -397,6 +402,7 @@
               Al continuar, se abrirá WhatsApp con la información seleccionada. El mensaje no se enviará hasta que tú lo confirmes.
               Consulta cómo tratamos tus datos en nuestra <a href="privacidad.html">Política de privacidad</a>.
             </p>
+            </div>
 
           </div>
           <!-- /wizard__card -->
@@ -1143,6 +1149,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=5" charset="UTF-8"></script>
+  <script src="script.js?v=6" charset="UTF-8"></script>
 </body>
 </html>
