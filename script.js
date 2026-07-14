@@ -749,7 +749,7 @@ function initWizard() {
     if (notesEl) answers[6] = notesEl.value.trim();
 
     const lines = [
-      '¡Hola, Chapucica! 😊',
+      '¡Hola, Chapucica!',
       '',
       'Me gustaría pedir presupuesto para unas chapas personalizadas.',
       '',
@@ -1041,7 +1041,7 @@ function initSmoothScroll() {
 function initWhatsAppButton() {
   const wa = document.createElement('a');
   wa.className = 'whatsapp-btn';
-  wa.href      = 'https://wa.me/34623944601?text=%C2%A1Hola%21%20%F0%9F%98%8A%0A%0AMe%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20chapas%20personalizadas.';
+  wa.href      = 'https://wa.me/34623944601?text=%C2%A1Hola%21%0A%0AMe%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20chapas%20personalizadas.';
   wa.target    = '_blank';
   wa.rel       = 'noopener noreferrer';
   wa.setAttribute('aria-label', 'Escríbenos por WhatsApp');
