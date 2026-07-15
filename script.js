@@ -1066,6 +1066,7 @@ function initWizard() {
       fromEl.style.cssText = '';
       currentStep = to;
       if (to === 4) restoreQuantityStepUI();
+      if (to === 3) updateBottleOpenerOption(answers[2]);
       updateProgress();
       updateNav();
 
@@ -1088,6 +1089,24 @@ function initWizard() {
   }
 
   /* ── Select an option card and update state ── */
+  function updateBottleOpenerOption(size) {
+    const bottleBtn = document.getElementById('bottle-opener-option')?.querySelector('.wizard__opt');
+    if (!bottleBtn) return;
+
+    const enabled = size === '59mm';
+    bottleBtn.disabled = !enabled;
+    bottleBtn.classList.toggle('wizard__opt--disabled', !enabled);
+    bottleBtn.setAttribute('aria-disabled', String(!enabled));
+
+    if (!enabled && answers[3] === 'Abridor de botellas') {
+      answers[3] = null;
+      document.getElementById('wizard-step-3')
+        ?.querySelectorAll('.wizard__opt')
+        .forEach(b => b.classList.remove('is-selected'));
+      updatePriceEstimate();
+    }
+  }
+
   function selectOption(btn, stepNum) {
     const stepEl = document.getElementById(`wizard-step-${stepNum}`);
     if (!stepEl) return;
@@ -1097,20 +1116,9 @@ function initWizard() {
     btn.classList.add('is-selected');
     answers[stepNum] = btn.dataset.value;
 
-    // Special logic: show/hide Bottle opener option based on size
+    // Bottle opener only available with 59 mm
     if (stepNum === 2) {
-      const bottleItem = document.getElementById('bottle-opener-option');
-      if (bottleItem) {
-        const show = btn.dataset.value === '59mm';
-        bottleItem.hidden = !show;
-        // Clear stale selection if the option is now hidden
-        if (!show && answers[3] === 'Abridor de botellas') {
-          answers[3] = null;
-          document.getElementById('wizard-step-3')
-            ?.querySelectorAll('.wizard__opt')
-            .forEach(b => b.classList.remove('is-selected'));
-        }
-      }
+      updateBottleOpenerOption(btn.dataset.value);
     }
 
     if (stepNum === 2 || stepNum === 3) updatePriceEstimate();
@@ -1273,8 +1281,7 @@ function initWizard() {
 
     clearCustomQuantityInput();
 
-    const bottleItem = document.getElementById('bottle-opener-option');
-    if (bottleItem) bottleItem.hidden = true;
+    updateBottleOpenerOption(null);
 
     updateProgress();
     updateNav();

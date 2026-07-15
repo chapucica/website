@@ -3744,6 +3744,40 @@ p, li           { text-wrap: pretty; }
   background-color: var(--c-bronze-light);
 }
 
+/* Disabled option (e.g. abridor without 59 mm) */
+.wizard__opt:disabled,
+.wizard__opt.wizard__opt--disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+  background-color: var(--c-cream);
+  border-color: var(--color-border);
+}
+
+.wizard__opt:disabled:hover,
+.wizard__opt.wizard__opt--disabled:hover {
+  transform: none;
+  border-color: var(--color-border);
+  background-color: var(--c-cream);
+  box-shadow: none;
+}
+
+.wizard__opt:disabled .wizard__opt-emoji,
+.wizard__opt.wizard__opt--disabled .wizard__opt-emoji {
+  transform: none;
+  filter: grayscale(0.4);
+  opacity: 0.75;
+}
+
+.wizard__opt:disabled .wizard__opt-label,
+.wizard__opt:disabled .wizard__opt-note,
+.wizard__opt.wizard__opt--disabled .wizard__opt-label,
+.wizard__opt.wizard__opt--disabled .wizard__opt-note {
+  color: var(--color-text-muted);
+}
+
 /* Emoji */
 .wizard__opt-emoji {
   font-size: 2rem;

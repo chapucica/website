@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=35" />
+  <link rel="stylesheet" href="style.css?v=36" />
 </head>
 <body>
 
@@ -251,11 +251,17 @@
                     <button class="wizard__opt" data-value="Imán" type="button">
                       <span class="wizard__opt-emoji" aria-hidden="true">🧲</span>
                       <span class="wizard__opt-label">Imán</span>
-                      <span class="wizard__opt-note">Sin agujeros, reutilizable</span>
+                      <span class="wizard__opt-note">Sin agujeros</span>
                     </button>
                   </li>
-                  <li id="bottle-opener-option" hidden>
-                    <button class="wizard__opt" data-value="Abridor de botellas" type="button">
+                  <li id="bottle-opener-option">
+                    <button
+                      class="wizard__opt wizard__opt--disabled"
+                      data-value="Abridor de botellas"
+                      type="button"
+                      disabled
+                      aria-disabled="true"
+                    >
                       <span class="wizard__opt-emoji" aria-hidden="true">🍾</span>
                       <span class="wizard__opt-label">Abridor de botellas</span>
                       <span class="wizard__opt-note">Solo con 59mm</span>
@@ -1091,6 +1097,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=11" charset="UTF-8"></script>
+  <script src="script.js?v=12" charset="UTF-8"></script>
 </body>
 </html>
