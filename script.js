@@ -1355,6 +1355,13 @@ function initPricingAccordion() {
   const triggers = $$('.pricing-accordion__trigger');
   if (!triggers.length) return;
 
+  const PANEL_OPEN_MS = 360;
+
+  function scrollOpenItemIntoView(item) {
+    if (!item || !window.matchMedia('(max-width: 767px)').matches) return;
+    item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   triggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
       const item     = trigger.closest('.pricing-accordion__item');
@@ -1374,6 +1381,9 @@ function initPricingAccordion() {
         trigger.setAttribute('aria-expanded', 'true');
         item?.classList.add('is-open');
         if (panel) panel.setAttribute('aria-hidden', 'false');
+        if (item) {
+          setTimeout(() => scrollOpenItemIntoView(item), PANEL_OPEN_MS);
+        }
       }
     });
   });

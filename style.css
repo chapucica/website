@@ -3203,6 +3203,7 @@ p, li           { text-wrap: pretty; }
   background-color: var(--c-white);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
+  scroll-margin-top: 5.5rem;
   transition: border-color var(--t-base), box-shadow var(--t-base);
 }
 
