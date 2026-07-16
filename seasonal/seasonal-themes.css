@@ -24,34 +24,6 @@
   background: radial-gradient(circle at 35% 30%, #ffd666 0%, #e8a838 45%, #243b6b 100%);
 }
 
-.spotlight__scene-track--cole {
-  position: relative;
-  height: 3.5rem;
-  overflow: hidden;
-}
-
-.spotlight__scene-track--cole::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 3px;
-  transform: translateY(-50%);
-  background: rgba(255, 214, 102, 0.35);
-  border-radius: 99px;
-}
-
-.spotlight__scene-icon--cole {
-  position: absolute;
-  bottom: 52%;
-  left: 0;
-  font-size: 2rem;
-  line-height: 1;
-  animation: seasonal-scene-drive 11s linear infinite;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
-}
-
 /* ── Cartagineses y Romanos ── */
 .spotlight--cartagineses {
   background: linear-gradient(165deg, #1a0f0a 0%, #3d1810 40%, #2a1510 100%);
@@ -80,46 +52,79 @@
   background: radial-gradient(circle at 35% 30%, #d4a730 0%, #8b4513 50%, #1a0f0a 100%);
 }
 
-.spotlight__scene-track--cartagineses {
+/* ── Shimmer en chapas (opción 4) ── */
+.spotlight--cole .spotlight-card__media,
+.spotlight--cartagineses .spotlight-card__media {
   position: relative;
-  height: 3.75rem;
-  overflow: hidden;
+  isolation: isolate;
 }
 
-.spotlight__scene-track--cartagineses::before {
+.spotlight--cole .spotlight-card__media::after,
+.spotlight--cartagineses .spotlight-card__media::after {
   content: '';
   position: absolute;
-  bottom: 0.65rem;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: rgba(212, 167, 48, 0.4);
-  border-radius: 2px;
+  inset: -20%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.08) 44%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.08) 56%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-14deg);
+  animation: seasonal-shimmer 5.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
-.spotlight__scene-icon--cartagineses {
-  position: absolute;
-  bottom: 0.85rem;
-  left: 0;
-  font-size: 2.25rem;
-  line-height: 1;
-  animation: seasonal-scene-drive 14s linear infinite;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+.spotlight--cartagineses .spotlight-card__media::after {
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 220, 150, 0.06) 44%,
+    rgba(255, 230, 170, 0.45) 50%,
+    rgba(255, 220, 150, 0.06) 56%,
+    transparent 62%
+  );
 }
 
-@keyframes seasonal-scene-drive {
-  0%   { left: -10%; opacity: 0; }
-  5%   { opacity: 1; }
-  95%  { opacity: 1; }
-  100% { left: 110%; opacity: 0; }
+.spotlight--cole .spotlight-card:nth-child(1) .spotlight-card__media::after,
+.spotlight--cartagineses .spotlight-card:nth-child(1) .spotlight-card__media::after {
+  animation-delay: 0s;
+}
+
+.spotlight--cole .spotlight-card:nth-child(2) .spotlight-card__media::after,
+.spotlight--cartagineses .spotlight-card:nth-child(2) .spotlight-card__media::after {
+  animation-delay: 1.8s;
+}
+
+.spotlight--cole .spotlight-card:nth-child(3) .spotlight-card__media::after,
+.spotlight--cartagineses .spotlight-card:nth-child(3) .spotlight-card__media::after {
+  animation-delay: 3.6s;
+}
+
+@keyframes seasonal-shimmer {
+  0%, 72%, 100% {
+    transform: translateX(-130%) skewX(-14deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  28% {
+    transform: translateX(130%) skewX(-14deg);
+    opacity: 1;
+  }
+  36% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .spotlight__scene-icon--cole,
-  .spotlight__scene-icon--cartagineses {
+  .spotlight--cole .spotlight-card__media::after,
+  .spotlight--cartagineses .spotlight-card__media::after {
     animation: none;
-    left: 50%;
-    transform: translateX(-50%);
+    display: none;
   }
 }
 
