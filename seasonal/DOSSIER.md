@@ -106,20 +106,22 @@
 
 **Ventana:** 1 jul – 19 ago (entre primavera y vuelta al cole).
 
+**Enfoque:** típicos locales (comida, bebida, paisajes, bromas). **No** fiestas/peñas. **Sin** “cartagenero”.
+
 **Copy propuesto (spotlight):**
-- **Título:** 🍋 Sabor murciano
-- **Texto 1:** Bando, huerta, barrio, peña de verano… Las fiestas no se acaban en primavera.
-- **Texto 2:** Chapas con acento cartagenero y murciano — diseño incluido, como siempre.
+- **Título:** 🍋 Muy de aquí
+- **Texto 1:** Pastel de carne, un asiático bien puesto, paisajes de huerta y bromas que solo se pillan en Murcia.
+- **Texto 2:** Chapas con humor local — diseño incluido, como siempre.
 
 **Tarjetas ejemplo (sustituir por diseños reales):**
 | Nombre | Idea |
 |--------|------|
-| De la huerta | Sabor local |
-| Del barrio | Peña · cuadrilla |
-| Cartagener@ | Orgullo local |
+| Pastel de carne | Clásico de barra |
+| Asiático | El café murciano |
+| 40º a la sombra | Broma local |
 
-**Escena animada:** mascota flotante 🍋 + shimmer limón/oro en chapas.  
-**Colores:** verde huerta + teal Chapucica + limón/oro.
+**Escena animada:** limones suaves de fondo (drift) + shimmer limón en chapas. Bloque luminoso (crema / limón / teal).  
+**Colores:** crema Chapucica + limón/oro + teal.
 
 **Preview:** `seasonal/previews/murcianico.html`
 

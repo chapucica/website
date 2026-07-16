@@ -60,8 +60,84 @@
   background: radial-gradient(circle, rgba(212, 167, 48, 0.42) 0%, transparent 68%);
 }
 
-.seasonal-mascot--murcianico .seasonal-mascot__glow {
-  background: radial-gradient(circle, rgba(240, 194, 74, 0.5) 0%, rgba(110, 200, 179, 0.2) 45%, transparent 70%);
+/* ── Murcianico (verano fallback · huerta luminosa) ── */
+.spotlight--murcianico {
+  background: linear-gradient(165deg, #fffef8 0%, #fef5d7 42%, #dff5ee 100%);
+  color: #1a1814;
+  overflow: hidden;
+}
+
+.spotlight--murcianico .spotlight__texture {
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='10' r='1.5' fill='%23f0c24a' opacity='.35'/%3E%3Ccircle cx='34' cy='28' r='1.2' fill='%236ec8b3' opacity='.3'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+
+.spotlight--murcianico .spotlight__heading {
+  color: #1a1814;
+}
+
+.spotlight--murcianico .spotlight__text {
+  color: rgba(26, 24, 20, 0.72);
+}
+
+.spotlight--murcianico .spotlight-card__inner {
+  border-color: rgba(240, 194, 74, 0.55);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 24px rgba(240, 194, 74, 0.12);
+}
+
+.spotlight--murcianico .spotlight-card__inner:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(110, 200, 179, 0.55);
+}
+
+.spotlight--murcianico .spotlight-card__name {
+  color: #1a1814;
+}
+
+.spotlight--murcianico .spotlight-card__tag {
+  color: rgba(26, 24, 20, 0.45);
+}
+
+.spotlight--murcianico .spotlight-card__media {
+  background: radial-gradient(circle at 35% 30%, #ffe08a 0%, #f0c24a 42%, #6ec8b3 100%);
+}
+
+/* Limones de fondo — movimiento suave, no loco */
+.spotlight__lemons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.lemon {
+  position: absolute;
+  line-height: 1;
+  opacity: 0.28;
+  filter: blur(0.2px);
+  animation: lemon-drift 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.lemon--a { top: 8%;  left: 6%;  font-size: 2.4rem; animation-duration: 6.5s; opacity: 0.32; }
+.lemon--b { top: 18%; right: 8%; font-size: 1.7rem; animation-duration: 8.2s; animation-delay: -1.2s; opacity: 0.22; }
+.lemon--c { top: 52%; left: 4%;  font-size: 2rem;   animation-duration: 7.4s; animation-delay: -2.4s; opacity: 0.26; }
+.lemon--d { top: 62%; right: 12%; font-size: 2.8rem; animation-duration: 9s;   animation-delay: -0.8s; opacity: 0.3; }
+.lemon--e { top: 34%; left: 42%; font-size: 1.45rem; animation-duration: 5.8s; animation-delay: -3.1s; opacity: 0.18; }
+.lemon--f { bottom: 12%; left: 22%; font-size: 2.1rem; animation-duration: 7.8s; animation-delay: -4s; opacity: 0.24; }
+
+@keyframes lemon-drift {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-14px) rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lemon {
+    animation: none;
+  }
 }
 
 @keyframes seasonal-mascot-float {
@@ -107,34 +183,6 @@
 
 .spotlight--cartagineses .spotlight-card__media {
   background: radial-gradient(circle at 35% 30%, #d4a730 0%, #8b4513 50%, #1a0f0a 100%);
-}
-
-/* ── Murcianico (verano fallback · huerta) ── */
-.spotlight--murcianico {
-  background: linear-gradient(165deg, #1a2e28 0%, #2a4a3e 45%, #243d35 100%);
-}
-
-.spotlight--murcianico .spotlight__texture {
-  opacity: 0.1;
-  background-image: url("data:image/svg+xml,%3Csvg width='70' height='70' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='18' cy='18' r='3' fill='%23f0c24a' opacity='.15'/%3E%3Ccircle cx='52' cy='42' r='2.5' fill='%236ec8b3' opacity='.18'/%3E%3C/svg%3E");
-  background-size: 56px 56px;
-}
-
-.spotlight--murcianico .spotlight__heading {
-  color: #fef5d7;
-}
-
-.spotlight--murcianico .spotlight__text {
-  color: rgba(254, 252, 245, 0.78);
-}
-
-.spotlight--murcianico .spotlight-card__inner {
-  border-color: rgba(240, 194, 74, 0.28);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.spotlight--murcianico .spotlight-card__media {
-  background: radial-gradient(circle at 35% 30%, #f0c24a 0%, #6ec8b3 48%, #1a2e28 100%);
 }
 
 /* ── Shimmer en chapas (opción 4) ── */
