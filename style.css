@@ -280,6 +280,8 @@ address { font-style: normal; }
   display: block;
   width: 100%;
   height: 2.75rem;
+  /* Evita hairline de 1px entre ola y sección en Safari iOS */
+  margin-bottom: -1px;
 }
 
 .section-wave__surface {
@@ -3199,32 +3201,25 @@ p, li           { text-wrap: pretty; }
 
 .pricing-accordion__item {
   position: relative;
-  border: none;
+  isolation: isolate;
+  border: 1px solid var(--color-border);
   border-radius: var(--r-xl);
   background-color: var(--c-cream);
-  box-shadow:
-    0 0 0 1px var(--color-border),
-    var(--shadow-sm);
-  overflow: clip;
+  overflow: hidden;
   scroll-margin-top: 5.5rem;
-  transition: box-shadow var(--t-base), background-color var(--t-base);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+  transition: border-color var(--t-base), background-color var(--t-base), box-shadow var(--t-base);
 }
 
 .pricing-accordion__item.is-open {
   background-color: var(--c-white);
-  box-shadow:
-    0 0 0 1px rgba(110, 200, 179, 0.42),
-    0 4px 20px rgba(26, 24, 20, 0.06);
+  border-color: rgba(110, 200, 179, 0.48);
+  box-shadow: 0 4px 16px rgba(26, 24, 20, 0.05);
 }
 
 .pricing-accordion__heading {
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
-  border-radius: inherit;
 }
 
 .pricing-accordion__trigger {
@@ -3235,8 +3230,7 @@ p, li           { text-wrap: pretty; }
   width: 100%;
   padding: var(--sp-5) var(--sp-5);
   border: none;
-  border-radius: inherit;
-  background: var(--c-cream);
+  background-color: var(--c-cream);
   cursor: pointer;
   text-align: left;
   font-family: inherit;
@@ -3245,12 +3239,11 @@ p, li           { text-wrap: pretty; }
 }
 
 .pricing-accordion__trigger:hover {
-  background-color: var(--c-bronze-light);
+  background-color: var(--c-teal-light);
 }
 
 .pricing-accordion__item.is-open .pricing-accordion__trigger {
   background-color: var(--color-accent-light);
-  border-radius: var(--r-xl) var(--r-xl) 0 0;
 }
 
 .pricing-accordion__trigger-text {
@@ -3311,22 +3304,29 @@ p, li           { text-wrap: pretty; }
 .pricing-accordion__panel {
   display: grid;
   grid-template-rows: 0fr;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: var(--c-white);
   transition: grid-template-rows 0.35s cubic-bezier(.22,1,.36,1);
 }
 
 .pricing-accordion__item.is-open .pricing-accordion__panel {
   grid-template-rows: 1fr;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .pricing-accordion__panel[aria-hidden="true"] {
   grid-template-rows: 0fr;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .pricing-accordion__panel-inner {
   min-height: 0;
   overflow: hidden;
   background-color: var(--c-white);
-  border-radius: 0 0 var(--r-xl) var(--r-xl);
 }
 
 .pricing-panel__options {
@@ -3415,7 +3415,7 @@ p, li           { text-wrap: pretty; }
   flex-direction: column;
   gap: var(--sp-2);
   background-color: var(--c-cream);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--r-xl);
 }
 
