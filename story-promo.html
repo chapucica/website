@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Chapucica — Story promo (grabación)</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c-cream: #FEFCF5;
+      --c-teal: #6EC8B3;
+      --c-teal-deep: #2E9080;
+      --c-teal-light: #E8F7F4;
+      --c-gold: #F0C24A;
+      --c-ink: #1A1814;
+      --c-ink-60: rgba(26, 24, 20, 0.6);
+      --font-heading: 'Fraunces', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --scene-ms: 3000;
+    }
+
+    html, body {
+      height: 100%;
+      background: #111;
+      font-family: var(--font-body);
+      color: var(--c-ink);
+      overflow: hidden;
+    }
+
+    /* ── Desktop: instrucciones fuera del frame ── */
+    .rec-guide {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(22rem, 36vw);
+      padding: 2rem 1.5rem;
+      background: #1a1814;
+      color: #f6f3ec;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .rec-guide h1 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--c-teal);
+    }
+
+    .rec-guide ol {
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .rec-guide kbd {
+      background: rgba(255,255,255,0.1);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      font-size: 0.8em;
+    }
+
+    .rec-guide p.note {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      opacity: 0.75;
+    }
+
+    @media (max-width: 900px) {
+      .rec-guide { display: none; }
+    }
+
+    /* ── Stage: centra el frame 9:16 ── */
+    .story-stage {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    @media (min-width: 901px) {
+      .story-stage { margin-left: min(22rem, 36vw); }
+    }
+
+    .story-frame {
+      position: relative;
+      width: min(100vw, calc(100vh * 9 / 16));
+      height: min(100vh, calc(100vw * 16 / 9));
+      background: var(--c-cream);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* ── Scenes ── */
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 2.75rem 1.75rem 2.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.55s ease, visibility 0.55s;
+      pointer-events: none;
+    }
+
+    .scene.is-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .scene__bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .scene__bg--cream {
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(110,200,179,0.35), transparent 55%),
+        var(--c-cream);
+    }
+
+    .scene__bg--teal {
+      background: linear-gradient(165deg, var(--c-teal) 0%, var(--c-teal-deep) 100%);
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.45;
+    }
+
+    .blob--1 { width: 12rem; height: 12rem; background: var(--c-teal); top: -3rem; right: -2rem; }
+    .blob--2 { width: 9rem; height: 9rem; background: var(--c-gold); bottom: 20%; left: -2rem; opacity: 0.35; }
+
+    .scene__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-teal-deep);
+      margin-bottom: 0.75rem;
+    }
+
+    .scene__title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.85rem, 7.5vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .scene__sub {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--c-ink-60);
+      max-width: 18rem;
+    }
+
+    .scene__sub--light { color: rgba(255,255,255,0.88); }
+
+    /* Scene 1 — Brand */
+    .scene--brand {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .brand-logo {
+      width: 5.5rem;
+      height: 5.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 12px 40px rgba(26,24,20,0.12);
+      margin-bottom: 1.25rem;
+      transform: scale(0.6);
+      opacity: 0;
+    }
+
+    .scene.is-active .brand-logo {
+      animation: popIn 0.7s cubic-bezier(.22,1,.36,1) 0.15s forwards;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .scene.is-active .brand-name {
+      animation: slideUp 0.6s cubic-bezier(.22,1,.36,1) 0.35s forwards;
+    }
+
+    .brand-tag {
+      margin-top: 0.65rem;
+      font-size: 0.95rem;
+      color: var(--c-ink-60);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .scene.is-active .brand-tag {
+      animation: slideUp 0.6s cubic-bezier(.22,1,.36,1) 0.55s forwards;
+    }
+
+    /* Scene 2 — Hero */
+    .scene--hero { justify-content: flex-end; }
+
+    .hero-visual {
+      position: absolute;
+      top: 2.5rem;
+      left: 1.75rem;
+      right: 1.75rem;
+      bottom: 38%;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(26,24,20,0.14);
+      transform: translateY(24px) scale(0.96);
+      opacity: 0;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .scene.is-active .hero-visual {
+      animation: heroIn 0.85s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+    }
+
+    .hero-copy {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .scene.is-active .hero-copy {
+      animation: slideUp 0.65s cubic-bezier(.22,1,.36,1) 0.45s forwards;
+    }
+
+    /* Scene 3 — Wizard mock */
+    .scene--wizard { gap: 0.75rem; }
+
+    .wizard-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1.5px solid rgba(26,24,20,0.1);
+      border-radius: 1.25rem;
+      padding: 1.25rem 1.1rem;
+      box-shadow: 0 8px 32px rgba(26,24,20,0.07);
+      margin-top: 0.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .scene.is-active .wizard-card {
+      animation: slideUp 0.6s cubic-bezier(.22,1,.36,1) 0.15s forwards;
+    }
+
+    .wizard-progress {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .wizard-progress span {
+      flex: 1;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(26,24,20,0.08);
+    }
+
+    .wizard-progress span.is-fill { background: var(--c-teal); }
+
+    .wizard-q {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .wizard-opts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      flex: 1;
+      align-content: start;
+    }
+
+    .wizard-opt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 0.65rem 0.4rem;
+      background: var(--c-cream);
+      border: 1.5px solid rgba(26,24,20,0.1);
+      border-radius: 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: scale(0.88);
+    }
+
+    .wizard-opt .emoji { font-size: 1.35rem; line-height: 1; }
+
+    .wizard-opt.is-pick {
+      border-color: var(--c-teal);
+      background: var(--c-teal-light);
+      box-shadow: 0 0 0 2px rgba(110,200,179,0.25);
+    }
+
+    .scene.is-active .wizard-opt:nth-child(1) { animation: chipIn 0.4s 0.35s forwards; }
+    .scene.is-active .wizard-opt:nth-child(2) { animation: chipIn 0.4s 0.5s forwards; }
+    .scene.is-active .wizard-opt:nth-child(3) { animation: chipIn 0.4s 0.65s forwards; }
+    .scene.is-active .wizard-opt:nth-child(4) { animation: chipIn 0.4s 0.8s forwards; }
+
+    .scene.is-active .wizard-opt.is-pick {
+      animation: chipPick 0.45s 1.1s forwards;
+    }
+
+    .price-badge {
+      align-self: center;
+      margin-top: auto;
+      padding: 0.65rem 1.25rem;
+      background: var(--c-teal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border-radius: 99px;
+      box-shadow: 0 6px 20px rgba(46,144,128,0.35);
+      opacity: 0;
+      transform: scale(0.85);
+    }
+
+    .scene.is-active .price-badge {
+      animation: popIn 0.5s cubic-bezier(.22,1,.36,1) 1.65s forwards;
+    }
+
+    /* Scene 4 — Gallery */
+    .scene--gallery { gap: 1rem; }
+
+    .gallery-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 0.55rem;
+      min-height: 0;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(26,24,20,0.1);
+      opacity: 0;
+      transform: scale(0.92);
+    }
+
+    .scene.is-active .gallery-grid img:nth-child(1) { animation: chipIn 0.45s 0.2s forwards; }
+    .scene.is-active .gallery-grid img:nth-child(2) { animation: chipIn 0.45s 0.35s forwards; }
+    .scene.is-active .gallery-grid img:nth-child(3) { animation: chipIn 0.45s 0.5s forwards; }
+    .scene.is-active .gallery-grid img:nth-child(4) { animation: chipIn 0.45s 0.65s forwards; }
+
+    /* Scene 5 — CTA */
+    .scene--cta {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .scene--cta .scene__title {
+      font-size: clamp(2rem, 8.5vw, 2.6rem);
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    .scene--cta.is-active .scene__title {
+      animation: slideUp 0.65s 0.15s forwards;
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.85rem 1.5rem;
+      background: #fff;
+      color: var(--c-teal-deep);
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 99px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .scene.is-active .cta-pill {
+      animation: slideUp 0.55s 0.45s forwards;
+    }
+
+    .cta-handle {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+    }
+
+    .scene.is-active .cta-handle {
+      animation: slideUp 0.5s 0.7s forwards;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 3px;
+      padding: 0.65rem 0.75rem 0;
+      z-index: 10;
+    }
+
+    .progress-bar span {
+      flex: 1;
+      height: 3px;
+      border-radius: 99px;
+      background: rgba(26,24,20,0.12);
+      overflow: hidden;
+    }
+
+    .scene--cta .progress-bar span { background: rgba(255,255,255,0.25); }
+
+    .progress-bar span i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--c-teal-deep);
+      border-radius: inherit;
+    }
+
+    .scene--cta .progress-bar span i { background: #fff; }
+
+    .progress-bar span.is-done i { width: 100%; }
+    .progress-bar span.is-current i {
+      animation: progressFill var(--scene-ms) linear forwards;
+    }
+
+    @keyframes progressFill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes chipIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes chipPick {
+      0% { opacity: 1; transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { opacity: 1; transform: scale(1); border-color: var(--c-teal); background: var(--c-teal-light); }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="rec-guide" aria-label="Instrucciones de grabación">
+    <h1>Grabar Story (15 s)</h1>
+    <ol>
+      <li>Abre esta página en el móvil o en pantalla completa.</li>
+      <li>Inicia la grabación de pantalla en vertical (9:16).</li>
+      <li>Espera un ciclo completo — <strong>5 escenas × 3 s</strong>.</li>
+      <li>Para repetir, deja que haga loop o recarga la página.</li>
+      <li>En Instagram Stories: recorta si hace falta y añade enlace a <strong>chapucica.com</strong>.</li>
+    </ol>
+    <p class="note">URL: <code>/story-promo.html</code> · Las barras de arriba imitan el progreso de Stories.</p>
+  </aside>
+
+  <div class="story-stage">
+    <div class="story-frame" id="story-frame" role="img" aria-label="Promo animada de Chapucica">
+
+      <div class="progress-bar" id="progress-bar" aria-hidden="true">
+        <span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span>
+      </div>
+
+      <!-- 1 · Marca -->
+      <section class="scene scene--brand is-active" data-scene="0">
+        <div class="scene__bg scene__bg--cream">
+          <div class="blob blob--1"></div>
+          <div class="blob blob--2"></div>
+        </div>
+        <img class="brand-logo" src="assets/logo.png" alt="" width="88" height="88" />
+        <p class="brand-name">Chapucica</p>
+        <p class="brand-tag">Detalles únicos para momentos únicos</p>
+      </section>
+
+      <!-- 2 · Hero -->
+      <section class="scene scene--hero" data-scene="1">
+        <div class="scene__bg scene__bg--cream"></div>
+        <div class="hero-visual">
+          <img src="assets/hero.png" alt="" />
+        </div>
+        <div class="hero-copy">
+          <p class="scene__eyebrow">Chapas personalizadas</p>
+          <h2 class="scene__title">Chapas que cuentan tu historia</h2>
+          <p class="scene__sub">Bodas, cumpleaños, bautizos y mucho más.</p>
+        </div>
+      </section>
+
+      <!-- 3 · Wizard -->
+      <section class="scene scene--wizard" data-scene="2">
+        <div class="scene__bg scene__bg--cream"></div>
+        <p class="scene__eyebrow">Tu chapa, a tu manera</p>
+        <h2 class="scene__title">Calcula tu precio al instante</h2>
+        <div class="wizard-card">
+          <div class="wizard-progress">
+            <span class="is-fill"></span><span class="is-fill"></span><span class="is-fill"></span><span></span><span></span><span></span>
+          </div>
+          <p class="wizard-q">¿Qué estás celebrando?</p>
+          <div class="wizard-opts">
+            <div class="wizard-opt is-pick"><span class="emoji">💍</span> Boda</div>
+            <div class="wizard-opt"><span class="emoji">🎂</span> Cumpleaños</div>
+            <div class="wizard-opt"><span class="emoji">👶</span> Bautizo</div>
+            <div class="wizard-opt"><span class="emoji">✨</span> Personalizado</div>
+          </div>
+          <p class="price-badge">~70 € · diseño incluido</p>
+        </div>
+      </section>
+
+      <!-- 4 · Galería -->
+      <section class="scene scene--gallery" data-scene="3">
+        <div class="scene__bg scene__bg--cream"></div>
+        <p class="scene__eyebrow">✨ Celebraciones reales</p>
+        <h2 class="scene__title">Hechas con cariño</h2>
+        <div class="gallery-grid">
+          <img src="assets/moments/IMG_20260713_112839_900.jpg" alt="" />
+          <img src="assets/moments/IMG_20260713_113039_823.jpg" alt="" />
+          <img src="assets/moments/IMG_20260713_113217_937.jpg" alt="" />
+          <img src="assets/moments/IMG_20260713_113242_979.jpg" alt="" />
+        </div>
+      </section>
+
+      <!-- 5 · CTA -->
+      <section class="scene scene--cta" data-scene="4">
+        <div class="scene__bg scene__bg--teal"></div>
+        <h2 class="scene__title">Calcula tu precio<br />en 1 minuto</h2>
+        <p class="scene__sub scene__sub--light">Sin pedido automático · Tú decides cuándo escribir</p>
+        <p class="cta-pill">chapucica.com</p>
+        <p class="cta-handle">@chapucica</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const SCENE_MS = 3000;
+      const scenes = [...document.querySelectorAll('.scene')];
+      const bars = [...document.querySelectorAll('#progress-bar span')];
+      let current = 0;
+      let timer;
+
+      function updateProgress(index) {
+        bars.forEach((bar, i) => {
+          bar.classList.remove('is-done', 'is-current');
+          const fill = bar.querySelector('i');
+          if (fill) fill.style.animation = 'none';
+          if (i < index) bar.classList.add('is-done');
+          if (i === index) {
+            bar.classList.add('is-current');
+            if (fill) {
+              void fill.offsetWidth;
+              fill.style.animation = '';
+            }
+          }
+        });
+      }
+
+      function showScene(index) {
+        scenes.forEach((scene, i) => {
+          scene.classList.toggle('is-active', i === index);
+        });
+        updateProgress(index);
+        current = index;
+      }
+
+      function nextScene() {
+        showScene((current + 1) % scenes.length);
+      }
+
+      function restartAnimations() {
+        const active = scenes[current];
+        active.classList.remove('is-active');
+        void active.offsetWidth;
+        active.classList.add('is-active');
+        updateProgress(current);
+      }
+
+      showScene(0);
+      timer = setInterval(nextScene, SCENE_MS);
+
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) restartAnimations();
+      });
+    })();
+  </script>
+</body>
+</html>
