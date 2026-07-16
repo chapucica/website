@@ -1358,7 +1358,7 @@ function initPricingAccordion() {
   const PANEL_OPEN_MS = 360;
 
   function scrollOpenItemIntoView(item) {
-    if (!item || !window.matchMedia('(max-width: 767px)').matches) return;
+    if (!item) return;
     item.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
