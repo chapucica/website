@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=44" />
+  <link rel="stylesheet" href="style.css?v=45" />
   <script src="cookie-consent.js" charset="UTF-8"></script>
   <script src="analytics.js" charset="UTF-8"></script>
   <script type="application/ld+json">
@@ -245,7 +245,7 @@
                   class="wizard__progress-track"
                   role="progressbar"
                   aria-valuemin="1"
-                  aria-valuemax="6"
+                  aria-valuemax="4"
                   aria-valuenow="1"
                   aria-label="Progreso de preguntas"
                   id="wizard-progress-track"
@@ -254,7 +254,7 @@
                 </div>
               </div>
               <span class="wizard__step-counter" aria-live="polite">
-                <span id="wizard-step-num">1</span>&thinsp;de&thinsp;6
+                <span id="wizard-step-num">1</span>&thinsp;de&thinsp;4
               </span>
             </div>
 
@@ -316,88 +316,91 @@
                 </ul>
               </div>
 
-              <!-- ── Step 2 · Size ── -->
+              <!-- ── Step 2 · Size + Finish (2.1 + 2.2) ── -->
               <div class="wizard__step" id="wizard-step-2" data-step="2" hidden>
-                <h3 class="wizard__question" tabindex="-1">Elige tu tamaño</h3>
-                <ul class="wizard__opts wizard__opts--sizes" role="list">
-                  <li>
-                    <button class="wizard__opt wizard__opt--size" data-value="38mm" type="button">
-                      <span class="wizard__size-ring" aria-hidden="true">
-                        <span>38</span>
-                      </span>
-                      <span class="wizard__opt-label">38mm</span>
-                      <span class="wizard__opt-note">Pequeña & poderosa</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="wizard__opt wizard__opt--size" data-value="50mm" type="button">
-                      <span class="wizard__size-ring" aria-hidden="true">
-                        <span>50</span>
-                      </span>
-                      <span class="wizard__opt-label">50mm</span>
-                      <span class="wizard__opt-note">Equilibrio perfecto</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="wizard__opt wizard__opt--size" data-value="59mm" type="button">
-                      <span class="wizard__size-ring" aria-hidden="true">
-                        <span>59</span>
-                      </span>
-                      <span class="wizard__opt-label">59mm</span>
-                      <span class="wizard__opt-note">Abre conversaciones</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="wizard__opt wizard__opt--muted" data-value="Aún no lo sé" type="button">
-                      <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
-                      <span class="wizard__opt-label">Aún no lo sé</span>
-                    </button>
-                  </li>
-                </ul>
+                <div class="wizard__chapa-type">
+                  <div class="wizard__chapa-part wizard__chapa-part--size">
+                    <h3 class="wizard__question" tabindex="-1">Elige tu tamaño</h3>
+                    <ul class="wizard__opts wizard__opts--sizes" role="list">
+                      <li>
+                        <button class="wizard__opt wizard__opt--size" data-value="38mm" type="button">
+                          <span class="wizard__size-ring" aria-hidden="true">
+                            <span>38</span>
+                          </span>
+                          <span class="wizard__opt-label">38mm</span>
+                          <span class="wizard__opt-note">Pequeña & poderosa</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="wizard__opt wizard__opt--size" data-value="50mm" type="button">
+                          <span class="wizard__size-ring" aria-hidden="true">
+                            <span>50</span>
+                          </span>
+                          <span class="wizard__opt-label">50mm</span>
+                          <span class="wizard__opt-note">Equilibrio perfecto</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="wizard__opt wizard__opt--size" data-value="59mm" type="button">
+                          <span class="wizard__size-ring" aria-hidden="true">
+                            <span>59</span>
+                          </span>
+                          <span class="wizard__opt-label">59mm</span>
+                          <span class="wizard__opt-note">Abre conversaciones</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="wizard__opt wizard__opt--muted" data-value="Aún no lo sé" type="button">
+                          <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
+                          <span class="wizard__opt-label">Aún no lo sé</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="wizard__chapa-part wizard__chapa-part--finish" id="wizard-finish-panel" hidden>
+                    <h3 class="wizard__subquestion" tabindex="-1">Elige tu acabado</h3>
+                    <ul class="wizard__opts wizard__opts--grid wizard__opts--finish" role="list">
+                      <li>
+                        <button class="wizard__opt wizard__opt--finish" data-value="Imperdible" type="button">
+                          <span class="wizard__opt-emoji" aria-hidden="true">📌</span>
+                          <span class="wizard__opt-label">Imperdible</span>
+                          <span class="wizard__opt-note">Clásico y versátil</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="wizard__opt wizard__opt--finish" data-value="Imán" type="button">
+                          <span class="wizard__opt-emoji" aria-hidden="true">🧲</span>
+                          <span class="wizard__opt-label">Imán</span>
+                          <span class="wizard__opt-note">Sin agujeros</span>
+                        </button>
+                      </li>
+                      <li id="bottle-opener-option">
+                        <button
+                          class="wizard__opt wizard__opt--finish wizard__opt--disabled"
+                          data-value="Abridor de botellas"
+                          type="button"
+                          disabled
+                          aria-disabled="true"
+                        >
+                          <span class="wizard__opt-emoji" aria-hidden="true">🍾</span>
+                          <span class="wizard__opt-label">Abridor de botellas</span>
+                          <span class="wizard__opt-note">Solo con 59mm</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button class="wizard__opt wizard__opt--finish wizard__opt--muted" data-value="Aún no lo sé" type="button">
+                          <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
+                          <span class="wizard__opt-label">Aún no lo sé</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
-              <!-- ── Step 3 · Finish ── -->
+              <!-- ── Step 3 · Quantity ── -->
               <div class="wizard__step" id="wizard-step-3" data-step="3" hidden>
-                <h3 class="wizard__question" tabindex="-1">Elige tu acabado</h3>
-                <ul class="wizard__opts wizard__opts--grid" role="list">
-                  <li>
-                    <button class="wizard__opt" data-value="Imperdible" type="button">
-                      <span class="wizard__opt-emoji" aria-hidden="true">📌</span>
-                      <span class="wizard__opt-label">Imperdible</span>
-                      <span class="wizard__opt-note">Clásico y versátil</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="wizard__opt" data-value="Imán" type="button">
-                      <span class="wizard__opt-emoji" aria-hidden="true">🧲</span>
-                      <span class="wizard__opt-label">Imán</span>
-                      <span class="wizard__opt-note">Sin agujeros</span>
-                    </button>
-                  </li>
-                  <li id="bottle-opener-option">
-                    <button
-                      class="wizard__opt wizard__opt--disabled"
-                      data-value="Abridor de botellas"
-                      type="button"
-                      disabled
-                      aria-disabled="true"
-                    >
-                      <span class="wizard__opt-emoji" aria-hidden="true">🍾</span>
-                      <span class="wizard__opt-label">Abridor de botellas</span>
-                      <span class="wizard__opt-note">Solo con 59mm</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="wizard__opt wizard__opt--muted" data-value="Aún no lo sé" type="button">
-                      <span class="wizard__opt-emoji" aria-hidden="true">🤔</span>
-                      <span class="wizard__opt-label">Aún no lo sé</span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- ── Step 4 · Quantity ── -->
-              <div class="wizard__step" id="wizard-step-4" data-step="4" hidden>
                 <h3 class="wizard__question" tabindex="-1">¿Cuántas necesitas?</h3>
                 <ul class="wizard__opts wizard__opts--quantities" role="list">
                   <li><button class="wizard__opt wizard__opt--qty" data-value="25" type="button">25</button></li>
@@ -450,55 +453,38 @@
                 </ul>
               </div>
 
-              <!-- ── Step 5 · Design ── -->
-              <div class="wizard__step" id="wizard-step-5" data-step="5" hidden>
-                <h3 class="wizard__question" tabindex="-1">¿Y el diseño?</h3>
-                <ul class="wizard__opts wizard__opts--design" role="list">
+              <!-- ── Step 4 · Design + summary ── -->
+              <div class="wizard__step" id="wizard-step-4" data-step="4" hidden>
+                <h3 class="wizard__question" tabindex="-1">¿Algo más que debamos saber?</h3>
+                <ul class="wizard__opts wizard__opts--design wizard__opts--design-row" role="list">
                   <li>
-                    <button class="wizard__opt wizard__opt--design-card" data-value="Ya tengo el diseño" type="button">
+                    <button class="wizard__opt wizard__opt--design-card wizard__opt--design-compact" data-value="Ya tengo el diseño" type="button">
                       <span class="wizard__opt-emoji" aria-hidden="true">💡</span>
                       <span class="wizard__opt-text">
                         <span class="wizard__opt-label">Ya tengo el diseño</span>
-                        <span class="wizard__opt-note">Solo tengo que enviaros el archivo o la imagen.</span>
+                        <span class="wizard__opt-note">Archivo o imagen lista para enviar.</span>
                       </span>
-                      <span class="wizard__opt-arrow" aria-hidden="true">→</span>
                     </button>
                   </li>
                   <li>
-                    <button class="wizard__opt wizard__opt--design-card" data-value="Tengo fotos o ideas" type="button">
+                    <button class="wizard__opt wizard__opt--design-card wizard__opt--design-compact" data-value="Tengo fotos o ideas" type="button">
                       <span class="wizard__opt-emoji" aria-hidden="true">📷</span>
                       <span class="wizard__opt-text">
                         <span class="wizard__opt-label">Tengo fotos o ideas</span>
-                        <span class="wizard__opt-note">Os paso referencias y preparáis el diseño.</span>
+                        <span class="wizard__opt-note">Referencias y preparáis el diseño.</span>
                       </span>
-                      <span class="wizard__opt-arrow" aria-hidden="true">→</span>
                     </button>
                   </li>
                   <li>
-                    <button class="wizard__opt wizard__opt--design-card" data-value="Empiezo desde cero" type="button">
+                    <button class="wizard__opt wizard__opt--design-card wizard__opt--design-compact" data-value="Empiezo desde cero" type="button">
                       <span class="wizard__opt-emoji" aria-hidden="true">🎨</span>
                       <span class="wizard__opt-text">
                         <span class="wizard__opt-label">Empiezo desde cero</span>
-                        <span class="wizard__opt-note">Solo os cuento la idea y vosotras os encargáis del resto.</span>
+                        <span class="wizard__opt-note">Os cuento la idea y vosotras el resto.</span>
                       </span>
-                      <span class="wizard__opt-arrow" aria-hidden="true">→</span>
                     </button>
                   </li>
                 </ul>
-              </div>
-
-              <!-- ── Step 6 · Notes ── -->
-              <div class="wizard__step" id="wizard-step-6" data-step="6" hidden>
-                <h3 class="wizard__question" tabindex="-1">¿Algo más que debamos saber?</h3>
-                <p class="wizard__question-note">Opcional: colores, temática, fecha límite, referencias…</p>
-                <label class="sr-only" for="wizard-notes">Notas adicionales</label>
-                <textarea
-                  class="wizard__textarea"
-                  id="wizard-notes"
-                  name="notes"
-                  rows="3"
-                  placeholder="Ej. Temática oro rosa, necesito para el 15 de agosto, enviaré fotos después…"
-                ></textarea>
               </div>
 
             </div>
@@ -1218,6 +1204,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=16" charset="UTF-8"></script>
+  <script src="script.js?v=17" charset="UTF-8"></script>
 </body>
 </html>

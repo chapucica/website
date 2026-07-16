@@ -796,7 +796,7 @@ function buildWhatsAppPriceLines(result) {
    ============================================================ */
 
 function initWizard() {
-  const TOTAL_STEPS = 6;
+  const TOTAL_STEPS = 4;
   const AUTO_ADVANCE_DELAY = 280;
   const QTY_PRESETS = [25, 50, 75, 100, 150, 200];
 
@@ -813,6 +813,7 @@ function initWizard() {
   const qtyCustomError = document.getElementById('wizard-qty-error');
   const priceSlot     = document.getElementById('wizard-price-slot');
   const priceCard     = document.getElementById('wizard-price');
+  const finishPanel   = document.getElementById('wizard-finish-panel');
 
   const QTY_CUSTOM = '__custom__';
 
@@ -821,7 +822,7 @@ function initWizard() {
   let currentStep = 1;
   let autoAdvanceTimer = null;
 
-  const answers = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: '' };
+  const answers = { 1: null, 2: null, 3: null, 4: null, 5: null };
 
   function clearAutoAdvance() {
     if (autoAdvanceTimer) {
@@ -850,7 +851,7 @@ function initWizard() {
 
   /* ── Show / hide navigation buttons based on current step ── */
   function canAdvanceFromStep(stepNum) {
-    if (stepNum === 4) {
+    if (stepNum === 3) {
       if (answers[4] === 'Aún no lo sé') return true;
       return typeof answers[4] === 'number' && answers[4] >= 1;
     }
@@ -973,11 +974,11 @@ function initWizard() {
     answers[4] = parsed;
     updatePriceEstimate();
 
-    if (currentStep === 4) transitionTo(5, 'forward');
+    if (currentStep === 3) transitionTo(4, 'forward');
   }
 
   function selectCustomQuantityCard(focusInput = false) {
-    const stepEl = document.getElementById('wizard-step-4');
+    const stepEl = document.getElementById('wizard-step-3');
     if (!stepEl || !qtyCustomCard) return;
 
     stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
@@ -989,7 +990,7 @@ function initWizard() {
   }
 
   function restoreQuantityStepUI() {
-    const stepEl = document.getElementById('wizard-step-4');
+    const stepEl = document.getElementById('wizard-step-3');
     if (!stepEl || !qtyCustomCard) return;
 
     const qty = answers[4];
@@ -1021,7 +1022,7 @@ function initWizard() {
   }
 
   function selectQuantityOption(btn) {
-    const stepEl = document.getElementById('wizard-step-4');
+    const stepEl = document.getElementById('wizard-step-3');
     if (!stepEl) return;
 
     stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
@@ -1043,7 +1044,7 @@ function initWizard() {
     }
 
     updatePriceEstimate();
-    if (currentStep === 4) scheduleAutoAdvance(4);
+    if (currentStep === 3) scheduleAutoAdvance(3);
   }
 
   /**
@@ -1069,8 +1070,8 @@ function initWizard() {
       fromEl.hidden = true;
       fromEl.style.cssText = '';
       currentStep = to;
-      if (to === 4) restoreQuantityStepUI();
-      if (to === 3) updateBottleOpenerOption(answers[2]);
+      if (to === 3) restoreQuantityStepUI();
+      if (to === 2) syncChapaStepUI();
       updateProgress();
       updateNav();
 
@@ -1084,12 +1085,40 @@ function initWizard() {
       toEl.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
       toEl.addEventListener('transitionend', () => {
         toEl.style.cssText = '';
-        const focusTarget = to === 4 && qtyCustomCard?.classList.contains('is-selected')
+        const focusTarget = to === 3 && qtyCustomCard?.classList.contains('is-selected')
           ? qtyCustomInput
-          : toEl.querySelector('.wizard__question, .wizard__opt, .wizard__textarea, .wizard__qty-custom-input');
+          : toEl.querySelector('.wizard__question, .wizard__subquestion, .wizard__opt, .wizard__qty-custom-input');
         if (focusTarget) focusTarget.focus({ preventScroll: true });
       }, { once: true });
     }, 200);
+  }
+
+  function revealFinishPanel() {
+    if (!finishPanel) return;
+    finishPanel.hidden = false;
+    requestAnimationFrame(() => finishPanel.classList.add('is-revealed'));
+  }
+
+  function hideFinishPanel() {
+    if (!finishPanel) return;
+    finishPanel.classList.remove('is-revealed');
+    finishPanel.hidden = true;
+  }
+
+  function syncChapaStepUI() {
+    const sizePart = document.querySelector('.wizard__chapa-part--size');
+    if (answers[2]) {
+      sizePart?.querySelectorAll('.wizard__opt').forEach(b => {
+        b.classList.toggle('is-selected', b.dataset.value === answers[2]);
+      });
+      revealFinishPanel();
+      updateBottleOpenerOption(answers[2]);
+      finishPanel?.querySelectorAll('.wizard__opt--finish').forEach(b => {
+        b.classList.toggle('is-selected', b.dataset.value === answers[3]);
+      });
+    } else {
+      hideFinishPanel();
+    }
   }
 
   /* ── Select an option card and update state ── */
@@ -1104,18 +1133,46 @@ function initWizard() {
 
     if (!enabled && answers[3] === 'Abridor de botellas') {
       answers[3] = null;
-      document.getElementById('wizard-step-3')
-        ?.querySelectorAll('.wizard__opt')
-        .forEach(b => b.classList.remove('is-selected'));
+      finishPanel?.querySelectorAll('.wizard__opt--finish').forEach(b => b.classList.remove('is-selected'));
       updatePriceEstimate();
     }
+  }
+
+  function selectSizeOption(btn) {
+    const sizePart = document.querySelector('.wizard__chapa-part--size');
+    if (!sizePart) return;
+
+    sizePart.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+    btn.classList.add('is-selected');
+    answers[2] = btn.dataset.value;
+    updateBottleOpenerOption(btn.dataset.value);
+    revealFinishPanel();
+  }
+
+  function selectFinishOption(btn) {
+    if (!finishPanel) return;
+
+    finishPanel.querySelectorAll('.wizard__opt--finish').forEach(b => b.classList.remove('is-selected'));
+    btn.classList.add('is-selected');
+    answers[3] = btn.dataset.value;
+
+    if (currentStep === 2) transitionTo(3, 'forward');
+  }
+
+  function selectDesignOption(btn) {
+    const stepEl = document.getElementById('wizard-step-4');
+    if (!stepEl) return;
+
+    stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
+    btn.classList.add('is-selected');
+    answers[5] = btn.dataset.value;
+    updatePriceEstimate();
   }
 
   function selectOption(btn, stepNum) {
     const stepEl = document.getElementById(`wizard-step-${stepNum}`);
     if (!stepEl) return;
 
-    // Deselect siblings, select this one
     stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
     btn.classList.add('is-selected');
     answers[stepNum] = btn.dataset.value;
@@ -1124,28 +1181,31 @@ function initWizard() {
       ChapucicaAnalytics.trackFormStart();
     }
 
-    // Bottle opener only available with 59 mm
-    if (stepNum === 2) {
-      updateBottleOpenerOption(btn.dataset.value);
-    }
-
-    if (stepNum === 2 || stepNum === 3) updatePriceEstimate();
-
     if (stepNum < TOTAL_STEPS) scheduleAutoAdvance(stepNum);
   }
 
-  // Attach click handlers to every option in every step
-  for (let s = 1; s <= TOTAL_STEPS; s++) {
-    const stepEl = document.getElementById(`wizard-step-${s}`);
-    if (!stepEl) continue;
-    stepEl.querySelectorAll('.wizard__opt').forEach(btn => {
+  document.querySelector('.wizard__chapa-part--size')
+    ?.querySelectorAll('.wizard__opt')
+    .forEach(btn => btn.addEventListener('click', () => selectSizeOption(btn)));
+
+  finishPanel?.querySelectorAll('.wizard__opt--finish').forEach(btn => {
+    btn.addEventListener('click', () => selectFinishOption(btn));
+  });
+
+  document.getElementById('wizard-step-1')
+    ?.querySelectorAll('.wizard__opt')
+    .forEach(btn => btn.addEventListener('click', () => selectOption(btn, 1)));
+
+  document.getElementById('wizard-step-3')
+    ?.querySelectorAll('.wizard__opt')
+    .forEach(btn => {
       if (btn.id === 'wizard-qty-custom-card') return;
-      btn.addEventListener('click', () => {
-        if (s === 4) selectQuantityOption(btn);
-        else selectOption(btn, s);
-      });
+      btn.addEventListener('click', () => selectQuantityOption(btn));
     });
-  }
+
+  document.getElementById('wizard-step-4')
+    ?.querySelectorAll('.wizard__opt')
+    .forEach(btn => btn.addEventListener('click', () => selectDesignOption(btn)));
 
   qtyCustomCard?.addEventListener('click', e => {
     if (e.target === qtyCustomInput || e.target.closest('.wizard__qty-custom-confirm')) return;
@@ -1220,9 +1280,6 @@ function initWizard() {
    * Notes are omitted entirely when empty.
    */
   function buildWhatsAppMessage() {
-    const notesEl = document.getElementById('wizard-notes');
-    if (notesEl) answers[6] = notesEl.value.trim();
-
     const lines = [
       '¡Hola, Chapucica!',
       '',
@@ -1242,12 +1299,6 @@ function initWizard() {
       } else {
         lines.push(`• ${FIELD_LABELS[i]}: ${resolveAnswer(answers[i])}`);
       }
-    }
-
-    // Step 6: notes — optional
-    const notes = answers[6]?.trim();
-    if (notes) {
-      lines.push(`• Notas: ${notes}`);
     }
 
     const quoteInputs = getWizardQuoteInputs(answers);
@@ -1273,7 +1324,6 @@ function initWizard() {
   function resetWizard() {
     currentStep = 1;
     for (let i = 1; i <= 5; i++) answers[i] = null;
-    answers[6] = '';
 
     for (let s = 1; s <= TOTAL_STEPS; s++) {
       const stepEl = document.getElementById(`wizard-step-${s}`);
@@ -1284,8 +1334,7 @@ function initWizard() {
       stepEl.querySelectorAll('.wizard__opt').forEach(b => b.classList.remove('is-selected'));
     }
 
-    const notesEl = document.getElementById('wizard-notes');
-    if (notesEl) notesEl.value = '';
+    hideFinishPanel();
 
     clearCustomQuantityInput();
 
@@ -1365,10 +1414,6 @@ function initWizard() {
 
     resetWizard();
   });
-
-  // Keep notes in sync while typing
-  document.getElementById('wizard-notes')
-    ?.addEventListener('input', e => { answers[6] = e.target.value.trim(); });
 
   updateProgress();
   updateNav();
