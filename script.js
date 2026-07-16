@@ -919,6 +919,10 @@ function initWizard() {
         ${priceLineHtml('Envío', shippingLabel)}
         ${priceLineHtml('Total', formatEuroES(result.total))}
       </div>`;
+
+    if (typeof ChapucicaAnalytics !== 'undefined') {
+      ChapucicaAnalytics.trackPriceShown();
+    }
   }
 
   function updatePriceEstimate() {
@@ -1116,6 +1120,10 @@ function initWizard() {
     btn.classList.add('is-selected');
     answers[stepNum] = btn.dataset.value;
 
+    if (stepNum === 1 && typeof ChapucicaAnalytics !== 'undefined') {
+      ChapucicaAnalytics.trackFormStart();
+    }
+
     // Bottle opener only available with 59 mm
     if (stepNum === 2) {
       updateBottleOpenerOption(btn.dataset.value);
@@ -1285,6 +1293,10 @@ function initWizard() {
 
     updateProgress();
     updateNav();
+
+    if (typeof ChapucicaAnalytics !== 'undefined') {
+      ChapucicaAnalytics.resetWizardSession();
+    }
   }
 
   /**
@@ -1325,6 +1337,22 @@ function initWizard() {
   /* ── Main WhatsApp button click ── */
   waBtn.addEventListener('click', e => {
     e.preventDefault();
+
+    if (typeof ChapucicaAnalytics !== 'undefined') {
+      const quoteInputs = getWizardQuoteInputs(answers);
+      const priceResult = quoteInputs
+        ? calculatePrice(quoteInputs.size, quoteInputs.finish, quoteInputs.quantity)
+        : null;
+
+      ChapucicaAnalytics.trackWhatsAppClick({
+        event_type: answers[1] ?? '',
+        badge_size: answers[2] ?? '',
+        finish_type: answers[3] ?? '',
+        quantity: formatQuantityAnswer(),
+        estimated_price: priceResult ? priceResult.total : '',
+      });
+    }
+
     const url = buildWhatsAppURL();
 
     if (isMobileDevice()) {
