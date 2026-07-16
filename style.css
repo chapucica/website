@@ -4789,3 +4789,132 @@ p, li           { text-wrap: pretty; }
 .wizard__privacy-note a:hover {
   text-decoration: underline;
 }
+
+
+/* ── Cookie consent banner ── */
+.cookie-banner {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-overlay);
+  padding: var(--sp-4) var(--sp-4) calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+  background: var(--c-cream);
+  border-top: 1px solid var(--c-ink-12);
+  box-shadow: 0 -8px 32px rgba(26, 24, 20, 0.1);
+  animation: cookieBannerIn 0.35s var(--ease-out) both;
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner__inner {
+  max-width: var(--container-max, 72rem);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4) var(--sp-6);
+}
+
+.cookie-banner__copy {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.cookie-banner__title {
+  margin: 0 0 var(--sp-1);
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--c-ink);
+  letter-spacing: -0.01em;
+}
+
+.cookie-banner__desc {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+  color: var(--c-ink-60);
+}
+
+.cookie-banner__desc strong {
+  color: var(--c-ink-80);
+  font-weight: 600;
+}
+
+.cookie-banner__link {
+  color: var(--c-teal-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookie-banner__link:hover {
+  color: var(--c-teal-dark);
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+
+.cookie-banner__btn {
+  min-width: 7.5rem;
+  padding-inline: var(--sp-5);
+}
+
+html.cookie-banner-open .whatsapp-btn {
+  bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  transition: bottom 0.3s var(--ease-out);
+}
+
+html.cookie-banner-open .back-to-top {
+  bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.footer__nav-link--btn {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.footer__nav-link--btn:hover {
+  color: var(--c-white);
+}
+
+@keyframes cookieBannerIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+  .cookie-banner__actions {
+    width: 100%;
+  }
+
+  .cookie-banner__btn {
+    flex: 1 1 calc(50% - var(--sp-2));
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner {
+    animation: none;
+  }
+}

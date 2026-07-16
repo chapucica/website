@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=41" />
+  <link rel="stylesheet" href="style.css?v=42" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -94,10 +94,10 @@
         <p>Es importante que conozcas el funcionamiento real del sitio:</p>
         <ul>
           <li><strong>No hay compra directa</strong> en la web ni cuentas de usuario.</li>
-          <li>El <strong>asistente de personalización</strong> recoge tus respuestas únicamente en la memoria de tu navegador mientras lo utilizas. No se envían a ningún servidor de Chapucica ni se guardan en localStorage o cookies.</li>
+          <li>El <strong>asistente de personalización</strong> recoge tus respuestas únicamente en la memoria de tu navegador mientras lo utilizas. No se envían a ningún servidor de Chapucica ni se guardan en localStorage o cookies propias del wizard.</li>
           <li>Al pulsar el botón de WhatsApp, la web prepara un mensaje y abre la aplicación o web de WhatsApp. <strong>El mensaje no se envía automáticamente</strong>: tú decides si enviarlo.</li>
           <li>Para contactar puedes usar WhatsApp, correo electrónico o Instagram, según se indica en la sección de contacto.</li>
-          <li>La web <strong>no utiliza herramientas de analítica ni publicidad</strong> integradas.</li>
+          <li>La web utiliza <strong>Google Analytics</strong> únicamente si aceptas las cookies de analítica en el banner. Si las rechazas, no se carga.</li>
           <li>Las imágenes y vídeos del carrusel se cargan desde el propio alojamiento del sitio.</li>
         </ul>
 
@@ -108,6 +108,7 @@
           <li>Gestionar encargos y personalizaciones de chapas.</li>
           <li>Mantener comunicaciones relacionadas con un pedido o encargo.</li>
           <li>Cumplir obligaciones administrativas, contables, fiscales o legales.</li>
+          <li>Obtener estadísticas agregadas de uso del sitio web mediante Google Analytics, <strong>solo si has aceptado las cookies de analítica</strong>.</li>
         </ul>
         <p>Chapucica <strong>no enviará comunicaciones comerciales</strong> sin contar con una base jurídica válida, como tu consentimiento expreso o una relación previa que lo permita conforme a la normativa.</p>
 
@@ -116,7 +117,7 @@
           <li><strong>Aplicación de medidas precontractuales</strong> solicitadas por la persona interesada (por ejemplo, preparar un presupuesto a tu petición).</li>
           <li><strong>Ejecución de un contrato</strong> o relación precontractual, cuando exista un encargo.</li>
           <li><strong>Cumplimiento de obligaciones legales</strong> en materia fiscal, contable o administrativa.</li>
-          <li><strong>Consentimiento</strong>, únicamente cuando sea realmente necesario y lo hayas otorgado de forma válida.</li>
+          <li><strong>Consentimiento</strong>, únicamente cuando sea realmente necesario y lo hayas otorgado de forma válida (por ejemplo, cookies de analítica web).</li>
         </ul>
 
         <h2 id="datos">6. Datos que se tratan</h2>
@@ -126,6 +127,7 @@
           <li>Información que nos facilites voluntariamente sobre el evento, diseño, cantidad, acabado o plazos.</li>
           <li>Imágenes, logotipos o archivos de diseño que decidas enviarnos para personalizar una chapa.</li>
           <li>Datos necesarios para facturación y envío cuando exista un pedido.</li>
+          <li>Datos de navegación agregados (páginas visitadas, dispositivo, origen aproximado del tráfico) cuando aceptas Google Analytics.</li>
         </ul>
         <p>No solicitamos datos especialmente protegidos a través de esta web. Te pedimos que no nos envíes información sensible si no es estrictamente necesaria.</p>
 
@@ -145,7 +147,7 @@
           <li>Administraciones públicas cuando exista obligación legal.</li>
           <li><strong>WhatsApp / Meta</strong>, si tú decides utilizar ese canal de comunicación.</li>
           <li><strong>GitHub Pages</strong>, como proveedor de alojamiento estático de la web, en la medida en que resulte aplicable.</li>
-          <li><strong>Google</strong>, en relación con la carga de tipografías desde Google Fonts, que puede implicar el envío de tu dirección IP al solicitar los archivos de fuente. Puedes consultar más información en nuestra <a href="cookies.html">Política de cookies</a>.</li>
+          <li><strong>Google</strong>, en relación con Google Fonts (carga de tipografías) y, si lo aceptas, <strong>Google Analytics</strong> para estadísticas de uso. Puedes consultar más información en nuestra <a href="cookies.html">Política de cookies</a>.</li>
         </ul>
         <p>No vendemos ni cedemos tus datos con fines comerciales a terceros.</p>
 
@@ -193,6 +195,7 @@
               <li><a class="footer__nav-link" href="aviso-legal.html">Aviso legal</a></li>
               <li><a class="footer__nav-link" href="privacidad.html" aria-current="page">Política de privacidad</a></li>
               <li><a class="footer__nav-link" href="cookies.html">Política de cookies</a></li>
+              <li><button type="button" class="footer__nav-link footer__nav-link--btn" data-cookie-preferences>Preferencias de cookies</button></li>
             </ul>
           </div>
         </nav>
@@ -203,6 +206,7 @@
     </div>
   </footer>
 
+  <script src="cookie-consent.js" charset="UTF-8"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="description" content="Política de cookies de Chapucica: uso actual de cookies, recursos externos (Google Fonts) y cómo gestionarlas en tu navegador." />
+  <meta name="description" content="Política de cookies de Chapucica: analítica con consentimiento (Google Analytics), Google Fonts y cómo gestionar tus preferencias." />
   <meta name="robots" content="index, follow" />
   <title>Política de cookies — Chapucica</title>
   <link rel="canonical" href="https://chapucica.com/cookies.html" />
@@ -16,13 +16,13 @@
   <meta property="og:locale" content="es_ES" />
   <meta property="og:site_name" content="Chapucica" />
   <meta property="og:title" content="Política de cookies — Chapucica" />
-  <meta property="og:description" content="Política de cookies de Chapucica: sin analítica ni publicidad, solo Google Fonts como recurso externo." />
+  <meta property="og:description" content="Política de cookies de Chapucica: Google Analytics solo con tu consentimiento, más Google Fonts." />
   <meta property="og:url" content="https://chapucica.com/cookies.html" />
   <meta property="og:image" content="https://chapucica.com/assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=41" />
+  <link rel="stylesheet" href="style.css?v=42" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,6 +61,7 @@
           <ol>
             <li><a href="#que-son">Qué son las cookies y tecnologías similares</a></li>
             <li><a href="#uso-actual">Uso actual en Chapucica</a></li>
+            <li><a href="#consentimiento">Banner y preferencias</a></li>
             <li><a href="#terceros">Recursos externos</a></li>
             <li><a href="#almacenamiento">Almacenamiento local</a></li>
             <li><a href="#enlaces-externos">Enlaces a otras webs</a></li>
@@ -72,43 +73,50 @@
 
       <article class="legal-body">
         <h2 id="que-son">1. Qué son las cookies y tecnologías similares</h2>
-        <p>Las cookies son pequeños archivos que un sitio web puede guardar en tu dispositivo a través del navegador. También existen tecnologías similares, como el almacenamiento local del navegador (localStorage o sessionStorage) o identificadores técnicos asociados a la conexión.</p>
+        <p>Las cookies son pequeños archivos que un sitio web puede guardar en tu dispositivo a través del navegador. También existen tecnologías similares, como el almacenamiento local del navegador (localStorage) o identificadores técnicos asociados a la conexión.</p>
 
         <h2 id="uso-actual">2. Uso actual en Chapucica</h2>
-        <p>Tras revisar el funcionamiento técnico de <a href="https://chapucica.com">chapucica.com</a>, Chapucica <strong>no utiliza actualmente cookies propias de analítica, publicidad ni seguimiento</strong>.</p>
-        <p>Tampoco hemos detectado en el código del sitio:</p>
+        <p>En <a href="https://chapucica.com">chapucica.com</a> utilizamos las siguientes categorías:</p>
         <ul>
-          <li>Herramientas de analítica web (por ejemplo, Google Analytics).</li>
-          <li>Píxeles publicitarios o de remarketing.</li>
-          <li>Gestores de consentimiento de terceros.</li>
-          <li>Almacenamiento persistente en localStorage o sessionStorage.</li>
+          <li><strong>Esenciales / técnicas:</strong> guardan tu elección sobre cookies (ver apartado 3). No requieren consentimiento porque son necesarias para recordar tu preferencia.</li>
+          <li><strong>Analítica (opcional):</strong> <strong>Google Analytics</strong> (Google LLC), identificador <code>G-7SVBBR84WK</code>. Solo se activa si pulsas <strong>Aceptar</strong> en el banner. Nos ayuda a conocer, de forma agregada, qué páginas se visitan y cómo se usa la web. Google puede instalar cookies propias (_ga, _ga_* u otras) y tratar datos como la dirección IP. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">política de privacidad de Google</a>.</li>
         </ul>
-        <p>Por este motivo, <strong>no mostramos un banner de cookies</strong> en la web en su estado actual. Si incorporamos cookies que requieran consentimiento, actualizaremos esta política e implementaremos el mecanismo correspondiente.</p>
+        <p><strong>No utilizamos cookies de publicidad ni remarketing.</strong></p>
 
-        <h2 id="terceros">3. Recursos externos</h2>
-        <p>Sí cargamos tipografías desde <strong>Google Fonts</strong> (dominios fonts.googleapis.com y fonts.gstatic.com). Al solicitar esos archivos, tu navegador puede comunicar a Google determinados datos técnicos de conexión, como tu dirección IP.</p>
-        <p>Chapucica no instala cookies de analítica ni de publicidad a través de este mecanismo, pero el proveedor externo puede registrar la petición de los recursos conforme a su propia política.</p>
-        <p>Si en el futuro se sustituyen las fuentes externas por archivos alojados localmente, actualizaremos esta política.</p>
+        <h2 id="consentimiento">3. Banner y preferencias</h2>
+        <p>Al entrar por primera vez (o si aún no has elegido), verás un aviso en la parte inferior con dos opciones:</p>
+        <ul>
+          <li><strong>Aceptar:</strong> activa Google Analytics y guarda tu preferencia.</li>
+          <li><strong>Rechazar:</strong> no carga analítica y guarda tu preferencia.</li>
+        </ul>
+        <p>Tu elección se guarda en el navegador (localStorage, clave <code>chapucica_cookie_consent</code>) para no molestarte en cada visita.</p>
+        <p>Puedes cambiar de opinión cuando quieras desde el enlace <strong>Preferencias de cookies</strong> del pie de página o con este botón:</p>
+        <p><button type="button" class="btn btn--secondary" data-cookie-preferences>Cambiar preferencias de cookies</button></p>
 
-        <h2 id="almacenamiento">4. Almacenamiento local</h2>
-        <p>El asistente de personalización guarda tus respuestas <strong>únicamente en la memoria de la sesión</strong> mientras navegas por la web. No se almacenan en el dispositivo ni se envían a servidores de Chapucica.</p>
-        <p>Al recargar o cerrar la página, esa información se pierde salvo que tú la incluyas voluntariamente en un mensaje de WhatsApp u otro canal.</p>
+        <h2 id="terceros">4. Recursos externos</h2>
+        <p>Cargamos tipografías desde <strong>Google Fonts</strong> (dominios fonts.googleapis.com y fonts.gstatic.com). Al solicitar esos archivos, tu navegador puede comunicar a Google determinados datos técnicos de conexión, como tu dirección IP.</p>
+        <p>Chapucica no instala cookies de analítica ni de publicidad a través de este mecanismo, pero el proveedor externo puede registrar la petición conforme a su propia política.</p>
 
-        <h2 id="enlaces-externos">5. Enlaces a otras webs</h2>
+        <h2 id="almacenamiento">5. Almacenamiento local</h2>
+        <ul>
+          <li><strong>Preferencia de cookies:</strong> se guarda en localStorage mientras no la borres.</li>
+          <li><strong>Asistente de personalización:</strong> tus respuestas viven solo en la memoria de la sesión mientras navegas. No se envían a servidores de Chapucica ni se guardan en localStorage ni cookies.</li>
+        </ul>
+
+        <h2 id="enlaces-externos">6. Enlaces a otras webs</h2>
         <p>Cuando accedes a WhatsApp, Instagram, correo electrónico u otras plataformas desde enlaces de esta web, esas páginas pueden utilizar sus propias cookies y tecnologías de seguimiento.</p>
         <p>Ese tratamiento es responsabilidad del tercero correspondiente, no de Chapucica.</p>
 
-        <h2 id="gestion">6. Cómo gestionar cookies en tu navegador</h2>
-        <p>Puedes permitir, bloquear o eliminar cookies y datos del navegador desde la configuración de tu dispositivo. Ten en cuenta que restringir ciertas cookies técnicas puede afectar al funcionamiento de algunos sitios web.</p>
-        <p>Consulta la ayuda de tu navegador para más información:</p>
+        <h2 id="gestion">7. Cómo gestionar cookies en tu navegador</h2>
+        <p>Puedes permitir, bloquear o eliminar cookies y datos del navegador desde la configuración de tu dispositivo. Si borras los datos de chapucica.com, volverás a ver el banner de cookies.</p>
         <ul>
           <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
           <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
           <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari</a></li>
         </ul>
 
-        <h2 id="cambios">7. Cambios en esta política</h2>
-        <p>Si en el futuro incorporamos cookies o tecnologías que requieran información o consentimiento adicional, actualizaremos esta política y, en su caso, el mecanismo de información correspondiente.</p>
+        <h2 id="cambios">8. Cambios en esta política</h2>
+        <p>Si incorporamos nuevas cookies o tecnologías que requieran información adicional, actualizaremos esta política y, en su caso, el mecanismo de consentimiento.</p>
         <p>Para más información sobre el tratamiento de datos personales, consulta nuestra <a href="privacidad.html">Política de privacidad</a>.</p>
       </article>
     </div>
@@ -131,6 +139,7 @@
               <li><a class="footer__nav-link" href="aviso-legal.html">Aviso legal</a></li>
               <li><a class="footer__nav-link" href="privacidad.html">Política de privacidad</a></li>
               <li><a class="footer__nav-link" href="cookies.html" aria-current="page">Política de cookies</a></li>
+              <li><button type="button" class="footer__nav-link footer__nav-link--btn" data-cookie-preferences>Preferencias de cookies</button></li>
             </ul>
           </div>
         </nav>
@@ -141,6 +150,7 @@
     </div>
   </footer>
 
+  <script src="cookie-consent.js" charset="UTF-8"></script>
   <script src="script.js"></script>
 </body>
 </html>
