@@ -132,7 +132,8 @@
 1. Abre en Chrome/Safari:  
    `file:///…/chapucica/seasonal/preview.html`
 2. Elige campaña + **Desktop** / **Móvil**.
-3. O abre directamente:
+3. En la misma barra lateral: **Calendario spotlight 2026** (mes a mes, con fechas).
+4. O abre directamente:
    - `seasonal/previews/murcianico.html`
    - `seasonal/previews/vuelta-cole.html`
    - `seasonal/previews/cartagineses.html`
