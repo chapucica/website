@@ -3896,18 +3896,18 @@ p, li           { text-wrap: pretty; }
   gap: var(--sp-2);
 }
 
-/* Size rings — same visual size for every option */
+/* Size rings — same visual slot as finish emojis */
 .wizard__size-ring {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: 2px solid var(--c-champagne);
   background-color: var(--c-white);
   font-family: var(--font-heading);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   font-weight: 700;
   line-height: 1;
   color: var(--color-text);
@@ -3923,9 +3923,9 @@ p, li           { text-wrap: pretty; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
-  font-size: 1.625rem;
+  width: 52px;
+  height: 52px;
+  font-size: 1.5rem;
   line-height: 1;
   margin-inline: auto;
   flex-shrink: 0;
@@ -4362,6 +4362,45 @@ p, li           { text-wrap: pretty; }
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
+}
+
+/* Unified card typography — size, finish & "Aún no lo sé" */
+.wizard__chapa-type .wizard__opt {
+  padding: var(--sp-4) var(--sp-3);
+  gap: var(--sp-2);
+  min-height: 108px;
+}
+
+.wizard__chapa-type .wizard__opt-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+}
+
+.wizard__chapa-type .wizard__opt-note {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: var(--leading-snug);
+}
+
+.wizard__chapa-type .wizard__opt--muted .wizard__opt-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.wizard__chapa-part--finish .wizard__opt-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-inline: auto;
+  flex-shrink: 0;
 }
 
 .wizard__subquestion {
