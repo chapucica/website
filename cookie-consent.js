@@ -38,6 +38,16 @@
     document.head.appendChild(script);
   }
 
+  function notifySettled() {
+    document.dispatchEvent(new CustomEvent('chapucica:cookies-settled', {
+      detail: { consent: getConsent() }
+    }));
+  }
+
+  function notifyBannerOpen() {
+    document.dispatchEvent(new CustomEvent('chapucica:cookies-banner-open'));
+  }
+
   function hideBanner() {
     var banner = document.getElementById('cookie-banner');
     if (!banner) return;
@@ -53,6 +63,7 @@
     banner.hidden = false;
     banner.removeAttribute('aria-hidden');
     document.documentElement.classList.add('cookie-banner-open');
+    notifyBannerOpen();
     var acceptBtn = banner.querySelector('[data-cookie-accept]');
     if (acceptBtn) acceptBtn.focus();
   }
@@ -61,12 +72,14 @@
     setConsent('accepted');
     hideBanner();
     loadAnalytics();
+    notifySettled();
   }
 
   function reject() {
     var hadAccepted = getConsent() === 'accepted';
     setConsent('rejected');
     hideBanner();
+    notifySettled();
     if (hadAccepted) window.location.reload();
   }
 
@@ -84,17 +97,17 @@
 
     banner.innerHTML =
       '<div class="cookie-banner__inner">' +
+        '<span class="cookie-banner__emoji" aria-hidden="true">🍪</span>' +
         '<div class="cookie-banner__copy">' +
-          '<p class="cookie-banner__title" id="cookie-banner-title">Cookies y analítica</p>' +
+          '<p class="cookie-banner__title" id="cookie-banner-title">¿Una galletita?</p>' +
           '<p class="cookie-banner__desc" id="cookie-banner-desc">' +
-            'Usamos <strong>Google Analytics</strong> para saber, de forma anónima, cómo se usa la web y poder mejorarla. ' +
-            'Solo la activamos si nos das permiso. ' +
-            '<a class="cookie-banner__link" href="cookies.html">Política de cookies</a>.' +
+            'Usamos cookies de analítica para mejorar la web. Tú mandas — ' +
+            '<a class="cookie-banner__link" href="cookies.html">más info</a>.' +
           '</p>' +
         '</div>' +
         '<div class="cookie-banner__actions">' +
-          '<button type="button" class="btn btn--primary cookie-banner__btn" data-cookie-accept>Aceptar</button>' +
-          '<button type="button" class="btn btn--secondary cookie-banner__btn" data-cookie-reject>Rechazar</button>' +
+          '<button type="button" class="btn btn--primary cookie-banner__btn" data-cookie-accept>Vale</button>' +
+          '<button type="button" class="btn btn--secondary cookie-banner__btn" data-cookie-reject>No gracias</button>' +
         '</div>' +
       '</div>';
 
@@ -120,11 +133,19 @@
     var consent = getConsent();
     if (consent === 'accepted') {
       loadAnalytics();
+      queueSettledNotice();
       return;
     }
-    if (consent === 'rejected') return;
+    if (consent === 'rejected') {
+      queueSettledNotice();
+      return;
+    }
 
     showBanner();
+  }
+
+  function queueSettledNotice() {
+    setTimeout(notifySettled, 0);
   }
 
   window.ChapucicaCookies = {

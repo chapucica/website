@@ -67,7 +67,7 @@
 | AMPA Colegio X | Asociación padres |
 | Profe molón/a | Regalo docente |
 
-**Escena animada:** shimmer de luz en las chapas (sin icono en carril).  
+**Escena animada:** mascota flotante 🎒 + shimmer en chapas.  
 **Colores:** azul noche + amarillo cuaderno.
 
 **Preview:** `seasonal/previews/vuelta-cole.html`
@@ -95,7 +95,7 @@
 | Qart Hadast | Cartago (nombre fenicio de la ciudad) |
 | Fester@ 2026 | Genérico peña (personalizable) |
 
-**Escena animada:** shimmer dorado en las chapas (sin icono en carril).  
+**Escena animada:** mascota flotante ⚔️ + shimmer dorado en chapas.  
 **Colores:** rojo oscuro, oro, tierra.
 
 **Preview:** `seasonal/previews/cartagineses.html`

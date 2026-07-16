@@ -1493,21 +1493,37 @@ function initSmoothScroll() {
    ============================================================ */
 
 function initWhatsAppButton() {
-  const wa = document.createElement('a');
-  wa.className = 'whatsapp-btn';
-  wa.href      = CHAPUCICA_WHATSAPP_GENERAL_URL;
-  wa.target    = '_blank';
-  wa.rel       = 'noopener noreferrer';
-  wa.setAttribute('aria-label', 'Escríbenos por WhatsApp');
+  function mountWhatsApp() {
+    if (document.querySelector('.whatsapp-btn')) return;
 
-  wa.innerHTML = `
-    <svg class="whatsapp-btn__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path fill="#fff" d="M16 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.333.627 4.62 1.82 6.627L2.667 29.333l6.9-1.8A13.253 13.253 0 0016 29.333c7.364 0 13.333-5.97 13.333-13.333S23.364 2.667 16 2.667zm0 24a10.57 10.57 0 01-5.373-1.467l-.387-.227-3.986 1.04 1.067-3.88-.253-.4A10.573 10.573 0 015.333 16C5.333 10.12 10.12 5.333 16 5.333S26.667 10.12 26.667 16 21.88 26.667 16 26.667zm5.787-7.88c-.32-.16-1.887-.933-2.18-1.04-.293-.107-.507-.16-.72.16s-.827 1.04-.987 1.253c-.187.213-.373.24-.693.08-.32-.16-1.347-.493-2.56-1.573-.947-.84-1.587-1.88-1.773-2.2-.187-.32-.02-.493.14-.653.147-.147.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.733-.987-2.373-.253-.627-.52-.547-.72-.56l-.613-.013a1.173 1.173 0 00-.853.4c-.293.32-1.12 1.093-1.12 2.667s1.147 3.093 1.307 3.307c.16.213 2.253 3.44 5.46 4.827.76.333 1.36.533 1.827.68.76.24 1.453.213 2 .133.613-.093 1.887-.773 2.153-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373z"/>
-    </svg>
-    <span class="whatsapp-btn__label">Escríbenos</span>
-  `;
+    const wa = document.createElement('a');
+    wa.className = 'whatsapp-btn';
+    wa.href      = CHAPUCICA_WHATSAPP_GENERAL_URL;
+    wa.target    = '_blank';
+    wa.rel       = 'noopener noreferrer';
+    wa.setAttribute('aria-label', 'Escríbenos por WhatsApp');
 
-  document.body.appendChild(wa);
+    wa.innerHTML = `
+      <svg class="whatsapp-btn__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill="#fff" d="M16 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.333.627 4.62 1.82 6.627L2.667 29.333l6.9-1.8A13.253 13.253 0 0016 29.333c7.364 0 13.333-5.97 13.333-13.333S23.364 2.667 16 2.667zm0 24a10.57 10.57 0 01-5.373-1.467l-.387-.227-3.986 1.04 1.067-3.88-.253-.4A10.573 10.573 0 015.333 16C5.333 10.12 10.12 5.333 16 5.333S26.667 10.12 26.667 16 21.88 26.667 16 26.667zm5.787-7.88c-.32-.16-1.887-.933-2.18-1.04-.293-.107-.507-.16-.72.16s-.827 1.04-.987 1.253c-.187.213-.373.24-.693.08-.32-.16-1.347-.493-2.56-1.573-.947-.84-1.587-1.88-1.773-2.2-.187-.32-.02-.493.14-.653.147-.147.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.733-.987-2.373-.253-.627-.52-.547-.72-.56l-.613-.013a1.173 1.173 0 00-.853.4c-.293.32-1.12 1.093-1.12 2.667s1.147 3.093 1.307 3.307c.16.213 2.253 3.44 5.46 4.827.76.333 1.36.533 1.827.68.76.24 1.453.213 2 .133.613-.093 1.887-.773 2.153-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373z"/>
+      </svg>
+      <span class="whatsapp-btn__label">Escríbenos</span>
+    `;
+
+    document.body.appendChild(wa);
+  }
+
+  function unmountWhatsApp() {
+    const wa = document.querySelector('.whatsapp-btn');
+    if (wa) wa.remove();
+  }
+
+  if (window.ChapucicaCookies && window.ChapucicaCookies.getConsent()) {
+    mountWhatsApp();
+  }
+
+  document.addEventListener('chapucica:cookies-settled', mountWhatsApp);
+  document.addEventListener('chapucica:cookies-banner-open', unmountWhatsApp);
 }
 
 

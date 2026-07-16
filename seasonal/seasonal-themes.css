@@ -24,6 +24,59 @@
   background: radial-gradient(circle at 35% 30%, #ffd666 0%, #e8a838 45%, #243b6b 100%);
 }
 
+/* Mascota flotante (emoji centrado, sin carril) */
+.spotlight__scene--mascot {
+  margin-block: var(--sp-2) var(--sp-6);
+  display: flex;
+  justify-content: center;
+}
+
+.seasonal-mascot {
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.seasonal-mascot__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 214, 102, 0.38) 0%, transparent 68%);
+  animation: seasonal-mascot-glow 3.4s ease-in-out infinite;
+}
+
+.seasonal-mascot__icon {
+  position: relative;
+  z-index: 1;
+  font-size: 2.85rem;
+  line-height: 1;
+  animation: seasonal-mascot-float 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+}
+
+.seasonal-mascot--cartagineses .seasonal-mascot__glow {
+  background: radial-gradient(circle, rgba(212, 167, 48, 0.42) 0%, transparent 68%);
+}
+
+@keyframes seasonal-mascot-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-11px) rotate(4deg); }
+}
+
+@keyframes seasonal-mascot-glow {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.14); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seasonal-mascot__icon,
+  .seasonal-mascot__glow {
+    animation: none;
+  }
+}
+
 /* ── Cartagineses y Romanos ── */
 .spotlight--cartagineses {
   background: linear-gradient(165deg, #1a0f0a 0%, #3d1810 40%, #2a1510 100%);
@@ -125,6 +178,11 @@
   .spotlight--cartagineses .spotlight-card__media::after {
     animation: none;
     display: none;
+  }
+
+  .seasonal-mascot__icon,
+  .seasonal-mascot__glow {
+    animation: none;
   }
 }
 
