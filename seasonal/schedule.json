@@ -1,0 +1,42 @@
+{
+  "timezone": "Europe/Madrid",
+  "fallbackSummer": "murcianico",
+  "campaigns": [
+    {
+      "id": "motera",
+      "title": "Este mes nos vamos de ruta",
+      "start": "2026-03-01",
+      "end": "2026-05-31",
+      "status": "live",
+      "preview": "previews/motera.html",
+      "notes": "Referencia actual en la web."
+    },
+    {
+      "id": "vuelta-cole",
+      "title": "Vuelta al cole con estilo",
+      "start": "2026-08-20",
+      "end": "2026-09-14",
+      "status": "preview",
+      "preview": "previews/vuelta-cole.html",
+      "notes": "Antes de Cartagineses. Murcia: cole ~8-12 sep."
+    },
+    {
+      "id": "cartagineses",
+      "title": "Cartagineses y Romanos",
+      "start": "2026-09-01",
+      "end": "2026-09-30",
+      "status": "preview",
+      "preview": "previews/cartagineses.html",
+      "notes": "Fiesta 18-27 sep 2026. Eslogan: Y después del verano…"
+    },
+    {
+      "id": "murcianico",
+      "title": "Sabor murciano",
+      "start": "2026-07-01",
+      "end": "2026-08-19",
+      "status": "planned",
+      "preview": null,
+      "notes": "Verano sin campaña específica + refuerzo primavera."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /seasonal/
+
+Sitemap: https://chapucica.com/sitemap.xml

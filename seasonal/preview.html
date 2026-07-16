@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Preview campañas — Chapucica seasonal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1814;
+      color: #f6f3ec;
+      min-height: 100vh;
+    }
+    .hub {
+      display: grid;
+      grid-template-columns: min(20rem, 100%) 1fr;
+      min-height: 100vh;
+    }
+    @media (max-width: 900px) {
+      .hub { grid-template-columns: 1fr; }
+      .hub__sidebar { border-right: none; border-bottom: 1px solid #333; }
+    }
+    .hub__sidebar {
+      padding: 1.5rem;
+      background: #222;
+      border-right: 1px solid #333;
+    }
+    .hub__sidebar h1 {
+      font-size: 1.1rem;
+      margin: 0 0 0.25rem;
+      color: #6ec8b3;
+    }
+    .hub__sidebar p {
+      font-size: 0.8rem;
+      color: #999;
+      margin: 0 0 1.25rem;
+      line-height: 1.45;
+    }
+    .hub__sidebar a.dossier {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: #6ec8b3;
+      margin-bottom: 1.25rem;
+    }
+    fieldset {
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 0.75rem 1rem 1rem;
+      margin: 0 0 1rem;
+    }
+    legend { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #888; }
+    .hub__opts { display: flex; flex-direction: column; gap: 0.35rem; }
+    .hub__opts label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      padding: 0.35rem 0;
+    }
+    .hub__device {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .hub__device button {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #555;
+      border-radius: 6px;
+      background: #333;
+      color: #eee;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .hub__device button.is-active {
+      background: #6ec8b3;
+      color: #1a1814;
+      border-color: #6ec8b3;
+      font-weight: 600;
+    }
+    .hub__stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1.5rem;
+      background: #2a2a2a;
+      overflow: auto;
+    }
+    .hub__frame-wrap {
+      transition: width 0.35s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .hub__frame-wrap--desktop { width: min(100%, 960px); }
+    .hub__frame-wrap--mobile { width: 390px; max-width: 100%; }
+    .hub__frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 820px;
+      border: none;
+    }
+    .hub__meta {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: #888;
+      text-align: center;
+      max-width: 28rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hub">
+    <aside class="hub__sidebar">
+      <h1>Campañas estacionales</h1>
+      <p>Previews locales · la web publicada no cambia.</p>
+      <a class="dossier" href="DOSSIER.md">📋 Abrir DOSSIER.md (calendario completo)</a>
+
+      <fieldset>
+        <legend>Campaña</legend>
+        <div class="hub__opts" id="campaign-opts">
+          <label><input type="radio" name="campaign" value="previews/vuelta-cole.html" checked /> 📚 Vuelta al cole</label>
+          <label><input type="radio" name="campaign" value="previews/cartagineses.html" /> 🏛️ Cartagineses y Romanos</label>
+          <label><input type="radio" name="campaign" value="previews/motera.html" /> 🏍️ Motera (referencia)</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Vista</legend>
+        <div class="hub__device">
+          <button type="button" class="is-active" data-device="desktop">Desktop</button>
+          <button type="button" data-device="mobile">Móvil</button>
+        </div>
+      </fieldset>
+    </aside>
+
+    <main class="hub__stage">
+      <div class="hub__frame-wrap hub__frame-wrap--desktop" id="frame-wrap">
+        <iframe id="preview-frame" src="previews/vuelta-cole.html" title="Preview campaña"></iframe>
+      </div>
+      <p class="hub__meta" id="meta">Vuelta al cole · 20 ago – 14 sep · Placeholders hasta tener diseños reales de chapas.</p>
+    </main>
+  </div>
+
+  <script>
+    const meta = {
+      'previews/vuelta-cole.html': 'Vuelta al cole · 20 ago – 14 sep · Placeholders hasta diseños reales.',
+      'previews/cartagineses.html': 'Cartagineses y Romanos · 1–30 sep · Fiesta 18–27 sep 2026.',
+      'previews/motera.html': 'Motera · Referencia actual en chapucica.com · Mar–May.'
+    };
+    const frame = document.getElementById('preview-frame');
+    const wrap = document.getElementById('frame-wrap');
+    const metaEl = document.getElementById('meta');
+
+    document.getElementById('campaign-opts').addEventListener('change', e => {
+      if (e.target.name !== 'campaign') return;
+      frame.src = e.target.value;
+      metaEl.textContent = meta[e.target.value] || '';
+    });
+
+    document.querySelector('.hub__device').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      document.querySelectorAll('.hub__device button').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      wrap.classList.toggle('hub__frame-wrap--mobile', btn.dataset.device === 'mobile');
+      wrap.classList.toggle('hub__frame-wrap--desktop', btn.dataset.device === 'desktop');
+    });
+  </script>
+</body>
+</html>

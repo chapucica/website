@@ -1,0 +1,145 @@
+/* Temas spotlight estacionales — solo previews / futuro calendario */
+
+/* ── Vuelta al cole ── */
+.spotlight--cole {
+  background: linear-gradient(165deg, #1a2744 0%, #243b6b 50%, #1e3260 100%);
+}
+
+.spotlight--cole .spotlight__texture {
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 8h44v44H8z' fill='none' stroke='%23fff' stroke-width='1' opacity='.08'/%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+.spotlight--cole .spotlight__heading {
+  color: #fff8e7;
+}
+
+.spotlight--cole .spotlight-card__inner {
+  border-color: rgba(255, 214, 102, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.spotlight--cole .spotlight-card__media {
+  background: radial-gradient(circle at 35% 30%, #ffd666 0%, #e8a838 45%, #243b6b 100%);
+}
+
+.spotlight__scene-track--cole {
+  position: relative;
+  height: 3.5rem;
+  overflow: hidden;
+}
+
+.spotlight__scene-track--cole::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: rgba(255, 214, 102, 0.35);
+  border-radius: 99px;
+}
+
+.spotlight__scene-icon--cole {
+  position: absolute;
+  bottom: 52%;
+  left: 0;
+  font-size: 2rem;
+  line-height: 1;
+  animation: seasonal-scene-drive 11s linear infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+}
+
+/* ── Cartagineses y Romanos ── */
+.spotlight--cartagineses {
+  background: linear-gradient(165deg, #1a0f0a 0%, #3d1810 40%, #2a1510 100%);
+}
+
+.spotlight--cartagineses .spotlight__texture {
+  opacity: 0.11;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='18' fill='none' stroke='%23d4a730' stroke-width='1' opacity='.12'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
+}
+
+.spotlight--cartagineses .spotlight__heading {
+  color: #f5e6c8;
+}
+
+.spotlight--cartagineses .spotlight__text {
+  color: rgba(245, 230, 200, 0.78);
+}
+
+.spotlight--cartagineses .spotlight-card__inner {
+  border-color: rgba(212, 167, 48, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.spotlight--cartagineses .spotlight-card__media {
+  background: radial-gradient(circle at 35% 30%, #d4a730 0%, #8b4513 50%, #1a0f0a 100%);
+}
+
+.spotlight__scene-track--cartagineses {
+  position: relative;
+  height: 3.75rem;
+  overflow: hidden;
+}
+
+.spotlight__scene-track--cartagineses::before {
+  content: '';
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(212, 167, 48, 0.4);
+  border-radius: 2px;
+}
+
+.spotlight__scene-icon--cartagineses {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 0;
+  font-size: 2.25rem;
+  line-height: 1;
+  animation: seasonal-scene-drive 14s linear infinite;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45));
+}
+
+@keyframes seasonal-scene-drive {
+  0%   { left: -10%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight__scene-icon--cole,
+  .spotlight__scene-icon--cartagineses {
+    animation: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Placeholder sin foto real aún */
+.spotlight-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.spotlight-card__tag {
+  display: inline-block;
+  margin-top: var(--sp-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
