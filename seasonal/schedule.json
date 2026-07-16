@@ -34,9 +34,9 @@
       "title": "Sabor murciano",
       "start": "2026-07-01",
       "end": "2026-08-19",
-      "status": "planned",
-      "preview": null,
-      "notes": "Verano sin campaña específica + refuerzo primavera."
+      "status": "preview",
+      "preview": "previews/murcianico.html",
+      "notes": "Verano fallback · huerta · limón flotante."
     }
   ]
 }

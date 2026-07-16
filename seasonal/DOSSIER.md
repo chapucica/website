@@ -22,7 +22,7 @@
 | ✅ | **Motera / ruta** | Mar – May | En web ahora. Referencia de diseño. |
 | 🔨 | **Vuelta al cole** | 20 ago – 14 sep | Antes de Cartagineses. Murcia: inicio curso ~8–12 sep. |
 | 🔨 | **Cartagineses y Romanos** | 1 – 30 sep (pico 18–27) | 2026: 18–27 sep · 2027: 17–26 sep |
-| ⬜ | **Murcianico (verano fallback)** | 1 jul – 19 ago | Cuando no haya otra campaña de verano. |
+| 🔨 | **Murcianico (verano fallback)** | 1 jul – 19 ago | Cuando no haya otra campaña de verano. |
 | ⬜ | **Primavera Murcia** (Bando, Entierro Sardina…) | ~Semana Santa + abril | Muy identitario. |
 | ⬜ | **Carnaval** (comparsas, charangas) | ~20 ene – mar | Pico febrero. |
 | ⬜ | **San Valentín** | 1 – 14 feb | Parejas, detalle. |
@@ -102,15 +102,26 @@
 
 ---
 
-## Verano sin plan → Murcianico
+## Verano sin plan → Murcianico · `murcianico`
 
 **Ventana:** 1 jul – 19 ago (entre primavera y vuelta al cole).
 
-**Copy borrador:**
+**Copy propuesto (spotlight):**
 - **Título:** 🍋 Sabor murciano
-- **Texto:** Bando, huerta, barrio, peña de verano… Las fiestas no se acaban en primavera.
+- **Texto 1:** Bando, huerta, barrio, peña de verano… Las fiestas no se acaban en primavera.
+- **Texto 2:** Chapas con acento cartagenero y murciano — diseño incluido, como siempre.
 
-*(Preview pendiente — reutiliza paleta crema/verde Chapucica + limón.)*
+**Tarjetas ejemplo (sustituir por diseños reales):**
+| Nombre | Idea |
+|--------|------|
+| De la huerta | Sabor local |
+| Del barrio | Peña · cuadrilla |
+| Cartagener@ | Orgullo local |
+
+**Escena animada:** mascota flotante 🍋 + shimmer limón/oro en chapas.  
+**Colores:** verde huerta + teal Chapucica + limón/oro.
+
+**Preview:** `seasonal/previews/murcianico.html`
 
 ---
 
@@ -120,6 +131,7 @@
    `file:///…/chapucica/seasonal/preview.html`
 2. Elige campaña + **Desktop** / **Móvil**.
 3. O abre directamente:
+   - `seasonal/previews/murcianico.html`
    - `seasonal/previews/vuelta-cole.html`
    - `seasonal/previews/cartagineses.html`
    - `seasonal/previews/motera.html` (referencia actual)
