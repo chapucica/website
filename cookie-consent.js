@@ -64,8 +64,6 @@
     banner.removeAttribute('aria-hidden');
     document.documentElement.classList.add('cookie-banner-open');
     notifyBannerOpen();
-    var acceptBtn = banner.querySelector('[data-cookie-accept]');
-    if (acceptBtn) acceptBtn.focus();
   }
 
   function accept() {
