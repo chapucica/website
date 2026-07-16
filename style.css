@@ -3556,6 +3556,7 @@ p, li           { text-wrap: pretty; }
   overflow: visible;
   display: flex;
   flex-direction: column;
+  scroll-margin-top: 5.5rem;
 }
 
 /* ── Top bar ── */
@@ -3708,6 +3709,7 @@ p, li           { text-wrap: pretty; }
   color: var(--color-text);
   letter-spacing: -0.02em;
   margin-bottom: var(--sp-6);
+  scroll-margin-top: 5.5rem;
 }
 
 @media (min-width: 480px) {
@@ -4215,6 +4217,7 @@ p, li           { text-wrap: pretty; }
   flex-shrink: 0;
   padding: var(--sp-4) var(--sp-6) 0;
   background-color: var(--c-white);
+  scroll-margin-top: 5.5rem;
 }
 
 .wizard__price-slot[hidden] {
@@ -4410,12 +4413,14 @@ p, li           { text-wrap: pretty; }
   color: var(--color-text);
   margin: 0 0 var(--sp-3);
   letter-spacing: -0.01em;
+  scroll-margin-top: 5.5rem;
 }
 
 .wizard__chapa-part--finish {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.38s cubic-bezier(.22, 1, .36, 1), transform 0.38s cubic-bezier(.22, 1, .36, 1);
+  scroll-margin-top: 5.5rem;
 }
 
 .wizard__chapa-part--finish.is-revealed {

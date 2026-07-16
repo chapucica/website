@@ -798,6 +798,7 @@ function buildWhatsAppPriceLines(result) {
 function initWizard() {
   const TOTAL_STEPS = 4;
   const AUTO_ADVANCE_DELAY = 280;
+  const WIZARD_SCROLL_MS = 360;
   const QTY_PRESETS = [25, 50, 75, 100, 150, 200];
 
   const progressFill  = document.getElementById('wizard-progress-fill');
@@ -829,6 +830,36 @@ function initWizard() {
       clearTimeout(autoAdvanceTimer);
       autoAdvanceTimer = null;
     }
+  }
+
+  function scrollWizardIntoView(el) {
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resolveWizardScrollTarget(stepNum) {
+    if (stepNum === TOTAL_STEPS && priceSlot && !priceSlot.hidden) {
+      return priceSlot;
+    }
+    if (stepNum === 2 && finishPanel && !finishPanel.hidden) {
+      return finishPanel;
+    }
+    const stepEl = document.getElementById(`wizard-step-${stepNum}`);
+    if (!stepEl) return document.getElementById('wizard-card');
+    return stepEl.querySelector('.wizard__question, .wizard__subquestion') || stepEl;
+  }
+
+  function focusWizardStep(stepNum, delay = WIZARD_SCROLL_MS) {
+    const stepEl = document.getElementById(`wizard-step-${stepNum}`);
+    const scrollTarget = resolveWizardScrollTarget(stepNum);
+    const focusTarget = stepNum === 3 && qtyCustomCard?.classList.contains('is-selected')
+      ? qtyCustomInput
+      : stepEl?.querySelector('.wizard__question, .wizard__subquestion, .wizard__opt, .wizard__qty-custom-input');
+
+    setTimeout(() => {
+      scrollWizardIntoView(scrollTarget);
+      if (focusTarget) focusTarget.focus({ preventScroll: true });
+    }, delay);
   }
 
   function scheduleAutoAdvance(fromStep, delay = AUTO_ADVANCE_DELAY) {
@@ -1085,10 +1116,7 @@ function initWizard() {
       toEl.style.cssText = 'opacity:1;transform:translateY(0);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1)';
       toEl.addEventListener('transitionend', () => {
         toEl.style.cssText = '';
-        const focusTarget = to === 3 && qtyCustomCard?.classList.contains('is-selected')
-          ? qtyCustomInput
-          : toEl.querySelector('.wizard__question, .wizard__subquestion, .wizard__opt, .wizard__qty-custom-input');
-        if (focusTarget) focusTarget.focus({ preventScroll: true });
+        focusWizardStep(to, 50);
       }, { once: true });
     }, 200);
   }
@@ -1147,6 +1175,7 @@ function initWizard() {
     answers[2] = btn.dataset.value;
     updateBottleOpenerOption(btn.dataset.value);
     revealFinishPanel();
+    setTimeout(() => scrollWizardIntoView(finishPanel), WIZARD_SCROLL_MS);
   }
 
   function selectFinishOption(btn) {
