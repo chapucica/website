@@ -120,7 +120,7 @@
 | Asiático | El café murciano |
 | 40º a la sombra | Broma local |
 
-**Escena animada:** limones suaves de fondo (drift) + shimmer limón en chapas. Bloque luminoso (crema / limón / teal).  
+**Escena animada:** atmósfera lenta (luz, polvo, limones casi imperceptibles) + chapas físicas (hover, brillo al cursor, parallax suave).  
 **Colores:** crema Chapucica + limón/oro + teal.
 
 **Preview:** `seasonal/previews/murcianico.html`

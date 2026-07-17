@@ -43,20 +43,26 @@
     data-campaign="murcianico"
     aria-labelledby="spotlight-heading"
   >
-    <div class="spotlight__texture" aria-hidden="true"></div>
-
-    <div class="spotlight__lemons" aria-hidden="true">
-      <span class="lemon lemon--a">🍋</span>
-      <span class="lemon lemon--b">🍋</span>
-      <span class="lemon lemon--c">🍋</span>
-      <span class="lemon lemon--d">🍋</span>
-      <span class="lemon lemon--e">🍋</span>
-      <span class="lemon lemon--f">🍋</span>
+    <div class="spotlight__atmosphere" aria-hidden="true">
+      <div class="spotlight__ambience"></div>
+      <div class="spotlight__haze"></div>
+      <div class="spotlight__dust"></div>
+      <div class="spotlight__texture"></div>
+      <div class="spotlight__lemons">
+        <span class="lemon lemon--a">🍋</span>
+        <span class="lemon lemon--b">🍋</span>
+        <span class="lemon lemon--c">🍋</span>
+        <span class="lemon lemon--d">🍋</span>
+        <span class="lemon lemon--e">🍋</span>
+        <span class="lemon lemon--f">🍋</span>
+      </div>
     </div>
 
     <div class="container spotlight__inner">
       <header class="spotlight__header section-header">
-        <h2 class="spotlight__heading" id="spotlight-heading">🍋 Muy de aquí</h2>
+        <h2 class="spotlight__heading spotlight__heading--reveal" id="spotlight-heading">
+          <span class="spotlight__heading-text">Muy de aquí</span>
+        </h2>
         <div class="spotlight__body">
           <p class="spotlight__text">
             Pastel de carne, un asiático bien puesto, paisajes de huerta y bromas que solo se pillan en Murcia.
@@ -68,8 +74,11 @@
       <ul class="spotlight__products" role="list">
         <li class="spotlight-card">
           <article class="spotlight-card__inner">
-            <div class="spotlight-card__media">
-              <span class="spotlight-card__placeholder" aria-hidden="true">🥧</span>
+            <div class="spotlight-card__media badge-pin" data-badge>
+              <span class="badge-pin__halo" aria-hidden="true"></span>
+              <span class="badge-pin__face badge-pin__face--pastel" aria-hidden="true"></span>
+              <span class="badge-pin__shine" aria-hidden="true"></span>
+              <span class="badge-pin__rim" aria-hidden="true"></span>
             </div>
             <h3 class="spotlight-card__name">Pastel de carne</h3>
             <span class="spotlight-card__tag">Clásico de barra</span>
@@ -77,8 +86,11 @@
         </li>
         <li class="spotlight-card">
           <article class="spotlight-card__inner">
-            <div class="spotlight-card__media">
-              <span class="spotlight-card__placeholder" aria-hidden="true">☕</span>
+            <div class="spotlight-card__media badge-pin" data-badge>
+              <span class="badge-pin__halo" aria-hidden="true"></span>
+              <span class="badge-pin__face badge-pin__face--asiatico" aria-hidden="true"></span>
+              <span class="badge-pin__shine" aria-hidden="true"></span>
+              <span class="badge-pin__rim" aria-hidden="true"></span>
             </div>
             <h3 class="spotlight-card__name">Asiático</h3>
             <span class="spotlight-card__tag">El de verdad</span>
@@ -86,8 +98,11 @@
         </li>
         <li class="spotlight-card">
           <article class="spotlight-card__inner">
-            <div class="spotlight-card__media">
-              <span class="spotlight-card__placeholder" aria-hidden="true">☀️</span>
+            <div class="spotlight-card__media badge-pin" data-badge>
+              <span class="badge-pin__halo" aria-hidden="true"></span>
+              <span class="badge-pin__face badge-pin__face--sol" aria-hidden="true"></span>
+              <span class="badge-pin__shine" aria-hidden="true"></span>
+              <span class="badge-pin__rim" aria-hidden="true"></span>
             </div>
             <h3 class="spotlight-card__name">40º a la sombra</h3>
             <span class="spotlight-card__tag">Broma local</span>
@@ -99,5 +114,59 @@
 
   <div class="preview-fake-section preview-fake-section--dark" aria-hidden="true">↓ Precios (sección existente)</div>
 
+  <script>
+    (function () {
+      const section = document.getElementById('spotlight');
+      if (!section) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        section.classList.add('is-revealed');
+        return;
+      }
+
+      requestAnimationFrame(() => section.classList.add('is-revealed'));
+
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let rafId = 0;
+
+      function tick() {
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+        section.style.setProperty('--parallax-x', currentX.toFixed(3));
+        section.style.setProperty('--parallax-y', currentY.toFixed(3));
+        rafId = requestAnimationFrame(tick);
+      }
+
+      section.addEventListener('pointermove', (e) => {
+        const rect = section.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+        targetX = Math.max(-1, Math.min(1, nx));
+        targetY = Math.max(-1, Math.min(1, ny));
+
+        const badge = e.target.closest('[data-badge]');
+        if (badge) {
+          const b = badge.getBoundingClientRect();
+          const bx = ((e.clientX - b.left) / b.width) * 100;
+          const by = ((e.clientY - b.top) / b.height) * 100;
+          badge.style.setProperty('--shine-x', bx.toFixed(1) + '%');
+          badge.style.setProperty('--shine-y', by.toFixed(1) + '%');
+        }
+      });
+
+      section.addEventListener('pointerleave', () => {
+        targetX = 0;
+        targetY = 0;
+      });
+
+      rafId = requestAnimationFrame(tick);
+
+      window.addEventListener('pagehide', () => cancelAnimationFrame(rafId), { once: true });
+    })();
+  </script>
 </body>
 </html>
