@@ -4,6 +4,46 @@
 
   var GA_ID = 'G-7SVBBR84WK';
   var STORAGE_KEY = 'chapucica_cookie_consent';
+  var DEBUG_STORAGE_KEY = 'chapucica_analytics_debug';
+
+  function isAnalyticsDebug() {
+    try {
+      return localStorage.getItem(DEBUG_STORAGE_KEY) === '1';
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function logAnalyticsDebug() {
+    if (window.__chapucicaAnalyticsDebugLogged) return;
+    window.__chapucicaAnalyticsDebugLogged = true;
+    console.log('Analytics desactivado (modo debug)');
+  }
+
+  function parseDebugFromUrl() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (!params.has('debug')) return;
+
+      var value = params.get('debug');
+      if (value === 'false' || value === '0') {
+        localStorage.removeItem(DEBUG_STORAGE_KEY);
+      } else if (value === 'true' || value === '1' || value === 'yes' || value === '') {
+        localStorage.setItem(DEBUG_STORAGE_KEY, '1');
+      }
+
+      params.delete('debug');
+      var query = params.toString();
+      var cleanUrl = window.location.pathname
+        + (query ? '?' + query : '')
+        + window.location.hash;
+      window.history.replaceState({}, '', cleanUrl);
+    } catch (err) {
+      /* URL o localStorage no disponible */
+    }
+  }
+
+  parseDebugFromUrl();
 
   function getConsent() {
     try {
@@ -22,6 +62,10 @@
   }
 
   function loadAnalytics() {
+    if (isAnalyticsDebug()) {
+      logAnalyticsDebug();
+      return;
+    }
     if (window.__chapucicaGaLoaded) return;
     window.__chapucicaGaLoaded = true;
 
@@ -128,6 +172,10 @@
     buildBanner();
     bindPreferenceTriggers();
 
+    if (isAnalyticsDebug()) {
+      logAnalyticsDebug();
+    }
+
     var consent = getConsent();
     if (consent === 'accepted') {
       loadAnalytics();
@@ -150,7 +198,8 @@
     openPreferences: showBanner,
     accept: accept,
     reject: reject,
-    getConsent: getConsent
+    getConsent: getConsent,
+    isAnalyticsDebug: isAnalyticsDebug
   };
 
   if (document.readyState === 'loading') {

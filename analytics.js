@@ -18,8 +18,20 @@ const ChapucicaAnalytics = (function () {
     'halloween': 'halloween',
   };
 
+  function isAnalyticsDebug() {
+    try {
+      if (window.ChapucicaCookies && typeof window.ChapucicaCookies.isAnalyticsDebug === 'function') {
+        return window.ChapucicaCookies.isAnalyticsDebug();
+      }
+      return localStorage.getItem('chapucica_analytics_debug') === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
   function hasAnalytics() {
     try {
+      if (isAnalyticsDebug()) return false;
       return typeof gtag === 'function'
         && (!window.ChapucicaCookies || window.ChapucicaCookies.getConsent?.() === 'accepted');
     } catch (_) {
