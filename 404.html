@@ -12,43 +12,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=48" />
-  <script src="/cookie-consent.js" charset="UTF-8"></script>
+  <link rel="stylesheet" href="/style.css?v=50" />
 </head>
 <body>
 
   <a class="skip-link" href="#main-content">Ir al contenido</a>
 
-  <header class="site-header" id="site-header">
-    <nav class="nav" aria-label="Navegación principal">
-      <a class="nav__logo" href="/" aria-label="Chapucica inicio">
-        <img src="/assets/logo.png" alt="Chapucica" width="40" height="40" class="nav__logo-img" />
-        <span class="nav__logo-text">Chapucica</span>
-      </a>
-
-      <button class="nav__toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Abrir menú">
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-      </button>
-
-      <ul class="nav__menu" id="nav-menu" role="list">
-        <li><a class="nav__link" href="/#personalisation">Tu chapa</a></li>
-        <li><a class="nav__link" href="/#gallery">Galería</a></li>
-        <li><a class="nav__link" href="/#pricing">Precios</a></li>
-        <li><a class="nav__link" href="/#contact">Contacto</a></li>
-      </ul>
-
-      <a class="nav__cta btn btn--primary" href="/#personalisation">Calcular precio</a>
-    </nav>
-  </header>
-
-  <!-- SYNC: bloque principal compartido con preview-404.html -->
+  <!-- Contenido principal 404 -->
   <main id="main-content" class="error-404">
     <div class="error-404__inner container">
+      <a class="error-404__brand" href="/" aria-label="Ir a Chapucica">
+        <img src="/assets/logo.png" alt="" width="36" height="36" class="error-404__brand-img" />
+        <span class="error-404__brand-text">Chapucica</span>
+      </a>
       <div class="error-404__visual" aria-hidden="true">
         <div class="error-404__badge">
-          <span class="error-404__pin"></span>
           <div class="error-404__disc">
             <span class="error-404__code">404</span>
           </div>
@@ -56,11 +34,10 @@
       </div>
       <h1 class="error-404__title">Esta chapa no venía en el pedido</h1>
       <p class="error-404__text">
-        La página que buscas no existe, pero la web sigue muy viva. Te llevamos de vuelta.
+        La página que buscas no existe, pero la web sigue muy viva.
       </p>
       <div class="error-404__actions">
-        <a class="btn btn--primary" href="/">Volver al inicio</a>
-        <a class="btn btn--secondary" href="/#personalisation">Calcular mi precio</a>
+        <a class="btn btn--primary" href="/">Ir a Chapucica</a>
       </div>
     </div>
     <div class="section-wave section-wave--cream-white" aria-hidden="true">
@@ -110,7 +87,6 @@
               <li><a class="footer__nav-link" href="/aviso-legal.html">Aviso legal</a></li>
               <li><a class="footer__nav-link" href="/privacidad.html">Política de privacidad</a></li>
               <li><a class="footer__nav-link" href="/cookies.html">Política de cookies</a></li>
-              <li><button type="button" class="footer__nav-link footer__nav-link--btn" data-cookie-preferences>Preferencias de cookies</button></li>
             </ul>
           </div>
         </nav>
@@ -122,6 +98,5 @@
   </footer>
 
   <script src="/script.js" charset="UTF-8"></script>
-  <script src="/error-404.js" charset="UTF-8"></script>
 </body>
 </html>
