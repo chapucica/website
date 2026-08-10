@@ -604,3 +604,169 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
 }
+
+/* ── Agosto · El verano todavía no ha terminado ── */
+.spotlight--agosto {
+  background:
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(255, 214, 150, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 92% 88%, rgba(224, 122, 95, 0.18) 0%, transparent 50%),
+    linear-gradient(168deg, #fff8ee 0%, #f7ebdc 42%, #e8f2f0 100%);
+  color: #1a1814;
+  overflow: hidden;
+}
+
+.spotlight--agosto .spotlight__texture {
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+}
+
+.spotlight--agosto .spotlight__heading {
+  color: #1a1814;
+}
+
+.spotlight--agosto .spotlight__text {
+  color: rgba(26, 24, 20, 0.72);
+}
+
+.spotlight--agosto .spotlight-card__inner {
+  border-color: rgba(26, 24, 20, 0.1);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.spotlight--agosto .spotlight-card__name {
+  color: #1a1814;
+}
+
+.spotlight--agosto .spotlight-card__media {
+  background: #fffef9;
+  aspect-ratio: 1 / 1;
+}
+
+.spotlight--agosto .spotlight-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Escena: camino de puntos/chispas + sol en órbita fina (secundario) */
+.spotlight__scene--dusk {
+  margin-block: var(--sp-2) var(--sp-6);
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--sp-4);
+}
+
+.agosto-dusk {
+  position: relative;
+  width: min(100%, 26rem);
+  height: 4.25rem;
+  overflow: hidden;
+}
+
+/* Camino estático (no se mueve con el sol) */
+.agosto-dusk__path {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 50%;
+  width: 92%;
+  height: 2.25rem;
+  margin-top: -1.125rem;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Carril de avance: solo transform → velocidad realmente constante */
+.agosto-dusk__traveler {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  animation: agosto-sun-travel 7s linear infinite;
+  will-change: transform;
+}
+
+.agosto-dusk__sun {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-top: calc(2.35rem / -2);
+  animation: agosto-sun-bob 7s linear infinite;
+  will-change: transform;
+  filter: drop-shadow(0 1px 5px rgba(232, 168, 56, 0.4));
+}
+
+.agosto-dusk__sun svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Avance L→R a velocidad constante; reinicio limpio a la izquierda */
+@keyframes agosto-sun-travel {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100% - 2.35rem)); }
+}
+
+/*
+  Órbita vertical pequeña alrededor del eje de puntos.
+  Misma duración + linear para no desalinear ni frenar.
+*/
+@keyframes agosto-sun-bob {
+  0%    { transform: translateY(0); }
+  12.5% { transform: translateY(-0.45rem) rotate(4deg); }
+  25%   { transform: translateY(0); }
+  37.5% { transform: translateY(0.45rem) rotate(-4deg); }
+  50%   { transform: translateY(0); }
+  62.5% { transform: translateY(-0.45rem) rotate(4deg); }
+  75%   { transform: translateY(0); }
+  87.5% { transform: translateY(0.45rem) rotate(-4deg); }
+  100%  { transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .agosto-dusk {
+    width: min(100%, 20rem);
+    height: 3.85rem;
+  }
+
+  .agosto-dusk__sun {
+    width: 2.1rem;
+    height: 2.1rem;
+    margin-top: calc(2.1rem / -2);
+  }
+
+  @keyframes agosto-sun-travel {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(100% - 2.1rem)); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agosto-dusk__traveler,
+  .agosto-dusk__sun {
+    animation: none;
+  }
+
+  .agosto-dusk__traveler {
+    transform: translateX(42%);
+  }
+
+  .agosto-dusk__sun {
+    transform: translateY(-0.28rem);
+  }
+}
+

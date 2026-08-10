@@ -256,6 +256,7 @@
     /* Colores por campaña */
     .c-motera { background: #7a8a9a; }
     .c-murcianico { background: #f0c24a; }
+    .c-agosto { background: #e07a5f; }
     .c-cole { background: #5b7fd4; }
     .c-cartagineses { background: #c45c3a; }
     .c-sanvalentin { background: #d46a8a; }
@@ -280,7 +281,8 @@
       <fieldset>
         <legend>Campaña</legend>
         <div class="hub__opts" id="campaign-opts">
-          <label><input type="radio" name="campaign" value="previews/murcianico.html" data-id="murcianico" checked /> 🍋 Murcianico</label>
+          <label><input type="radio" name="campaign" value="previews/agosto.html" data-id="agosto" checked /> ☀️ Agosto (final de verano)</label>
+          <label><input type="radio" name="campaign" value="previews/murcianico.html" data-id="murcianico" /> 🍋 Murcianico</label>
           <label><input type="radio" name="campaign" value="previews/vuelta-cole.html" data-id="vuelta-cole" /> 📚 Vuelta al cole</label>
           <label><input type="radio" name="campaign" value="previews/cartagineses.html" data-id="cartagineses" /> 🏛️ Cartagineses y Romanos</label>
           <label><input type="radio" name="campaign" value="previews/motera.html" data-id="motera" /> 🏍️ Motera (referencia)</label>
@@ -315,15 +317,16 @@
 
     <main class="hub__stage">
       <div class="hub__frame-wrap hub__frame-wrap--desktop" id="frame-wrap">
-        <iframe id="preview-frame" src="previews/murcianico.html" title="Preview campaña"></iframe>
+        <iframe id="preview-frame" src="previews/agosto.html" title="Preview campaña"></iframe>
       </div>
-      <p class="hub__meta" id="meta">Murcianico · 1 jul – 19 ago · Típicos y humor · Limones de fondo.</p>
+      <p class="hub__meta" id="meta">Agosto · 1–19 ago · El verano todavía no ha terminado · Preview provisional.</p>
     </main>
   </div>
 
   <script>
     const meta = {
-      'previews/murcianico.html': 'Murcianico · 1 jul – 19 ago · Típicos y humor · Limones de fondo.',
+      'previews/agosto.html': 'Agosto · 1–19 ago · El verano todavía no ha terminado · Assets provisionales.',
+      'previews/murcianico.html': 'Murcianico · 1–31 jul · Típicos y humor · Limones de fondo.',
       'previews/vuelta-cole.html': 'Vuelta al cole · 20 ago – 14 sep · Placeholders hasta diseños reales.',
       'previews/cartagineses.html': 'Cartagineses y Romanos · 1–30 sep · Fiesta 18–27 sep 2026.',
       'previews/motera.html': 'Motera · Referencia actual en chapucica.com · Mar–May.'
@@ -340,7 +343,8 @@
       { id: 'primavera', title: 'Primavera Murcia (Bando…)', emoji: '🌸', color: 'c-primavera', start: '2026-03-29', end: '2026-04-30', status: 'planned', note: 'Semana Santa + abril' },
       { id: 'comuniones', title: 'Comuniones (refuerzo)', emoji: '⛪', color: 'c-comuniones', start: '2026-05-01', end: '2026-06-30', status: 'planned', note: 'pico jun · no quita wizard' },
       { id: 'orgullo', title: 'Orgullo LGTBI', emoji: '🏳️‍🌈', color: 'c-orgullo', start: '2026-06-15', end: '2026-07-10', status: 'planned' },
-      { id: 'murcianico', title: 'Murcianico', emoji: '🍋', color: 'c-murcianico', start: '2026-07-01', end: '2026-08-19', status: 'preview', preview: 'previews/murcianico.html', note: 'fallback verano' },
+      { id: 'murcianico', title: 'Murcianico', emoji: '🍋', color: 'c-murcianico', start: '2026-07-01', end: '2026-07-31', status: 'preview', preview: 'previews/murcianico.html', note: 'fallback verano' },
+      { id: 'agosto', title: 'El verano todavía no ha terminado', emoji: '☀️', color: 'c-agosto', start: '2026-08-01', end: '2026-08-19', status: 'preview', preview: 'previews/agosto.html' },
       { id: 'vuelta-cole', title: 'Vuelta al cole', emoji: '📚', color: 'c-cole', start: '2026-08-20', end: '2026-09-14', status: 'preview', preview: 'previews/vuelta-cole.html' },
       { id: 'cartagineses', title: 'Cartagineses y Romanos', emoji: '🏛️', color: 'c-cartagineses', start: '2026-09-01', end: '2026-09-30', status: 'preview', preview: 'previews/cartagineses.html', note: 'pico fiesta 18–27 sep' },
       { id: 'halloween', title: 'Halloween', emoji: '🎃', color: 'c-halloween', start: '2026-10-15', end: '2026-11-02', status: 'planned' },
@@ -450,7 +454,7 @@
     }
 
     renderCalendar();
-    selectCampaign('previews/murcianico.html');
+    selectCampaign('previews/agosto.html');
 
     document.getElementById('campaign-opts').addEventListener('change', e => {
       if (e.target.name !== 'campaign') return;

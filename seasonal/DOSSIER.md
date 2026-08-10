@@ -19,10 +19,11 @@
 
 | Estado | Campaña | Ventana orientativa | Notas |
 |:------:|---------|---------------------|-------|
-| ✅ | **Motera / ruta** | Mar – May | En web ahora. Referencia de diseño. |
+| ✅ | **Motera / ruta** | Mar – May | En web ahora (referencia). A retirar al publicar Agosto. |
+| 🔨 | **Agosto · final de verano** | 1 – 19 ago | Preview · «El verano todavía no ha terminado». |
 | 🔨 | **Vuelta al cole** | 20 ago – 14 sep | Antes de Cartagineses. Murcia: inicio curso ~8–12 sep. |
 | 🔨 | **Cartagineses y Romanos** | 1 – 30 sep (pico 18–27) | 2026: 18–27 sep · 2027: 17–26 sep |
-| 🔨 | **Murcianico (verano fallback)** | 1 jul – 19 ago | Cuando no haya otra campaña de verano. |
+| 🔨 | **Murcianico (verano fallback)** | 1 – 31 jul | Cuando no haya otra campaña de verano. |
 | ⬜ | **Primavera Murcia** (Bando, Entierro Sardina…) | ~Semana Santa + abril | Muy identitario. |
 | ⬜ | **Carnaval** (comparsas, charangas) | ~20 ene – mar | Pico febrero. |
 | ⬜ | **San Valentín** | 1 – 14 feb | Parejas, detalle. |
@@ -45,6 +46,28 @@
 ---
 
 ## Próximas dos campañas (detalle)
+
+### 0. Agosto · final de verano · `agosto`
+
+**Cuándo activar:** 1–19 agosto 2026 (antes de vuelta al cole).
+
+**Copy (spotlight):**
+- **Título:** ☀️ El verano todavía no ha terminado
+- **Texto 1:** Quedan fiestas, viajes, cumpleaños y noches que se alargan más de la cuenta.
+- **Texto 2:** Y sí, también hacemos chapas para esas.
+
+**Tarjetas:**
+| Nombre | Idea |
+|--------|------|
+| Una y nos vamos | Mentira típica de verano |
+| Modo vacaciones | Desconexión sencilla |
+| Yo venía a cenar | Cena que acaba en fiesta |
+
+**Escena:** horizonte suave + sol que baja (sin moto/carretera).  
+**Colores:** crema, ámbar, coral suave, azul apagado.  
+**Preview:** `seasonal/previews/agosto.html`
+
+---
 
 ### 1. Vuelta al cole · `vuelta-cole`
 
@@ -104,7 +127,7 @@
 
 ## Verano sin plan → Murcianico · `murcianico`
 
-**Ventana:** 1 jul – 19 ago (entre primavera y vuelta al cole).
+**Ventana:** 1 – 31 jul (entre primavera y agosto final de verano).
 
 **Enfoque:** típicos locales (comida, bebida, paisajes, bromas). **No** fiestas/peñas. **Sin** “cartagenero”.
 
@@ -134,6 +157,7 @@
 2. Elige campaña + **Desktop** / **Móvil**.
 3. En la misma barra lateral: **Calendario spotlight 2026** (mes a mes, con fechas).
 4. O abre directamente:
+   - `seasonal/previews/agosto.html`
    - `seasonal/previews/murcianico.html`
    - `seasonal/previews/vuelta-cole.html`
    - `seasonal/previews/cartagineses.html`

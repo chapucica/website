@@ -7,9 +7,27 @@
       "title": "Este mes nos vamos de ruta",
       "start": "2026-03-01",
       "end": "2026-05-31",
-      "status": "live",
+      "status": "archive",
       "preview": "previews/motera.html",
-      "notes": "Referencia actual en la web."
+      "notes": "Archivada · sustituida por agosto en home."
+    },
+    {
+      "id": "murcianico",
+      "title": "Sabor murciano",
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "status": "preview",
+      "preview": "previews/murcianico.html",
+      "notes": "Verano fallback · tipicos/humor · sin peñas ni cartagenero."
+    },
+    {
+      "id": "agosto",
+      "title": "El verano todavía no ha terminado",
+      "start": "2026-08-01",
+      "end": "2026-08-19",
+      "status": "live",
+      "preview": "previews/agosto.html",
+      "notes": "Live en home · final de verano · fiestas/viajes/noches."
     },
     {
       "id": "vuelta-cole",
@@ -28,15 +46,6 @@
       "status": "preview",
       "preview": "previews/cartagineses.html",
       "notes": "Fiesta 18-27 sep 2026. Eslogan: Y después del verano…"
-    },
-    {
-      "id": "murcianico",
-      "title": "Sabor murciano",
-      "start": "2026-07-01",
-      "end": "2026-08-19",
-      "status": "preview",
-      "preview": "previews/murcianico.html",
-      "notes": "Verano fallback · tipicos/humor · sin peñas ni cartagenero · limones fondo."
     }
   ]
 }
