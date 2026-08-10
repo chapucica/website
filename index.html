@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=50" />
+  <link rel="stylesheet" href="style.css?v=51" />
   <script src="cookie-consent.js" charset="UTF-8"></script>
   <script src="analytics.js" charset="UTF-8"></script>
   <script type="application/ld+json">
@@ -540,12 +540,11 @@
 
 
     <!-- ============================================================
-         4. INSPIRATION GALLERY
-    ============================================================ -->
-    <!-- ============================================================
          4. CELEBRACIONES REALES — Infinite carousel
-         Media auto-detected from assets/moments/manifest.json.
-         To add new photos/videos: copy files → run generate-manifest.py
+         Photos live in HTML (discoverable). Videos come from
+         assets/moments/manifest.json via initMomentsCarousel().
+         To add a new photo: add the <li> here AND the file in moments/.
+         To add a video: copy the file → run generate-manifest.py
     ============================================================ -->
     <section class="gallery moments" id="gallery" aria-labelledby="gallery-heading">
       <div class="container">
@@ -562,7 +561,126 @@
       <!-- Full-width carousel — intentionally breaks out of container -->
       <div class="moments-carousel" id="moments-carousel" role="region" tabindex="0" aria-label="Celebraciones reales. Arrastra, desliza horizontalmente o usa las flechas del teclado para navegar.">
         <ul class="moments-track" id="moments-track" role="list" aria-live="off">
-          <!-- Populated dynamically by initMomentsCarousel() in script.js -->
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_112839_900.jpg"
+              alt="Pedido de Chapucica empaquetado en cajas kraft con tarjeta de agradecimiento"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_112844_110.jpg"
+              alt="Chapas para boda con ilustración de guardia real y el texto God save the Groom"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_112854_177.jpg"
+              alt="Chapas personalizadas con nombre y gafas para el equipo de un centro óptico"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_112915_124.jpg"
+              alt="Chapas azules personalizadas con el logo de Sibaritas Murcianos"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_112920_770.jpg"
+              alt="Chapa personalizada con un faro junto a una cerveza en la playa"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113018_038.jpg"
+              alt="Chapa personalizada de autocaravana colgada del retrovisor del coche"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113039_823.jpg"
+              alt="Chapas personalizadas con diseños de humor en un cordón de evento universitario"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113112_962.jpg"
+              alt="Chapas personalizadas con frases e ilustraciones de humor"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113217_937.jpg"
+              alt="Chapas solidarias con el lema El pueblo no olvida"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113220_618.jpg"
+              alt="Chapas solidarias El pueblo no olvida sobre tela floral"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113233_941.jpg"
+              alt="Abridor personalizado con rosa de los vientos y el texto Legio Universitas Carthago Nova"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+          <li class="moment-card">
+            <img
+              src="assets/moments/IMG_20260713_113242_979.jpg"
+              alt="Chapas para boda Amiga de la novia y Mi persona amarilla en la mesa de invitados"
+              width="1080"
+              height="1920"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
         </ul>
       </div>
 
@@ -653,7 +771,7 @@
                 <img
                   class="spotlight-card__image"
                   src="assets/spotlight/ruta-01.png"
-                  alt="Chapa Respect for bikers"
+                  alt="Chapa personalizada Respect for bikers con ilustración de motorista"
                   width="320"
                   height="320"
                   loading="lazy"
@@ -668,7 +786,7 @@
                 <img
                   class="spotlight-card__image"
                   src="assets/spotlight/ruta-02.png"
-                  alt="Chapa Km de felicidad — moto en carretera de montaña"
+                  alt="Chapa personalizada Km de felicidad con moto en carretera de montaña"
                   width="320"
                   height="320"
                   loading="lazy"
@@ -683,7 +801,7 @@
                 <img
                   class="spotlight-card__image"
                   src="assets/spotlight/ruta-03.png"
-                  alt="Chapa Amigos — cascos y alas"
+                  alt="Chapa personalizada Los amigos van y vienen, la ruta se queda, con cascos y alas"
                   width="320"
                   height="320"
                   loading="lazy"
@@ -1204,6 +1322,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20" charset="UTF-8"></script>
+  <script src="script.js?v=21" charset="UTF-8"></script>
 </body>
 </html>

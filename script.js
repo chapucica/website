@@ -98,9 +98,10 @@ function initOccasionCards() {
 
 /* ============================================================
    MOMENTOS REALES — Infinite horizontal carousel
-   Media list loaded from assets/moments/manifest.json.
-   To add new media: copy files into assets/moments/ then run
-   generate-manifest.py from the celebration-site folder.
+   Photos ship in index.html (semantic <img> + unique alt).
+   Videos are still loaded from assets/moments/manifest.json.
+   JS reorders the existing photo cards, appends videos, then
+   clones the set for the seamless loop — no SEO duplicate gallery.
    ============================================================ */
 
 function initMomentsCarousel() {
@@ -111,192 +112,192 @@ function initMomentsCarousel() {
   /** pixels per second — lower = slower/more premium */
   const SPEED_PPS = 60;
 
+  const photoCards = Array.from(track.querySelectorAll(':scope > .moment-card'));
+  if (!photoCards.length) return;
+
+  function buildVideoCard(filename) {
+    const li = document.createElement('li');
+    li.className = 'moment-card';
+    li.setAttribute('aria-hidden', 'true');
+
+    const v = document.createElement('video');
+    v.setAttribute('src', 'assets/moments/' + filename);
+    v.autoplay = true;
+    v.muted    = true;
+    v.loop     = true;
+    v.setAttribute('playsinline', '');
+    v.preload  = 'none'; /* lazy — IntersectionObserver starts playback */
+    li.appendChild(v);
+    return li;
+  }
+
+  function startCarousel(baseCards) {
+    /* Shuffle order for freshness; photos remain in the initial HTML for crawlers */
+    const shuffled = [...baseCards].sort(() => Math.random() - 0.5);
+
+    while (track.firstChild) track.removeChild(track.firstChild);
+    shuffled.forEach(card => {
+      if (!card.querySelector('video')) card.removeAttribute('aria-hidden');
+      track.appendChild(card);
+    });
+
+    /* Clone set = seamless infinite loop (visual only; marked decorative) */
+    shuffled.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      const cloneVideo = clone.querySelector('video');
+      if (cloneVideo) {
+        cloneVideo.autoplay = true;
+        cloneVideo.muted = true;
+        cloneVideo.loop = true;
+        cloneVideo.preload = 'none';
+      }
+      track.appendChild(clone);
+    });
+
+    requestAnimationFrame(() => {
+      const gap   = parseInt(getComputedStyle(track).gap, 10) || 12;
+      const cardW = track.querySelector('.moment-card')?.offsetWidth || 200;
+      const itemStep  = cardW + gap;
+      const halfWidth = itemStep * shuffled.length;
+
+      let x        = 0;
+      let hovered  = false;
+      let dragging = false;
+      let manualUntil = 0;
+      let lastTs   = null;
+
+      function wrapX() {
+        if (x > 0)          x -= halfWidth;
+        if (x < -halfWidth) x += halfWidth;
+      }
+
+      function bumpManual(ms = 1800) {
+        manualUntil = Date.now() + ms;
+      }
+
+      function isAutoPaused() {
+        return hovered || dragging || Date.now() < manualUntil;
+      }
+
+      function tick(ts) {
+        if (lastTs !== null && !isAutoPaused()) {
+          const dt = (ts - lastTs) / 1000;
+          x -= SPEED_PPS * dt;
+          if (x <= -halfWidth) x += halfWidth;
+        }
+        lastTs = ts;
+        track.style.transform = `translateX(${x}px)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      carousel.addEventListener('mouseenter', () => { hovered = true; });
+      carousel.addEventListener('mouseleave', () => { hovered = false; });
+
+      carousel.addEventListener('wheel', e => {
+        const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+          ? e.deltaX
+          : (e.shiftKey ? e.deltaY : 0);
+        if (!dx) return;
+
+        e.preventDefault();
+        bumpManual();
+        x -= dx;
+        wrapX();
+      }, { passive: false });
+
+      let ptrActive   = false;
+      let ptrLocked   = false;
+      let ptrStartX   = 0;
+      let ptrStartY   = 0;
+      let xAtPtrStart = 0;
+
+      function endPointerDrag() {
+        ptrActive = false;
+        ptrLocked = false;
+        dragging  = false;
+      }
+
+      carousel.addEventListener('pointerdown', e => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        ptrActive   = true;
+        ptrLocked   = false;
+        ptrStartX   = e.clientX;
+        ptrStartY   = e.clientY;
+        xAtPtrStart = x;
+      });
+
+      carousel.addEventListener('pointermove', e => {
+        if (!ptrActive) return;
+
+        const dx = e.clientX - ptrStartX;
+        const dy = e.clientY - ptrStartY;
+
+        if (!ptrLocked) {
+          if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+            ptrLocked = true;
+            dragging  = true;
+            bumpManual(4000);
+            carousel.setPointerCapture(e.pointerId);
+          } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+            endPointerDrag();
+            return;
+          } else {
+            return;
+          }
+        }
+
+        e.preventDefault();
+        x = xAtPtrStart + dx;
+        wrapX();
+      });
+
+      carousel.addEventListener('pointerup', endPointerDrag);
+      carousel.addEventListener('pointercancel', endPointerDrag);
+
+      carousel.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          bumpManual();
+          x += itemStep;
+          wrapX();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          bumpManual();
+          x -= itemStep;
+          wrapX();
+        }
+      });
+
+      if ('IntersectionObserver' in window) {
+        const videoObs = new IntersectionObserver(entries => {
+          entries.forEach(({ isIntersecting, target }) => {
+            const v = target.querySelector('video');
+            if (!v) return;
+            if (isIntersecting) v.play().catch(() => {});
+            else { v.pause(); v.currentTime = 0; }
+          });
+        }, { rootMargin: '120px', threshold: 0 });
+
+        $$('.moment-card', track).forEach(card => videoObs.observe(card));
+      }
+    });
+  }
+
   fetch('assets/moments/manifest.json')
     .then(r => r.ok ? r.json() : Promise.reject('manifest not found'))
     .then(files => {
-      if (!files.length) return;
-
-      /* Shuffle for freshness on every page load */
-      const shuffled = [...files].sort(() => Math.random() - 0.5);
-
-      /** Build a single <img> or <video> element for a file */
-      function buildMedia(filename) {
-        const src = 'assets/moments/' + filename;
-        const ext = filename.split('.').pop().toLowerCase();
-
-        if (ext === 'mp4') {
-          const v = document.createElement('video');
-          v.setAttribute('src', src);
-          v.autoplay    = true;
-          v.muted       = true;
-          v.loop        = true;
-          v.setAttribute('playsinline', '');
-          v.preload     = 'none'; /* lazy — IntersectionObserver starts playback */
-          return v;
-        }
-
-        const img    = document.createElement('img');
-        img.src      = src;
-        img.alt      = 'Celebración real — Chapucica';
-        img.loading  = 'lazy';
-        img.decoding = 'async';
-        return img;
-      }
-
-      /** Append one full set of cards to the track */
-      function appendSet(list) {
-        list.forEach(file => {
-          const li = document.createElement('li');
-          li.className = 'moment-card';
-          li.setAttribute('aria-hidden', 'true'); /* decorative */
-          li.appendChild(buildMedia(file));
-          track.appendChild(li);
-        });
-      }
-
-      /* Original items + clone = seamless infinite loop */
-      appendSet(shuffled);
-      appendSet(shuffled);
-
-      /* Wait one frame so the browser has laid out the track */
-      requestAnimationFrame(() => {
-        /* Read gap from computed styles — matches the CSS value */
-        const gap   = parseInt(getComputedStyle(track).gap, 10) || 12;
-        const cardW = track.querySelector('.moment-card')?.offsetWidth || 200;
-        const itemStep  = cardW + gap;
-        /* Loop resets when we've scrolled past all ORIGINAL items */
-        const halfWidth = itemStep * shuffled.length;
-
-        /* ── Animation state ── */
-        let x        = 0;
-        let hovered  = false;
-        let dragging = false;
-        let manualUntil = 0;
-        let lastTs   = null;
-
-        function wrapX() {
-          if (x > 0)          x -= halfWidth;
-          if (x < -halfWidth) x += halfWidth;
-        }
-
-        function bumpManual(ms = 1800) {
-          manualUntil = Date.now() + ms;
-        }
-
-        function isAutoPaused() {
-          return hovered || dragging || Date.now() < manualUntil;
-        }
-
-        function tick(ts) {
-          if (lastTs !== null && !isAutoPaused()) {
-            const dt = (ts - lastTs) / 1000;
-            x -= SPEED_PPS * dt;
-            if (x <= -halfWidth) x += halfWidth;
-          }
-          lastTs = ts;
-          track.style.transform = `translateX(${x}px)`;
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-
-        /* ── Hover pause (desktop) — manual control still works ── */
-        carousel.addEventListener('mouseenter', () => { hovered = true; });
-        carousel.addEventListener('mouseleave', () => { hovered = false; });
-
-        /* ── Trackpad / mouse wheel horizontal scroll ── */
-        carousel.addEventListener('wheel', e => {
-          const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY)
-            ? e.deltaX
-            : (e.shiftKey ? e.deltaY : 0);
-          if (!dx) return;
-
-          e.preventDefault();
-          bumpManual();
-          x -= dx;
-          wrapX();
-        }, { passive: false });
-
-        /* ── Pointer drag (mouse + touch) ── */
-        let ptrActive   = false;
-        let ptrLocked   = false;
-        let ptrStartX   = 0;
-        let ptrStartY   = 0;
-        let xAtPtrStart = 0;
-
-        function endPointerDrag() {
-          ptrActive = false;
-          ptrLocked = false;
-          dragging  = false;
-        }
-
-        carousel.addEventListener('pointerdown', e => {
-          if (e.pointerType === 'mouse' && e.button !== 0) return;
-          ptrActive   = true;
-          ptrLocked   = false;
-          ptrStartX   = e.clientX;
-          ptrStartY   = e.clientY;
-          xAtPtrStart = x;
-        });
-
-        carousel.addEventListener('pointermove', e => {
-          if (!ptrActive) return;
-
-          const dx = e.clientX - ptrStartX;
-          const dy = e.clientY - ptrStartY;
-
-          if (!ptrLocked) {
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
-              ptrLocked = true;
-              dragging  = true;
-              bumpManual(4000);
-              carousel.setPointerCapture(e.pointerId);
-            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
-              endPointerDrag();
-              return;
-            } else {
-              return;
-            }
-          }
-
-          e.preventDefault();
-          x = xAtPtrStart + dx;
-          wrapX();
-        });
-
-        carousel.addEventListener('pointerup', endPointerDrag);
-        carousel.addEventListener('pointercancel', endPointerDrag);
-
-        /* ── Keyboard arrows ── */
-        carousel.addEventListener('keydown', e => {
-          if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            bumpManual();
-            x += itemStep;
-            wrapX();
-          } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            bumpManual();
-            x -= itemStep;
-            wrapX();
-          }
-        });
-
-        /* ── Lazy video playback — only play when visible ── */
-        if ('IntersectionObserver' in window) {
-          const videoObs = new IntersectionObserver(entries => {
-            entries.forEach(({ isIntersecting, target }) => {
-              const v = target.querySelector('video');
-              if (!v) return;
-              if (isIntersecting) v.play().catch(() => {});
-              else { v.pause(); v.currentTime = 0; }
-            });
-          }, { rootMargin: '120px', threshold: 0 });
-
-          $$('.moment-card', track).forEach(card => videoObs.observe(card));
-        }
-      });
+      const videoCards = (files || [])
+        .filter(f => String(f).toLowerCase().endsWith('.mp4'))
+        .map(buildVideoCard);
+      startCarousel([...photoCards, ...videoCards]);
     })
-    .catch(err => console.warn('Moments carousel — manifest.json:', err));
+    .catch(err => {
+      console.warn('Moments carousel — manifest.json:', err);
+      /* Photos still work if videos fail to load */
+      startCarousel(photoCards);
+    });
 }
 
 
@@ -832,9 +833,55 @@ function initWizard() {
     }
   }
 
+  function getWizardViewportHeight() {
+    return window.visualViewport?.height ?? window.innerHeight;
+  }
+
+  function getStickyHeaderOffset() {
+    const header = document.getElementById('site-header');
+    if (!header) return 0;
+    return Math.ceil(header.getBoundingClientRect().height);
+  }
+
+  /** True when the next content is already comfortable to continue without scrolling. */
+  function isWizardTargetComfortable(el) {
+    const rect = el.getBoundingClientRect();
+    const headerOffset = getStickyHeaderOffset();
+    const vh = getWizardViewportHeight();
+    const comfortBottom = vh * 0.72;
+    const minVisible = Math.min(rect.height, 128);
+
+    const visibleTop = Math.max(rect.top, headerOffset + 4);
+    const visibleBottom = Math.min(rect.bottom, vh);
+    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+    const topOk = rect.top >= headerOffset - 2 && rect.top <= comfortBottom;
+    const enoughVisible = visibleHeight >= minVisible * 0.9;
+    return topOk && enoughVisible;
+  }
+
+  /**
+   * Scroll only when the next content is truly awkward/out of view.
+   * Uses a minimal scrollBy delta instead of forcing block:start.
+   */
   function scrollWizardIntoView(el) {
     if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (isWizardTargetComfortable(el)) return;
+
+    const headerOffset = getStickyHeaderOffset();
+    const vh = getWizardViewportHeight();
+    const rect = el.getBoundingClientRect();
+    const preferredTop = headerOffset + 12;
+    let delta = rect.top - preferredTop;
+
+    // If the target is taller than the viewport, prefer keeping its top reachable
+    // without overscrolling past the document unnecessarily.
+    const maxDelta = Math.max(0, document.documentElement.scrollHeight - (window.scrollY + vh));
+    const minDelta = -window.scrollY;
+    delta = Math.min(Math.max(delta, minDelta), maxDelta);
+
+    if (Math.abs(delta) < 10) return;
+    window.scrollBy({ top: delta, left: 0, behavior: 'smooth' });
   }
 
   function resolveWizardScrollTarget(stepNum) {

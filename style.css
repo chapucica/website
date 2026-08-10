@@ -2755,9 +2755,9 @@ p, li           { text-wrap: pretty; }
   .pricing-card__inner:hover { transform: none; }
 }
 
-/* Wizard card: more generous internal spacing on desktop */
+/* Wizard card: slightly roomier padding from tablet up, without excess height */
 @media (min-width: 640px) {
-  .wizard__viewport { padding: var(--sp-12) var(--sp-10); }
+  .wizard__viewport { padding: var(--sp-9, 2.25rem) var(--sp-8); }
 }
 
 
@@ -3643,20 +3643,20 @@ p, li           { text-wrap: pretty; }
   flex-shrink: 0;
 }
 
-/* ── Viewport — fixed min-height prevents card from resizing between steps ── */
+/* ── Viewport — soft min-height keeps card stable without forcing tall empty space ── */
 .wizard__viewport {
-  padding: var(--sp-8) var(--sp-6);
+  padding: var(--sp-6) var(--sp-5);
   overflow-x: hidden;
   width: 100%;
   min-width: 0;
-  /* Tall enough for step 1 (8 options in 2-col grid) so the card never shrinks */
-  min-height: 440px;
+  /* Enough for typical steps; avoids a large empty band that exaggerates auto-scroll */
+  min-height: min(320px, 52dvh);
 }
 
 @media (min-width: 768px) {
   .wizard__viewport {
-    padding: var(--sp-10) var(--sp-8);
-    min-height: 360px;
+    padding: var(--sp-8) var(--sp-8);
+    min-height: 320px;
   }
 }
 
@@ -3708,8 +3708,14 @@ p, li           { text-wrap: pretty; }
   font-variation-settings: var(--font-heading-soft);
   color: var(--color-text);
   letter-spacing: -0.02em;
-  margin-bottom: var(--sp-6);
+  margin-bottom: var(--sp-5);
   scroll-margin-top: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .wizard__question {
+    margin-bottom: var(--sp-6);
+  }
 }
 
 @media (min-width: 480px) {
