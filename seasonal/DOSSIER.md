@@ -59,7 +59,7 @@
 **Tarjetas:**
 | Nombre | Idea |
 |--------|------|
-| Una y nos vamos | Mentira típica de verano |
+| La última y nos vamos | Mentira típica de verano |
 | Modo vacaciones | Desconexión sencilla |
 | Yo venía a cenar | Cena que acaba en fiesta |
 
