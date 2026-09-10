@@ -25,9 +25,9 @@
       "title": "El verano todavía no ha terminado",
       "start": "2026-08-01",
       "end": "2026-08-19",
-      "status": "live",
+      "status": "archive",
       "preview": "previews/agosto.html",
-      "notes": "Live en home · final de verano · fiestas/viajes/noches."
+      "notes": "Archivada · sustituida por cartagineses en home."
     },
     {
       "id": "vuelta-cole",
@@ -43,9 +43,9 @@
       "title": "Cartagineses y Romanos",
       "start": "2026-09-01",
       "end": "2026-09-30",
-      "status": "preview",
+      "status": "live",
       "preview": "previews/cartagineses.html",
-      "notes": "Fiesta 18-27 sep 2026. Eslogan: Y después del verano…"
+      "notes": "Live en home · XXXVII edición · fiesta 18-27 sep 2026 · Raíces de Guerra."
     }
   ]
 }
