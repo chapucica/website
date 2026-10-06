@@ -770,14 +770,13 @@
   }
 }
 
-/* ── Bodas · Temporada nupcial ── */
+/* ── Bodas · Temporada bodas ── */
 .spotlight--bodas {
   background:
-    radial-gradient(ellipse 75% 55% at 8% 6%, rgba(255, 210, 225, 0.72) 0%, transparent 52%),
-    radial-gradient(ellipse 65% 48% at 94% 12%, rgba(255, 236, 210, 0.55) 0%, transparent 48%),
-    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(232, 200, 120, 0.14) 0%, transparent 55%),
-    linear-gradient(168deg, #fff8fa 0%, #fceef2 38%, #faf4eb 72%, #fff9f5 100%);
-  color: #1a1814;
+    radial-gradient(ellipse 70% 50% at 12% 8%, rgba(180, 90, 110, 0.35) 0%, transparent 52%),
+    radial-gradient(ellipse 60% 45% at 88% 85%, rgba(212, 167, 48, 0.12) 0%, transparent 48%),
+    linear-gradient(165deg, #3a1f2a 0%, #5c3444 42%, #452530 100%);
+  color: #fceef2;
   overflow: hidden;
   isolation: isolate;
 }
@@ -794,9 +793,9 @@
   position: absolute;
   inset: -12%;
   background:
-    radial-gradient(circle at 22% 28%, rgba(255, 220, 232, 0.55) 0%, transparent 40%),
-    radial-gradient(circle at 78% 22%, rgba(255, 240, 220, 0.42) 0%, transparent 38%),
-    radial-gradient(circle at 55% 78%, rgba(245, 230, 200, 0.28) 0%, transparent 42%);
+    radial-gradient(circle at 22% 28%, rgba(220, 120, 145, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 78% 22%, rgba(212, 167, 48, 0.14) 0%, transparent 38%),
+    radial-gradient(circle at 55% 78%, rgba(180, 80, 100, 0.12) 0%, transparent 42%);
   animation: bodas-ambience 10s ease-in-out infinite;
 }
 
@@ -804,9 +803,9 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(108deg, transparent 0%, rgba(255, 255, 255, 0.22) 42%, transparent 68%),
-    radial-gradient(ellipse 85% 35% at 50% 105%, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-  opacity: 0.6;
+    linear-gradient(108deg, transparent 0%, rgba(255, 220, 230, 0.06) 42%, transparent 68%),
+    radial-gradient(ellipse 85% 35% at 50% 105%, rgba(255, 200, 210, 0.08) 0%, transparent 70%);
+  opacity: 0.7;
   mix-blend-mode: soft-light;
   animation: bodas-haze 12s ease-in-out infinite;
 }
@@ -814,15 +813,15 @@
 .bodas-sparkle {
   position: absolute;
   inset: 0;
-  opacity: 0.45;
+  opacity: 0.5;
   background-image:
-    radial-gradient(1px 1px at 14% 18%, rgba(212, 167, 48, 0.55) 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 82% 24%, rgba(230, 160, 180, 0.45) 50%, transparent 100%),
-    radial-gradient(1px 1px at 48% 42%, rgba(212, 167, 48, 0.4) 50%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 68% 68%, rgba(255, 210, 225, 0.35) 50%, transparent 100%),
-    radial-gradient(1px 1px at 26% 72%, rgba(212, 167, 48, 0.38) 50%, transparent 100%),
-    radial-gradient(1px 1px at 90% 58%, rgba(245, 230, 200, 0.42) 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 38% 88%, rgba(230, 160, 180, 0.32) 50%, transparent 100%);
+    radial-gradient(1px 1px at 14% 18%, rgba(212, 167, 48, 0.65) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 82% 24%, rgba(240, 180, 195, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 48% 42%, rgba(245, 230, 200, 0.45) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 68% 68%, rgba(212, 167, 48, 0.4) 50%, transparent 100%),
+    radial-gradient(1px 1px at 26% 72%, rgba(240, 180, 195, 0.42) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 58%, rgba(245, 230, 200, 0.38) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 38% 88%, rgba(212, 167, 48, 0.35) 50%, transparent 100%);
   animation: bodas-sparkle 16s linear infinite;
 }
 
@@ -842,10 +841,9 @@
 }
 
 .spotlight--bodas .spotlight__texture {
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-  mix-blend-mode: multiply;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='16' fill='none' stroke='%23d4a730' stroke-width='1' opacity='.1'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
 }
 
 .spotlight--bodas .spotlight__inner {
@@ -854,43 +852,50 @@
 }
 
 .spotlight--bodas .spotlight__heading {
-  color: #1a1814;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #fceef2;
 }
 
 .spotlight--bodas .spotlight__text {
-  color: rgba(26, 24, 20, 0.74);
+  color: rgba(252, 238, 242, 0.78);
   max-width: 36rem;
   margin-inline: auto;
 }
 
 .spotlight--bodas .spotlight__text--accent {
-  color: rgba(120, 72, 88, 0.88);
+  color: rgba(245, 210, 218, 0.92);
   font-style: italic;
   font-weight: 500;
 }
 
 .spotlight--bodas .spotlight-card__inner {
-  border-color: rgba(212, 167, 48, 0.18);
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(8px);
-  box-shadow:
-    0 10px 28px rgba(180, 120, 140, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: var(--sp-4) var(--sp-3);
 }
 
 .spotlight--bodas .spotlight-card__inner:hover {
-  border-color: rgba(212, 167, 48, 0.32);
-  box-shadow:
-    0 14px 36px rgba(180, 120, 140, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .spotlight--bodas .spotlight-card__media {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(circle at 40% 32%, #fffef9 0%, #faf5ef 55%, #f5ebe0 100%);
+  width: min(100%, 10.5rem);
+  margin-bottom: 0;
+  background: radial-gradient(
+    circle at 38% 28%,
+    rgba(255, 220, 230, 0.22) 0%,
+    rgba(180, 90, 110, 0.18) 38%,
+    rgba(58, 31, 42, 0.85) 72%,
+    rgba(45, 25, 35, 1) 100%
+  );
   aspect-ratio: 1 / 1;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(212, 167, 48, 0.14);
 }
 
 .spotlight--bodas .spotlight-card__media::after {
@@ -900,9 +905,9 @@
   background: linear-gradient(
     105deg,
     transparent 38%,
-    rgba(255, 220, 230, 0.06) 44%,
-    rgba(255, 235, 210, 0.42) 50%,
-    rgba(255, 220, 230, 0.06) 56%,
+    rgba(255, 220, 150, 0.05) 44%,
+    rgba(255, 230, 170, 0.38) 50%,
+    rgba(255, 220, 150, 0.05) 56%,
     transparent 62%
   );
   transform: translateX(-130%) skewX(-14deg);
@@ -977,114 +982,61 @@
   mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
 }
 
-.bodas-rice__grain {
+.bodas-faller {
   position: absolute;
-  top: -0.75rem;
-  width: 0.26rem;
-  height: 0.62rem;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #fffdf8 0%, #f5ead8 100%);
-  box-shadow: 0 0 1px rgba(160, 130, 100, 0.35);
-  opacity: 0;
-  animation: bodas-rice-fall var(--fall-duration, 2.8s) linear infinite;
-  animation-delay: var(--fall-delay, 0s);
+  top: -0.85rem;
   left: var(--fall-x, 50%);
+  opacity: 0;
+  color: #f5ead8;
+  filter: drop-shadow(0 0 1px rgba(245, 234, 216, 0.35));
+  animation: bodas-faller-drop var(--fall-duration, 2.8s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
   will-change: transform, opacity;
 }
 
-.bodas-rice__grain--s {
-  width: 0.2rem;
-  height: 0.48rem;
-  opacity: 0;
+.bodas-faller svg {
+  display: block;
+  width: var(--faller-w, 0.42rem);
+  height: auto;
 }
 
-.bodas-rice__grain--l {
-  width: 0.32rem;
-  height: 0.74rem;
-  background: linear-gradient(180deg, #fffef5 0%, #ede0c8 100%);
-}
+.bodas-faller--rice { color: #f8f0e0; }
+.bodas-faller--petal { color: #e8a0b0; --faller-w: 0.55rem; }
+.bodas-faller--petal.bodas-faller--blush { color: #f0b8c8; }
+.bodas-faller--petal.bodas-faller--gold { color: #e8c878; --faller-w: 0.5rem; }
+.bodas-faller--s { --faller-w: 0.32rem; }
+.bodas-faller--l { --faller-w: 0.52rem; }
 
-.bodas-rice__grain:nth-child(1)  { --fall-x: 4%;  --fall-delay: 0s;    --fall-duration: 2.4s; --fall-drift: 0.35rem; }
-.bodas-rice__grain:nth-child(2)  { --fall-x: 11%; --fall-delay: 0.35s; --fall-duration: 2.9s; --fall-drift: -0.28rem; }
-.bodas-rice__grain:nth-child(3)  { --fall-x: 18%; --fall-delay: 1s;    --fall-duration: 3.2s; --fall-drift: 0.42rem; }
-.bodas-rice__grain:nth-child(4)  { --fall-x: 25%; --fall-delay: 0.15s; --fall-duration: 2.6s; --fall-drift: -0.18rem; }
-.bodas-rice__grain:nth-child(5)  { --fall-x: 32%; --fall-delay: 1.4s;  --fall-duration: 3s;   --fall-drift: 0.32rem; }
-.bodas-rice__grain:nth-child(6)  { --fall-x: 39%; --fall-delay: 0.55s; --fall-duration: 2.7s; --fall-drift: -0.38rem; }
-.bodas-rice__grain:nth-child(7)  { --fall-x: 46%; --fall-delay: 1.2s;  --fall-duration: 3.1s; --fall-drift: 0.22rem; }
-.bodas-rice__grain:nth-child(8)  { --fall-x: 53%; --fall-delay: 0.05s; --fall-duration: 2.5s; --fall-drift: -0.32rem; }
-.bodas-rice__grain:nth-child(9)  { --fall-x: 60%; --fall-delay: 1.65s; --fall-duration: 3.3s; --fall-drift: 0.28rem; }
-.bodas-rice__grain:nth-child(10) { --fall-x: 67%; --fall-delay: 0.75s; --fall-duration: 2.8s; --fall-drift: -0.22rem; }
-.bodas-rice__grain:nth-child(11) { --fall-x: 74%; --fall-delay: 0.4s;  --fall-duration: 3.4s; --fall-drift: 0.38rem; }
-.bodas-rice__grain:nth-child(12) { --fall-x: 81%; --fall-delay: 1.55s; --fall-duration: 2.6s; --fall-drift: -0.26rem; }
-.bodas-rice__grain:nth-child(13) { --fall-x: 88%; --fall-delay: 0.25s; --fall-duration: 3s;   --fall-drift: 0.34rem; }
-.bodas-rice__grain:nth-child(14) { --fall-x: 95%; --fall-delay: 1.1s;  --fall-duration: 2.9s; --fall-drift: -0.3rem; }
-.bodas-rice__grain:nth-child(15) { --fall-x: 8%;  --fall-delay: 1.85s; --fall-duration: 3.2s; --fall-drift: 0.2rem; }
-.bodas-rice__grain:nth-child(16) { --fall-x: 42%; --fall-delay: 0.9s;  --fall-duration: 2.5s; --fall-drift: -0.42rem; }
-.bodas-rice__grain:nth-child(17) { --fall-x: 58%; --fall-delay: 1.35s; --fall-duration: 3.1s; --fall-drift: 0.36rem; }
-.bodas-rice__grain:nth-child(18) { --fall-x: 72%; --fall-delay: 0.6s;  --fall-duration: 2.7s; --fall-drift: -0.24rem; }
+.bodas-faller:nth-child(1)  { --fall-x: 4%;  --fall-delay: 0s;    --fall-duration: 2.5s; --fall-drift: 0.35rem; --fall-rot: 18deg; }
+.bodas-faller:nth-child(2)  { --fall-x: 11%; --fall-delay: 0.4s;  --fall-duration: 3.2s; --fall-drift: -0.3rem;  --fall-rot: -42deg; }
+.bodas-faller:nth-child(3)  { --fall-x: 18%; --fall-delay: 1s;    --fall-duration: 2.8s; --fall-drift: 0.4rem;  --fall-rot: 24deg; }
+.bodas-faller:nth-child(4)  { --fall-x: 25%; --fall-delay: 0.2s;  --fall-duration: 3.4s; --fall-drift: -0.2rem;  --fall-rot: -55deg; }
+.bodas-faller:nth-child(5)  { --fall-x: 32%; --fall-delay: 1.5s;  --fall-duration: 2.6s; --fall-drift: 0.28rem; --fall-rot: 30deg; }
+.bodas-faller:nth-child(6)  { --fall-x: 39%; --fall-delay: 0.6s;  --fall-duration: 3s;   --fall-drift: -0.38rem; --fall-rot: 15deg; }
+.bodas-faller:nth-child(7)  { --fall-x: 46%; --fall-delay: 1.2s;  --fall-duration: 2.9s; --fall-drift: 0.22rem; --fall-rot: -48deg; }
+.bodas-faller:nth-child(8)  { --fall-x: 53%; --fall-delay: 0.1s;  --fall-duration: 3.1s; --fall-drift: -0.32rem; --fall-rot: 22deg; }
+.bodas-faller:nth-child(9)  { --fall-x: 60%; --fall-delay: 1.7s;  --fall-duration: 2.7s; --fall-drift: 0.34rem; --fall-rot: -35deg; }
+.bodas-faller:nth-child(10) { --fall-x: 67%; --fall-delay: 0.75s; --fall-duration: 3.3s; --fall-drift: -0.24rem; --fall-rot: 28deg; }
+.bodas-faller:nth-child(11) { --fall-x: 74%; --fall-delay: 0.45s; --fall-duration: 2.5s; --fall-drift: 0.38rem; --fall-rot: -40deg; }
+.bodas-faller:nth-child(12) { --fall-x: 81%; --fall-delay: 1.55s; --fall-duration: 3s;   --fall-drift: -0.28rem; --fall-rot: 20deg; }
+.bodas-faller:nth-child(13) { --fall-x: 88%; --fall-delay: 0.3s;  --fall-duration: 2.8s; --fall-drift: 0.3rem;  --fall-rot: -52deg; }
+.bodas-faller:nth-child(14) { --fall-x: 95%; --fall-delay: 1.1s;  --fall-duration: 3.2s; --fall-drift: -0.22rem; --fall-rot: 26deg; }
+.bodas-faller:nth-child(15) { --fall-x: 8%;  --fall-delay: 1.85s; --fall-duration: 2.9s; --fall-drift: 0.25rem; --fall-rot: -38deg; }
+.bodas-faller:nth-child(16) { --fall-x: 42%; --fall-delay: 0.9s;  --fall-duration: 3.1s; --fall-drift: -0.42rem; --fall-rot: 32deg; }
+.bodas-faller:nth-child(17) { --fall-x: 58%; --fall-delay: 1.35s; --fall-duration: 2.6s; --fall-drift: 0.36rem; --fall-rot: -44deg; }
+.bodas-faller:nth-child(18) { --fall-x: 72%; --fall-delay: 0.55s; --fall-duration: 3.4s; --fall-drift: -0.26rem; --fall-rot: 19deg; }
+.bodas-faller:nth-child(19) { --fall-x: 22%; --fall-delay: 2s;    --fall-duration: 3.5s; --fall-drift: 0.32rem; --fall-rot: -50deg; }
+.bodas-faller:nth-child(20) { --fall-x: 64%; --fall-delay: 0.85s; --fall-duration: 2.7s; --fall-drift: -0.34rem; --fall-rot: 36deg; }
 
-.bodas-confetti {
-  position: absolute;
-  top: -0.5rem;
-  width: 0.45rem;
-  height: 0.45rem;
-  opacity: 0;
-  animation: bodas-confetti-fall var(--confetti-duration, 3.6s) ease-in infinite;
-  animation-delay: var(--confetti-delay, 0s);
-  left: var(--confetti-x, 50%);
-  will-change: transform, opacity;
-}
-
-.bodas-confetti--blush {
-  --confetti-x: 28%;
-  --confetti-delay: 0.3s;
-  --confetti-duration: 3.8s;
-  background: #f0b8c8;
-  border-radius: 1px;
-  transform: rotate(45deg);
-}
-
-.bodas-confetti--gold {
-  --confetti-x: 52%;
-  --confetti-delay: 1.2s;
-  --confetti-duration: 4.1s;
-  background: linear-gradient(135deg, #f5e6c8, #d4a730);
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
-.bodas-confetti--rose {
-  --confetti-x: 76%;
-  --confetti-delay: 2s;
-  --confetti-duration: 3.5s;
-  background: #e8a0b0;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-25deg);
-}
-
-@keyframes bodas-rice-fall {
+@keyframes bodas-faller-drop {
   0% {
     transform: translateY(0) translateX(0) rotate(0deg);
     opacity: 0;
   }
-  8% { opacity: 0.85; }
-  92% { opacity: 0.4; }
+  8% { opacity: 0.88; }
+  92% { opacity: 0.42; }
   100% {
-    transform: translateY(4.5rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 32deg));
-    opacity: 0;
-  }
-}
-
-.bodas-rice__grain:nth-child(odd) { --fall-rot: 24deg; }
-.bodas-rice__grain:nth-child(even) { --fall-rot: -18deg; }
-
-@keyframes bodas-confetti-fall {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% { opacity: 0.9; }
-  100% {
-    transform: translateY(4.75rem) translateX(0.6rem) rotate(180deg);
+    transform: translateY(4.5rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 25deg));
     opacity: 0;
   }
 }
@@ -1104,8 +1056,8 @@
     height: 3.5rem;
   }
 
-  @keyframes bodas-rice-fall {
-    100% { transform: translateY(3.75rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 32deg)); }
+  @keyframes bodas-faller-drop {
+    100% { transform: translateY(3.75rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 25deg)); }
   }
 }
 
@@ -1114,20 +1066,14 @@
   .bodas-haze,
   .bodas-sparkle,
   .bodas-scene__emblem,
-  .bodas-rice__grain,
-  .bodas-confetti,
+  .bodas-faller,
   .spotlight--bodas .spotlight-card__media::after {
     animation: none;
   }
 
-  .bodas-rice__grain {
-    opacity: 0.4;
-    top: 38%;
-  }
-
-  .bodas-confetti {
-    opacity: 0.35;
-    top: 28%;
+  .bodas-faller {
+    opacity: 0.45;
+    top: 35%;
   }
 }
 
