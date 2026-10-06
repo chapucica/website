@@ -43,9 +43,18 @@
       "title": "Cartagineses y Romanos",
       "start": "2026-09-01",
       "end": "2026-09-30",
-      "status": "live",
+      "status": "archive",
       "preview": "previews/cartagineses.html",
-      "notes": "Live en home · XXXVII edición · fiesta 18-27 sep 2026 · Raíces de Guerra."
+      "notes": "Archivada · sustituida por bodas en home."
+    },
+    {
+      "id": "bodas",
+      "title": "Temporada nupcial",
+      "start": "2026-10-01",
+      "end": "2026-11-30",
+      "status": "live",
+      "preview": "previews/bodas.html",
+      "notes": "Live en home · temporada bodas · oct-nov."
     }
   ]
 }

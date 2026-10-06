@@ -770,3 +770,364 @@
   }
 }
 
+/* ── Bodas · Temporada nupcial ── */
+.spotlight--bodas {
+  background:
+    radial-gradient(ellipse 75% 55% at 8% 6%, rgba(255, 210, 225, 0.72) 0%, transparent 52%),
+    radial-gradient(ellipse 65% 48% at 94% 12%, rgba(255, 236, 210, 0.55) 0%, transparent 48%),
+    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(232, 200, 120, 0.14) 0%, transparent 55%),
+    linear-gradient(168deg, #fff8fa 0%, #fceef2 38%, #faf4eb 72%, #fff9f5 100%);
+  color: #1a1814;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.spotlight--bodas .spotlight__atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bodas-ambience {
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(255, 220, 232, 0.55) 0%, transparent 40%),
+    radial-gradient(circle at 78% 22%, rgba(255, 240, 220, 0.42) 0%, transparent 38%),
+    radial-gradient(circle at 55% 78%, rgba(245, 230, 200, 0.28) 0%, transparent 42%);
+  animation: bodas-ambience 10s ease-in-out infinite;
+}
+
+.bodas-haze {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(108deg, transparent 0%, rgba(255, 255, 255, 0.22) 42%, transparent 68%),
+    radial-gradient(ellipse 85% 35% at 50% 105%, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  opacity: 0.6;
+  mix-blend-mode: soft-light;
+  animation: bodas-haze 12s ease-in-out infinite;
+}
+
+.bodas-sparkle {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image:
+    radial-gradient(1px 1px at 14% 18%, rgba(212, 167, 48, 0.55) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 82% 24%, rgba(230, 160, 180, 0.45) 50%, transparent 100%),
+    radial-gradient(1px 1px at 48% 42%, rgba(212, 167, 48, 0.4) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 68% 68%, rgba(255, 210, 225, 0.35) 50%, transparent 100%),
+    radial-gradient(1px 1px at 26% 72%, rgba(212, 167, 48, 0.38) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 58%, rgba(245, 230, 200, 0.42) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 38% 88%, rgba(230, 160, 180, 0.32) 50%, transparent 100%);
+  animation: bodas-sparkle 16s linear infinite;
+}
+
+@keyframes bodas-ambience {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(1.2%, -0.8%) scale(1.02); }
+}
+
+@keyframes bodas-haze {
+  0%, 100% { opacity: 0.55; transform: translateX(0); }
+  50% { opacity: 0.68; transform: translateX(1.5%); }
+}
+
+@keyframes bodas-sparkle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.spotlight--bodas .spotlight__texture {
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+}
+
+.spotlight--bodas .spotlight__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.spotlight--bodas .spotlight__heading {
+  color: #1a1814;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.spotlight--bodas .spotlight__text {
+  color: rgba(26, 24, 20, 0.74);
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.spotlight--bodas .spotlight__text--accent {
+  color: rgba(120, 72, 88, 0.88);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.spotlight--bodas .spotlight-card__inner {
+  border-color: rgba(212, 167, 48, 0.18);
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 10px 28px rgba(180, 120, 140, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.spotlight--bodas .spotlight-card__inner:hover {
+  border-color: rgba(212, 167, 48, 0.32);
+  box-shadow:
+    0 14px 36px rgba(180, 120, 140, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.spotlight--bodas .spotlight-card__media {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(circle at 40% 32%, #fffef9 0%, #faf5ef 55%, #f5ebe0 100%);
+  aspect-ratio: 1 / 1;
+}
+
+.spotlight--bodas .spotlight-card__media::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 220, 230, 0.06) 44%,
+    rgba(255, 235, 210, 0.42) 50%,
+    rgba(255, 220, 230, 0.06) 56%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-14deg);
+  animation: seasonal-shimmer 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.spotlight--bodas .spotlight-card:nth-child(1) .spotlight-card__media::after { animation-delay: 0s; }
+.spotlight--bodas .spotlight-card:nth-child(2) .spotlight-card__media::after { animation-delay: 1.8s; }
+.spotlight--bodas .spotlight-card:nth-child(3) .spotlight-card__media::after { animation-delay: 3.6s; }
+
+.spotlight--bodas .spotlight-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Escena: anillos + arco dorado + lluvia de arroz y confeti */
+.spotlight__scene--celebration {
+  margin-block: var(--sp-2) var(--sp-6);
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--sp-4);
+}
+
+.bodas-scene {
+  position: relative;
+  width: min(100%, 28rem);
+  height: 5.5rem;
+}
+
+.bodas-scene__trail {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 0.35rem;
+  width: 92%;
+  height: 2rem;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.bodas-scene__emblem {
+  position: absolute;
+  left: 50%;
+  top: 0.15rem;
+  width: 3.25rem;
+  height: 2rem;
+  margin-left: -1.625rem;
+  filter: drop-shadow(0 2px 8px rgba(212, 167, 48, 0.35));
+  animation: bodas-emblem-float 4.2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes bodas-emblem-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.22rem); }
+}
+
+.bodas-rice-shower {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4.25rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+}
+
+.bodas-rice__grain {
+  position: absolute;
+  top: -0.75rem;
+  width: 0.26rem;
+  height: 0.62rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fffdf8 0%, #f5ead8 100%);
+  box-shadow: 0 0 1px rgba(160, 130, 100, 0.35);
+  opacity: 0;
+  animation: bodas-rice-fall var(--fall-duration, 2.8s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
+  left: var(--fall-x, 50%);
+  will-change: transform, opacity;
+}
+
+.bodas-rice__grain--s {
+  width: 0.2rem;
+  height: 0.48rem;
+  opacity: 0;
+}
+
+.bodas-rice__grain--l {
+  width: 0.32rem;
+  height: 0.74rem;
+  background: linear-gradient(180deg, #fffef5 0%, #ede0c8 100%);
+}
+
+.bodas-rice__grain:nth-child(1)  { --fall-x: 4%;  --fall-delay: 0s;    --fall-duration: 2.4s; --fall-drift: 0.35rem; }
+.bodas-rice__grain:nth-child(2)  { --fall-x: 11%; --fall-delay: 0.35s; --fall-duration: 2.9s; --fall-drift: -0.28rem; }
+.bodas-rice__grain:nth-child(3)  { --fall-x: 18%; --fall-delay: 1s;    --fall-duration: 3.2s; --fall-drift: 0.42rem; }
+.bodas-rice__grain:nth-child(4)  { --fall-x: 25%; --fall-delay: 0.15s; --fall-duration: 2.6s; --fall-drift: -0.18rem; }
+.bodas-rice__grain:nth-child(5)  { --fall-x: 32%; --fall-delay: 1.4s;  --fall-duration: 3s;   --fall-drift: 0.32rem; }
+.bodas-rice__grain:nth-child(6)  { --fall-x: 39%; --fall-delay: 0.55s; --fall-duration: 2.7s; --fall-drift: -0.38rem; }
+.bodas-rice__grain:nth-child(7)  { --fall-x: 46%; --fall-delay: 1.2s;  --fall-duration: 3.1s; --fall-drift: 0.22rem; }
+.bodas-rice__grain:nth-child(8)  { --fall-x: 53%; --fall-delay: 0.05s; --fall-duration: 2.5s; --fall-drift: -0.32rem; }
+.bodas-rice__grain:nth-child(9)  { --fall-x: 60%; --fall-delay: 1.65s; --fall-duration: 3.3s; --fall-drift: 0.28rem; }
+.bodas-rice__grain:nth-child(10) { --fall-x: 67%; --fall-delay: 0.75s; --fall-duration: 2.8s; --fall-drift: -0.22rem; }
+.bodas-rice__grain:nth-child(11) { --fall-x: 74%; --fall-delay: 0.4s;  --fall-duration: 3.4s; --fall-drift: 0.38rem; }
+.bodas-rice__grain:nth-child(12) { --fall-x: 81%; --fall-delay: 1.55s; --fall-duration: 2.6s; --fall-drift: -0.26rem; }
+.bodas-rice__grain:nth-child(13) { --fall-x: 88%; --fall-delay: 0.25s; --fall-duration: 3s;   --fall-drift: 0.34rem; }
+.bodas-rice__grain:nth-child(14) { --fall-x: 95%; --fall-delay: 1.1s;  --fall-duration: 2.9s; --fall-drift: -0.3rem; }
+.bodas-rice__grain:nth-child(15) { --fall-x: 8%;  --fall-delay: 1.85s; --fall-duration: 3.2s; --fall-drift: 0.2rem; }
+.bodas-rice__grain:nth-child(16) { --fall-x: 42%; --fall-delay: 0.9s;  --fall-duration: 2.5s; --fall-drift: -0.42rem; }
+.bodas-rice__grain:nth-child(17) { --fall-x: 58%; --fall-delay: 1.35s; --fall-duration: 3.1s; --fall-drift: 0.36rem; }
+.bodas-rice__grain:nth-child(18) { --fall-x: 72%; --fall-delay: 0.6s;  --fall-duration: 2.7s; --fall-drift: -0.24rem; }
+
+.bodas-confetti {
+  position: absolute;
+  top: -0.5rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  opacity: 0;
+  animation: bodas-confetti-fall var(--confetti-duration, 3.6s) ease-in infinite;
+  animation-delay: var(--confetti-delay, 0s);
+  left: var(--confetti-x, 50%);
+  will-change: transform, opacity;
+}
+
+.bodas-confetti--blush {
+  --confetti-x: 28%;
+  --confetti-delay: 0.3s;
+  --confetti-duration: 3.8s;
+  background: #f0b8c8;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.bodas-confetti--gold {
+  --confetti-x: 52%;
+  --confetti-delay: 1.2s;
+  --confetti-duration: 4.1s;
+  background: linear-gradient(135deg, #f5e6c8, #d4a730);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.bodas-confetti--rose {
+  --confetti-x: 76%;
+  --confetti-delay: 2s;
+  --confetti-duration: 3.5s;
+  background: #e8a0b0;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-25deg);
+}
+
+@keyframes bodas-rice-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 0.85; }
+  92% { opacity: 0.4; }
+  100% {
+    transform: translateY(4.5rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 32deg));
+    opacity: 0;
+  }
+}
+
+.bodas-rice__grain:nth-child(odd) { --fall-rot: 24deg; }
+.bodas-rice__grain:nth-child(even) { --fall-rot: -18deg; }
+
+@keyframes bodas-confetti-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  100% {
+    transform: translateY(4.75rem) translateX(0.6rem) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .bodas-scene {
+    width: min(100%, 21rem);
+    height: 4.75rem;
+  }
+
+  .bodas-scene__emblem {
+    width: 2.75rem;
+    margin-left: -1.375rem;
+  }
+
+  .bodas-rice-shower {
+    height: 3.5rem;
+  }
+
+  @keyframes bodas-rice-fall {
+    100% { transform: translateY(3.75rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 32deg)); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bodas-ambience,
+  .bodas-haze,
+  .bodas-sparkle,
+  .bodas-scene__emblem,
+  .bodas-rice__grain,
+  .bodas-confetti,
+  .spotlight--bodas .spotlight-card__media::after {
+    animation: none;
+  }
+
+  .bodas-rice__grain {
+    opacity: 0.4;
+    top: 38%;
+  }
+
+  .bodas-confetti {
+    opacity: 0.35;
+    top: 28%;
+  }
+}
+
