@@ -771,23 +771,84 @@
 }
 
 /* ── Bodas · Temporada bodas ── */
-.spotlight--bodas {
-  padding-block: clamp(2rem, 5vw, var(--section-pad-y));
-  background:
+/*
+ * Dos capas:
+ * 1) .bodas-zone — pintura (degradado seasonal en toda la zona)
+ * 2) .section-wave — máscara/borde (blanco hacia web; trazos; sin bloque burdeos plano)
+ */
+.bodas-zone {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fceef2;
+  background-color: #452530;
+  background-image:
     radial-gradient(ellipse 70% 50% at 12% 8%, rgba(180, 90, 110, 0.35) 0%, transparent 52%),
     radial-gradient(ellipse 60% 45% at 88% 85%, rgba(212, 167, 48, 0.12) 0%, transparent 48%),
     linear-gradient(165deg, #3a1f2a 0%, #5c3444 42%, #452530 100%);
-  color: #fceef2;
-  overflow: hidden;
-  isolation: isolate;
 }
 
-.spotlight--bodas .spotlight__atmosphere {
+.bodas-zone .spotlight__texture {
+  z-index: 0;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='16' fill='none' stroke='%23d4a730' stroke-width='1' opacity='.1'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
+}
+
+.bodas-zone .spotlight__atmosphere {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+}
+
+.bodas-zone .section-wave {
+  position: relative;
+  z-index: 1;
+}
+
+.bodas-zone .section-wave--into-bodas {
+  --wave-bg-top: transparent;
+  --wave-bg-bottom: transparent;
+  background-color: transparent;
+}
+
+.bodas-zone .section-wave--into-bodas .section-wave__cap {
+  fill: var(--c-white);
+}
+
+.bodas-zone .section-wave--into-bodas .section-wave__surface {
+  fill: transparent;
+}
+
+.bodas-zone .section-wave--from-bodas {
+  --wave-bg-top: transparent;
+  --wave-bg-bottom: var(--c-white);
+  background-color: transparent;
+}
+
+.bodas-zone .section-wave--into-bodas .section-wave__stroke--1,
+.bodas-zone .section-wave--from-bodas .section-wave__stroke--1 {
+  stroke: rgba(212, 167, 48, 0.22);
+}
+
+.bodas-zone .section-wave--into-bodas .section-wave__stroke--2,
+.bodas-zone .section-wave--from-bodas .section-wave__stroke--2 {
+  stroke: rgba(240, 180, 195, 0.16);
+}
+
+.bodas-zone .section-wave--into-bodas .section-wave__stroke--3,
+.bodas-zone .section-wave--from-bodas .section-wave__stroke--3 {
+  stroke: rgba(212, 167, 48, 0.12);
+}
+
+.spotlight--bodas {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(2rem, 5vw, var(--section-pad-y));
+  background: none;
+  overflow: visible;
 }
 
 .bodas-ambience {
@@ -841,12 +902,6 @@
   100% { transform: translateY(-8px); }
 }
 
-.spotlight--bodas .spotlight__texture {
-  opacity: 0.1;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='16' fill='none' stroke='%23d4a730' stroke-width='1' opacity='.1'/%3E%3C/svg%3E");
-  background-size: 64px 64px;
-}
-
 .spotlight--bodas .spotlight__inner {
   position: relative;
   z-index: 1;
@@ -859,24 +914,26 @@
 .spotlight--bodas .spotlight__heading {
   color: #fceef2;
   font-size: var(--text-2xl);
+  line-height: 1.45;
   margin-bottom: var(--sp-3);
 }
 
 .spotlight--bodas .spotlight__text {
   color: rgba(252, 238, 242, 0.78);
   font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
+  line-height: 1.9;
   max-width: 30rem;
   margin-inline: auto;
 }
 
 .spotlight--bodas .spotlight__text + .spotlight__text {
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-3);
 }
 
 .spotlight--bodas .spotlight__text--accent {
   color: rgba(245, 210, 218, 0.92);
   font-size: var(--text-sm);
+  line-height: 1.85;
   font-style: italic;
   font-weight: 500;
 }
@@ -886,6 +943,7 @@
   gap: var(--sp-3) var(--sp-4);
   max-width: 22rem;
   margin-inline: auto;
+  margin-top: 0.15rem;
   padding-inline: var(--container-pad);
 }
 
@@ -999,9 +1057,21 @@
   box-shadow: none;
 }
 
-/* Escena: anillos + arco dorado + lluvia de arroz y pétalos */
+/* Escena: anillos + arco dorado (lluvia en todo el contenedor) */
 .spotlight--bodas .spotlight__scene--celebration {
-  margin-block: var(--sp-3) var(--sp-5);
+  margin-block: var(--sp-2) 0;
+}
+
+@media (min-width: 768px) {
+  .spotlight--bodas .spotlight__scene--celebration {
+    margin-block: var(--sp-2) 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .spotlight--bodas .spotlight__scene--celebration {
+    margin-block: var(--sp-2) 0;
+  }
 }
 
 .spotlight__scene--celebration {
@@ -1013,17 +1083,17 @@
 
 .bodas-scene {
   position: relative;
-  width: min(100%, 22rem);
-  height: 4.25rem;
+  width: min(100%, 20rem);
+  height: 2rem;
 }
 
 .bodas-scene__trail {
   position: absolute;
   left: 4%;
   right: 4%;
-  top: 0.35rem;
+  top: 0;
   width: 92%;
-  height: 2rem;
+  height: 1.35rem;
   opacity: 0.55;
   pointer-events: none;
 }
@@ -1031,7 +1101,7 @@
 .bodas-scene__emblem {
   position: absolute;
   left: 50%;
-  top: 0.15rem;
+  bottom: 0;
   width: 3.25rem;
   height: 2rem;
   margin-left: -1.625rem;
@@ -1045,26 +1115,31 @@
   50% { transform: translateY(-0.22rem); }
 }
 
-.bodas-rice-shower {
+.bodas-rice-shower--full {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 4.25rem;
+  inset: 0;
   overflow: hidden;
-  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  pointer-events: none;
+  z-index: 1;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
 }
 
 .bodas-faller {
   position: absolute;
-  top: -0.85rem;
+  top: -4%;
   left: var(--fall-x, 50%);
   opacity: 0;
   color: #f5ead8;
   filter: drop-shadow(0 0 1px rgba(245, 234, 216, 0.35));
   animation: bodas-faller-drop var(--fall-duration, 2.8s) linear infinite;
   animation-delay: var(--fall-delay, 0s);
-  will-change: transform, opacity;
+  will-change: top, transform, opacity;
 }
 
 .bodas-faller svg {
@@ -1103,34 +1178,28 @@
 
 @keyframes bodas-faller-drop {
   0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    top: -4%;
+    transform: translateX(0) rotate(0deg);
     opacity: 0;
   }
-  8% { opacity: 0.88; }
-  92% { opacity: 0.42; }
+  8% { opacity: 0.82; }
+  92% { opacity: 0.38; }
   100% {
-    transform: translateY(4.5rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 25deg));
+    top: 104%;
+    transform: translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 25deg));
     opacity: 0;
   }
 }
 
 @media (max-width: 480px) {
   .bodas-scene {
-    width: min(100%, 21rem);
-    height: 4.75rem;
+    width: min(100%, 18rem);
+    height: 1.85rem;
   }
 
   .bodas-scene__emblem {
     width: 2.75rem;
     margin-left: -1.375rem;
-  }
-
-  .bodas-rice-shower {
-    height: 3.5rem;
-  }
-
-  @keyframes bodas-faller-drop {
-    100% { transform: translateY(3.75rem) translateX(var(--fall-drift, 0.3rem)) rotate(var(--fall-rot, 25deg)); }
   }
 }
 

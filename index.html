@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css?v=52" />
-  <link rel="stylesheet" href="seasonal/seasonal-themes.css?v=bodas-4" />
+  <link rel="stylesheet" href="seasonal/seasonal-themes.css?v=bodas-16" />
   <script src="cookie-consent.js" charset="UTF-8"></script>
   <script src="analytics.js" charset="UTF-8"></script>
   <script type="application/ld+json">
@@ -710,33 +710,56 @@
 
     </section>
 
-    <!-- Wave: gallery (white) → spotlight bodas (oscuro) -->
-    <div class="section-wave section-wave--white-dark" aria-hidden="true">
-      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
-        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
-        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
-        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
-      </svg>
-    </div>
-
-
     <!-- ============================================================
-         SPOTLIGHT — Temporada de bodas
+         SPOTLIGHT — Temporada de bodas (zona + ondas como máscara)
     ============================================================ -->
-    <section
-      class="spotlight spotlight--bodas"
-      id="spotlight"
-      data-campaign="bodas"
-      aria-labelledby="spotlight-heading"
-    >
+    <div class="bodas-zone">
       <div class="spotlight__texture" aria-hidden="true"></div>
       <div class="spotlight__atmosphere bodas-atmosphere" aria-hidden="true">
         <div class="bodas-ambience"></div>
         <div class="bodas-haze"></div>
         <div class="bodas-sparkle"></div>
+        <div class="bodas-rice-shower bodas-rice-shower--full">
+          <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal bodas-faller--gold"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal bodas-faller--blush"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal bodas-faller--gold"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal bodas-faller--blush"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
+          <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
+        </div>
       </div>
 
+      <!-- Wave: gallery (white) → seasonal bodas -->
+      <div class="section-wave section-wave--into-bodas" aria-hidden="true">
+        <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="section-wave__cap" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,0 L0,0 Z"/>
+          <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+          <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+          <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+          <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+        </svg>
+      </div>
+
+      <section
+        class="spotlight spotlight--bodas"
+        id="spotlight"
+        data-campaign="bodas"
+        aria-labelledby="spotlight-heading"
+      >
       <div class="container spotlight__inner">
         <header class="spotlight__header section-header">
           <h2 class="spotlight__heading" id="spotlight-heading">💍 Temporada bodas</h2>
@@ -796,28 +819,6 @@
               </svg>
             </div>
 
-            <div class="bodas-rice-shower">
-              <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal bodas-faller--gold"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal bodas-faller--blush"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal bodas-faller--gold"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal bodas-faller--blush"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c1.5 2 3.8 3.5 3.8 7.2-1.6-.6-2.8-.3-3.8-.3s-2.2-.3-3.8.3C3.2 5.5 6.5 4 8 2z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--l"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice bodas-faller--s"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--petal"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5c1.8 2.2 4.8 4 4.8 8.8-2.2-.7-3.6-.4-4.8-.4s-2.6-.3-4.8.4C3.2 5.5 6.2 3.7 8 1.5z" fill="currentColor"/></svg></span>
-              <span class="bodas-faller bodas-faller--rice"><svg viewBox="0 0 8 16" aria-hidden="true"><ellipse cx="4" cy="8" rx="2.4" ry="6.8" fill="currentColor"/></svg></span>
-            </div>
           </div>
         </div>
 
@@ -884,16 +885,17 @@
           </li>
         </ul>
       </div>
-    </section>
+      </section>
 
-    <!-- Wave: spotlight bodas (oscuro) → pricing (white) -->
-    <div class="section-wave section-wave--dark-white" aria-hidden="true">
-      <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
-        <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
-        <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
-        <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
-      </svg>
+      <!-- Wave: seasonal bodas → pricing (white) -->
+      <div class="section-wave section-wave--from-bodas" aria-hidden="true">
+        <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="section-wave__surface" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34 L1440,54 L0,54 Z"/>
+          <path class="section-wave__stroke section-wave__stroke--1" d="M0,34 C120,18 240,50 360,34 C480,18 600,50 720,34 C840,18 960,50 1080,34 C1200,18 1320,50 1440,34" fill="none"/>
+          <path class="section-wave__stroke section-wave__stroke--2" d="M0,38 C120,22 240,54 360,38 C480,22 600,54 720,38 C840,22 960,54 1080,38 C1200,22 1320,54 1440,38" fill="none"/>
+          <path class="section-wave__stroke section-wave__stroke--3" d="M0,30 C120,14 240,46 360,30 C480,14 600,46 720,30 C840,14 960,46 1080,30 C1200,14 1320,46 1440,30" fill="none"/>
+        </svg>
+      </div>
     </div>
 
 
@@ -1224,8 +1226,8 @@
             </dt>
             <dd class="faq__answer" id="faq-answer-5" hidden>
               <p>
-                Aceptamos PNG, JPG, PDF, SVG o AI. Si no tienes archivo, no te preocupes
-                pero podemos diseñar la chapa desde cero.
+                Aceptamos PNG, JPG, PDF, SVG o AI. Si no tienes archivo, no te preocupes:
+                podemos diseñar la chapa desde cero.
                 Para que el archivo no pierda calidad, preferimos que nos lo envíes directamente a
                 <a href="mailto:chapucica@gmail.com">chapucica@gmail.com</a>.
               </p>
