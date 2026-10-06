@@ -772,6 +772,7 @@
 
 /* ── Bodas · Temporada bodas ── */
 .spotlight--bodas {
+  padding-block: clamp(2rem, 5vw, var(--section-pad-y));
   background:
     radial-gradient(ellipse 70% 50% at 12% 8%, rgba(180, 90, 110, 0.35) 0%, transparent 52%),
     radial-gradient(ellipse 60% 45% at 88% 85%, rgba(212, 167, 48, 0.12) 0%, transparent 48%),
@@ -851,27 +852,48 @@
   z-index: 1;
 }
 
+.spotlight--bodas .spotlight__header {
+  margin-bottom: var(--sp-5);
+}
+
 .spotlight--bodas .spotlight__heading {
   color: #fceef2;
+  font-size: var(--text-2xl);
+  margin-bottom: var(--sp-3);
 }
 
 .spotlight--bodas .spotlight__text {
   color: rgba(252, 238, 242, 0.78);
-  max-width: 36rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  max-width: 30rem;
   margin-inline: auto;
+}
+
+.spotlight--bodas .spotlight__text + .spotlight__text {
+  margin-top: var(--sp-2);
 }
 
 .spotlight--bodas .spotlight__text--accent {
   color: rgba(245, 210, 218, 0.92);
+  font-size: var(--text-sm);
   font-style: italic;
   font-weight: 500;
+}
+
+.spotlight--bodas .spotlight__products {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-3) var(--sp-4);
+  max-width: 22rem;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
 }
 
 .spotlight--bodas .spotlight-card__inner {
   background: transparent;
   border: none;
   box-shadow: none;
-  padding: var(--sp-4) var(--sp-3);
+  padding: var(--sp-1);
 }
 
 .spotlight--bodas .spotlight-card__inner:hover {
@@ -883,7 +905,8 @@
 .spotlight--bodas .spotlight-card__media {
   position: relative;
   isolation: isolate;
-  width: min(100%, 10.5rem);
+  width: min(100%, 6.75rem);
+  margin-inline: auto;
   margin-bottom: 0;
   background: radial-gradient(
     circle at 38% 28%,
@@ -894,8 +917,53 @@
   );
   aspect-ratio: 1 / 1;
   box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.38),
-    0 0 0 1px rgba(212, 167, 48, 0.14);
+    0 8px 20px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(212, 167, 48, 0.12);
+}
+
+@media (min-width: 640px) {
+  .spotlight--bodas .spotlight__heading {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--sp-4);
+  }
+
+  .spotlight--bodas .spotlight__text,
+  .spotlight--bodas .spotlight__text--accent {
+    font-size: var(--text-md);
+  }
+
+  .spotlight--bodas .spotlight__products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 42rem;
+    gap: var(--sp-4);
+    padding-inline: 0;
+  }
+
+  .spotlight--bodas .spotlight-card__media {
+    width: min(100%, 7.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .spotlight--bodas .spotlight__products {
+    max-width: 46rem;
+    gap: var(--sp-5);
+  }
+
+  .spotlight--bodas .spotlight-card__media {
+    width: min(100%, 8rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .spotlight--bodas .spotlight-card__inner {
+    padding: var(--sp-1);
+    border-radius: 0;
+  }
+
+  .spotlight--bodas .spotlight__header {
+    padding-inline: var(--container-pad);
+  }
 }
 
 .spotlight--bodas .spotlight-card__media::after {
@@ -918,6 +986,7 @@
 .spotlight--bodas .spotlight-card:nth-child(1) .spotlight-card__media::after { animation-delay: 0s; }
 .spotlight--bodas .spotlight-card:nth-child(2) .spotlight-card__media::after { animation-delay: 1.8s; }
 .spotlight--bodas .spotlight-card:nth-child(3) .spotlight-card__media::after { animation-delay: 3.6s; }
+.spotlight--bodas .spotlight-card:nth-child(4) .spotlight-card__media::after { animation-delay: 5.4s; }
 
 .spotlight--bodas .spotlight-card__image {
   display: block;
@@ -930,7 +999,11 @@
   box-shadow: none;
 }
 
-/* Escena: anillos + arco dorado + lluvia de arroz y confeti */
+/* Escena: anillos + arco dorado + lluvia de arroz y pétalos */
+.spotlight--bodas .spotlight__scene--celebration {
+  margin-block: var(--sp-3) var(--sp-5);
+}
+
 .spotlight__scene--celebration {
   margin-block: var(--sp-2) var(--sp-6);
   display: flex;
@@ -940,8 +1013,8 @@
 
 .bodas-scene {
   position: relative;
-  width: min(100%, 28rem);
-  height: 5.5rem;
+  width: min(100%, 22rem);
+  height: 4.25rem;
 }
 
 .bodas-scene__trail {
