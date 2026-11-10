@@ -698,9 +698,11 @@ address { font-style: normal; }
 
 .nav__toggle-bar:nth-child(1) { top: 7px; }
 
-/* Raya corta alineada a la izquierda: el botón vive a la derecha */
+/* Raya corta espejada: el aire queda a la izquierda, el botón vive a la derecha */
 .nav__toggle-bar:nth-child(2) {
   top: 13px;
+  left: auto;
+  right: 5px;
   width: 11px;
 }
 
