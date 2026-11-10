@@ -669,23 +669,55 @@ address { font-style: normal; }
 
 .nav__toggle {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  position: relative;
+  width: 28px;
+  height: 28px;
   margin-left: auto;
-  padding: var(--sp-2);
+  padding: 0;
   border-radius: var(--r-sm);
+  flex-shrink: 0;
   transition: background-color var(--t-fast);
 }
 
 .nav__toggle:hover { background-color: var(--c-ink-06); }
 
 .nav__toggle-bar {
-  display: block;
-  width: 22px;
+  position: absolute;
+  left: 5px;
   height: 1.5px;
   background-color: var(--color-text);
   border-radius: 2px;
-  transition: transform var(--t-base), opacity var(--t-base);
+  transform-origin: center;
+  transition: transform var(--t-base), opacity var(--t-fast), top var(--t-base);
+}
+
+.nav__toggle-bar:nth-child(1),
+.nav__toggle-bar:nth-child(3) {
+  width: 18px;
+}
+
+.nav__toggle-bar:nth-child(1) { top: 7px; }
+
+/* Raya corta alineada a la izquierda: el botón vive a la derecha */
+.nav__toggle-bar:nth-child(2) {
+  top: 13px;
+  width: 11px;
+}
+
+.nav__toggle-bar:nth-child(3) { top: 19px; }
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
+  top: 13px;
+  transform: rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) {
+  top: 13px;
+  transform: rotate(-45deg);
 }
 
 /* Mobile nav */
