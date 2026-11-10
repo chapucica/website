@@ -2415,7 +2415,7 @@ address { font-style: normal; }
 
 .back-to-top {
   position: fixed;
-  bottom: max(var(--sp-6), env(safe-area-inset-bottom, 0px));
+  bottom: calc(max(var(--sp-6), env(safe-area-inset-bottom, 0px)) + 4.25rem);
   right: max(var(--sp-6), env(safe-area-inset-right, 0px));
   width: 44px;
   height: 44px;
@@ -2452,7 +2452,7 @@ address { font-style: normal; }
 .whatsapp-btn {
   position: fixed;
   bottom: max(var(--sp-6), env(safe-area-inset-bottom, 0px));
-  left: max(var(--sp-6), env(safe-area-inset-left, 0px));
+  right: max(var(--sp-6), env(safe-area-inset-right, 0px));
   display: flex;
   align-items: center;
   justify-content: center;
